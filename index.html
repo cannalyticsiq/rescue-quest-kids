@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rescue Quest! Fall & Halloween</title>
+<style>
+:root{
+  --ink:#17324d; --cream:#fff7e7; --purple:#7448e8; --orange:#f59b23;
+  --mint:#cdeedc; --blue:#d8ecff; --peach:#ffd9c7; --gold:#ffe36f;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#17131c;font-family:ui-rounded,"Arial Rounded MT Bold",system-ui,sans-serif;color:var(--ink)}
+button{font:inherit}
+#app{min-height:100vh;max-width:1100px;margin:auto;background:var(--cream);position:relative;overflow:hidden;padding:24px}
+.blob{position:absolute;border-radius:50%;pointer-events:none}
+.blob.one{width:250px;height:250px;background:var(--gold);left:-90px;top:-90px}
+.blob.two{width:220px;height:220px;background:#e9dcff;right:60px;top:45px;filter:blur(7px)}
+.blob.three{width:280px;height:280px;background:#4fc7a5;right:-140px;bottom:-140px}
+.screen{display:none;position:relative;z-index:1}
+.screen.active{display:block}
+.hero{max-width:930px;margin:auto;text-align:center}
+.icons{display:flex;justify-content:center;gap:14px;margin:54px 0 18px}
+.iconbox{width:105px;height:105px;border:6px solid var(--ink);border-radius:26px;background:white;display:grid;place-items:center;font-size:52px;box-shadow:0 7px 0 var(--ink)}
+.iconbox:nth-child(2){background:#ffe777;transform:rotate(-2deg)}
+.eyebrow{font-size:20px;font-weight:900;letter-spacing:.12em;color:var(--purple)}
+h1{font-size:clamp(54px,8vw,92px);line-height:.95;margin:14px 0 18px;letter-spacing:-.04em}
+.subtitle{font-size:clamp(22px,3vw,34px);font-weight:900;color:#536d81;margin-bottom:32px}
+.season{display:inline-block;background:#fff0cb;border:3px solid #e8b35e;color:#8c4e11;border-radius:999px;padding:8px 15px;font-weight:900;margin-bottom:28px}
+.worlds{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:0 auto 30px}
+.world{border:6px solid var(--ink);border-radius:28px;padding:22px 18px;box-shadow:0 7px 0 var(--ink);font-weight:900}
+.world:nth-child(1){background:var(--peach)} .world:nth-child(2){background:var(--mint)} .world:nth-child(3){background:var(--blue)}
+.world-title{font-size:24px}.world-sub{font-size:17px;color:#587086;margin-top:7px}
+.label{font-size:21px;font-weight:900;margin:30px 0 13px}
+.difficulty{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.diff{border:4px solid #c8d5df;background:white;color:#536d81;border-radius:23px;padding:13px 22px;font-size:19px;font-weight:900;cursor:pointer}
+.diff.selected{background:var(--purple);border-color:var(--ink);color:white;box-shadow:0 5px 0 var(--ink)}
+.primary{margin-top:30px;background:var(--purple);color:white;border:5px solid var(--ink);border-radius:28px;padding:18px 36px;font-size:28px;font-weight:900;box-shadow:0 8px 0 var(--ink);cursor:pointer}
+.primary:active,.choice:active,.diff:active{transform:translateY(4px);box-shadow:none}
+.note{margin-top:22px;color:#728391;font-weight:800}
+.topbar{display:flex;align-items:center;gap:12px;justify-content:space-between;margin:6px 0 22px}
+.pill{border:4px solid var(--ink);background:white;border-radius:999px;padding:8px 14px;font-weight:900;white-space:nowrap}
+.progress{height:22px;background:white;border:4px solid var(--ink);border-radius:999px;overflow:hidden;flex:1;max-width:520px}
+.progress>div{height:100%;background:var(--orange);width:0;transition:width .3s}
+.card{max-width:850px;margin:auto;background:white;border:6px solid var(--ink);border-radius:34px;padding:26px;box-shadow:0 8px 0 var(--ink);text-align:center}
+.tag{text-transform:uppercase;letter-spacing:.08em;color:var(--purple);font-weight:900;font-size:17px}
+.question{font-size:clamp(28px,4vw,42px);font-weight:950;line-height:1.1;margin:13px 0 20px}
+.picture{min-height:210px;border:4px dashed #d7e0e6;border-radius:26px;background:#fffaf0;padding:22px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-size:58px;margin-bottom:18px}
+.choice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.choice{border:4px solid var(--ink);border-radius:22px;background:#f9fcff;padding:16px;min-height:82px;font-size:23px;font-weight:950;color:var(--ink);cursor:pointer;box-shadow:0 5px 0 var(--ink)}
+.choice.correct{background:#dff5d9}.choice.wrong{background:#ffd9d7}
+.speak{border:0;background:#efe9ff;color:#5939b8;border-radius:999px;padding:9px 15px;font-weight:900;cursor:pointer;margin-bottom:16px}
+.feedback{min-height:36px;margin-top:16px;font-size:23px;font-weight:950}
+.reward{font-size:72px;animation:bounce .5s ease}
+@keyframes bounce{50%{transform:scale(1.18)}}
+.complete{text-align:center;max-width:720px;margin:70px auto}
+.complete h2{font-size:56px;margin:10px}
+.complete .trophy{font-size:100px}
+.secondary{margin-top:20px;background:white;border:4px solid var(--ink);border-radius:22px;padding:12px 20px;font-weight:900;cursor:pointer}
+@media (max-width:760px){
+  .worlds{grid-template-columns:1fr}
+  .choice-grid{grid-template-columns:1fr}
+  .icons{margin-top:34px}
+  .iconbox{width:84px;height:84px;font-size:42px}
+  .topbar{flex-wrap:wrap}
+  .progress{order:3;flex-basis:100%;max-width:none}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="blob one"></div><div class="blob two"></div><div class="blob three"></div>
+
+  <section id="start" class="screen active hero">
+    <div class="icons">
+      <div class="iconbox">🦕</div>
+      <div class="iconbox">🧱</div>
+      <div class="iconbox">🐶</div>
+    </div>
+    <div class="eyebrow">✨ A BIG THINKING ADVENTURE</div>
+    <h1>Rescue Quest!</h1>
+    <div class="subtitle">Three worlds need one clever explorer.</div>
+    <div class="season">🎃 Fall & Halloween Edition 🍂</div>
+
+    <div class="worlds">
+      <div class="world"><div class="world-title">🦕 Dino Valley</div><div class="world-sub">Logic & clever thinking</div></div>
+      <div class="world"><div class="world-title">🧱 Blocky Forest</div><div class="world-sub">Math & patterns</div></div>
+      <div class="world"><div class="world-title">🐶 Rescue Bay</div><div class="world-sub">Friendship skills</div></div>
+    </div>
+
+    <div class="label">Choose your challenge</div>
+    <div class="difficulty">
+      <button class="diff" data-level="1">⭐ Warm-up</button>
+      <button class="diff selected" data-level="2">⭐⭐ Clever Explorer</button>
+      <button class="diff" data-level="3">⭐⭐⭐ Super Thinker</button>
+    </div>
+    <button class="primary" id="startBtn">Start the quest →</button>
+    <div class="note">Grown-up teammate welcome • About 8 minutes</div>
+  </section>
+
+  <section id="game" class="screen">
+    <div class="topbar">
+      <div class="pill" id="missionCount">Mission 1</div>
+      <div class="progress"><div id="progressFill"></div></div>
+      <div class="pill">🎃 <span id="pumpkins">0</span></div>
+    </div>
+    <div class="card">
+      <div class="tag" id="worldTag"></div>
+      <div class="question" id="question"></div>
+      <button class="speak" id="speakBtn">🔊 Hear the mission</button>
+      <div class="picture" id="picture"></div>
+      <div class="choice-grid" id="choices"></div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+  </section>
+
+  <section id="complete" class="screen complete">
+    <div class="trophy">🏆🎃🦖</div>
+    <h2>Quest Complete!</h2>
+    <p style="font-size:25px;font-weight:900;color:#587086">You rescued the Halloween party and earned <span id="finalPumpkins"></span> pumpkins!</p>
+    <button class="primary" onclick="location.reload()">Play again</button>
+  </section>
+</div>
+
+<script>
+const missions = [
+  {
+    world:"Dino Valley", levels:[1,2,3],
+    q:"Which dinosaur is the smallest?",
+    pic:"🦕　🦖　<span style='font-size:34px'>🦎</span>",
+    choices:["The long-neck","The T-Rex","The tiny dino","They are all the same"],
+    answer:2, praise:"Nice comparing! 🦖"
+  },
+  {
+    world:"Blocky Forest", levels:[1,2,3],
+    q:"Steve needs 8 blocks. He already has 5. How many more does he need?",
+    pic:"🧱 🧱 🧱 🧱 🧱　➕　❓",
+    choices:["2","3","5","8"],
+    answer:1, praise:"You built the answer! 🧱"
+  },
+  {
+    world:"Blocky Forest", levels:[1,2,3],
+    q:"What comes next in the spooky pattern?",
+    pic:"🎃 👻 🎃 👻 🎃 ❓",
+    choices:["🎃 Pumpkin","👻 Ghost","🦇 Bat","🍂 Leaf"],
+    answer:1, praise:"Pattern power! ✨"
+  },
+  {
+    world:"Dino Valley", levels:[2,3],
+    q:"There are 4 dinosaurs. Two hide behind the pumpkins. How many dinosaurs are there altogether?",
+    pic:"🦖 🦕 <span style='opacity:.35'>🎃🦖　🎃🦕</span>",
+    choices:["2","4","6","I can't know"],
+    answer:1, praise:"Exactly! Hidden dinosaurs still count. 🧠"
+  },
+  {
+    world:"Rescue Bay", levels:[1,2,3],
+    q:"Rubble's tower falls down. He looks angry and wants to throw a block. What could help?",
+    pic:"🐶 😠　🧱💥",
+    choices:["Throw every block","Take a breath and ask for help","Yell at a friend","Break another tower"],
+    answer:1, praise:"Great problem solving and calming! ❤️"
+  },
+  {
+    world:"Rescue Bay", levels:[2,3],
+    q:"Chase and Marshall both want the same pumpkin bucket. What is a fair idea?",
+    pic:"🐶 🪣 🐶",
+    choices:["Grab it first","Take turns","Hide it","Say nobody can use it"],
+    answer:1, praise:"Taking turns is a strong friendship plan! 🐾"
+  },
+  {
+    world:"Dino Valley", levels:[2,3],
+    q:"A baby dinosaur is stuck in a shallow pit. Which tool is most helpful?",
+    pic:"🦕⬇️　　🪢　🍎　🖍️",
+    choices:["Rope","Apple","Crayon","Nothing"],
+    answer:0, praise:"Great rescue thinking! 🪢"
+  },
+  {
+    world:"Blocky Forest", levels:[3],
+    q:"You have 6 candy pieces. You give 2 to a friend. How many are left?",
+    pic:"🍬 🍬 🍬 🍬 🍬 🍬　➡️　🐶",
+    choices:["2","3","4","6"],
+    answer:2, praise:"Super Thinker math! 🍬"
+  },
+  {
+    world:"Rescue Bay", levels:[3],
+    q:"Alex is upset because a creeper broke her house by accident. Can she still feel mad?",
+    pic:"🏠💥　😢　💚",
+    choices:["Yes, feelings can happen even after accidents","No, accidents erase feelings","Only if she yells","Only grown-ups can be mad"],
+    answer:0, praise:"Exactly. Feelings can be real even when nobody meant harm. ❤️"
+  }
+];
+
+let level=2, deck=[], index=0, pumpkins=0, locked=false;
+
+document.querySelectorAll(".diff").forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll(".diff").forEach(x=>x.classList.remove("selected"));
+    b.classList.add("selected");
+    level=Number(b.dataset.level);
+  }
+});
+
+document.getElementById("startBtn").onclick=()=>{
+  deck=missions.filter(m=>m.levels.includes(level));
+  deck=shuffle(deck).slice(0, Math.min(7, deck.length));
+  show("game"); render();
+};
+
+function shuffle(a){ return [...a].sort(()=>Math.random()-.5); }
+function show(id){ document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active")); document.getElementById(id).classList.add("active"); }
+
+function render(){
+  if(index>=deck.length){
+    document.getElementById("finalPumpkins").textContent=pumpkins;
+    show("complete"); return;
+  }
+  locked=false;
+  const m=deck[index];
+  document.getElementById("missionCount").textContent=`Mission ${index+1} of ${deck.length}`;
+  document.getElementById("progressFill").style.width=`${(index/deck.length)*100}%`;
+  document.getElementById("worldTag").textContent=m.world;
+  document.getElementById("question").textContent=m.q;
+  document.getElementById("picture").innerHTML=m.pic;
+  document.getElementById("feedback").textContent="";
+  const c=document.getElementById("choices"); c.innerHTML="";
+  m.choices.forEach((choice,i)=>{
+    const b=document.createElement("button");
+    b.className="choice"; b.textContent=choice;
+    b.onclick=()=>answer(i,b,m);
+    c.appendChild(b);
+  });
+}
+
+function answer(i,button,m){
+  if(locked) return;
+  if(i===m.answer){
+    locked=true;
+    button.classList.add("correct");
+    pumpkins++;
+    document.getElementById("pumpkins").textContent=pumpkins;
+    document.getElementById("feedback").innerHTML=`${m.praise} <span class="reward">🎃</span>`;
+    speak("Great job!");
+    setTimeout(()=>{index++;render();},1300);
+  } else {
+    button.classList.add("wrong");
+    document.getElementById("feedback").textContent="Good try! Look at the pictures and try again. 💛";
+    speak("Good try. Look at the pictures and try again.");
+    setTimeout(()=>button.classList.remove("wrong"),800);
+  }
+}
+
+function speak(text){
+  if(!("speechSynthesis" in window)) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.rate=.86; u.pitch=1.05;
+  speechSynthesis.speak(u);
+}
+document.getElementById("speakBtn").onclick=()=>{
+  const m=deck[index];
+  if(!m) return;
+  speak(m.q + ". " + m.choices.map((x,i)=>`Choice ${i+1}: ${x}`).join(". "));
+};
+</script>
+</body>
+</html>
