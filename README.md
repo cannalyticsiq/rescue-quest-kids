@@ -1,16 +1,22 @@
-# Rescue Quest! Fall & Halloween Edition
+# Rescue Quest Kids v3
 
-A single-file preschool learning game designed for a bright 3.5-year-old.
+A polished, cozy autumn educational web game for a bright preschooler.
 
-## Run locally
-Open `index.html` in any browser.
+## What changed in v3
+- Less "preschool worksheet" styling
+- Muted autumn palette and cleaner typography
+- No external image dependencies
+- Interactive hidden pumpkin / egg finds
+- Collectible inventory tools
+- Shadow Match mini puzzle
+- Spooky Pattern Trail mini puzzle
+- Fully interactive Harvest Corn Maze
+- Social-emotional missions
+- Math, logic, counting, and pattern challenges
+- Final rescue summary
 
-## Deploy with GitHub Pages
-1. Create a new GitHub repository, e.g. `rescue-quest`.
-2. Upload `index.html` to the repository root.
-3. Open **Settings → Pages**.
-4. Under **Build and deployment**, choose **Deploy from a branch**.
-5. Select `main` and `/ (root)`, then Save.
-6. GitHub will provide the public URL.
+## Deploy on GitHub Pages
+Replace the current `index.html` in your `rescue-quest-kids` repository with this file and commit the change. GitHub Pages will redeploy automatically.
 
-Everything is self-contained. No external image hosting is required; the game uses emoji/HTML visuals, so the picture clues won't break because an image URL disappeared.
+## Notes
+All illustrations are inline SVG, so nothing should fail because an external image URL disappears.

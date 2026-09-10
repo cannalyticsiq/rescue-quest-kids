@@ -1,265 +1,880 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Rescue Quest! Fall & Halloween</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#f4ecdf" />
+<title>Rescue Quest Kids</title>
 <style>
 :root{
-  --ink:#17324d; --cream:#fff7e7; --purple:#7448e8; --orange:#f59b23;
-  --mint:#cdeedc; --blue:#d8ecff; --peach:#ffd9c7; --gold:#ffe36f;
+  --cream:#f7f0e5;
+  --paper:#fffaf3;
+  --paper2:#f0e6d8;
+  --ink:#213a33;
+  --ink2:#314b43;
+  --muted:#6f7f78;
+  --moss:#6d8267;
+  --deep:#496057;
+  --rust:#b7653e;
+  --amber:#d8a85e;
+  --plum:#6f5878;
+  --sage:#cbd8c3;
+  --sky:#dbe6e6;
+  --line:#d9ccbd;
+  --shadow:0 18px 50px rgba(69,52,41,.12);
+  --soft:0 8px 20px rgba(69,52,41,.08);
 }
 *{box-sizing:border-box}
-body{margin:0;background:#17131c;font-family:ui-rounded,"Arial Rounded MT Bold",system-ui,sans-serif;color:var(--ink)}
+html,body{margin:0;min-height:100%;background:#c6b6a7}
+body{
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 15% 0%, #d9c5ad 0, transparent 30%),
+    linear-gradient(#cab8a8,#b8aa9d);
+}
 button{font:inherit}
-#app{min-height:100vh;max-width:1100px;margin:auto;background:var(--cream);position:relative;overflow:hidden;padding:24px}
-.blob{position:absolute;border-radius:50%;pointer-events:none}
-.blob.one{width:250px;height:250px;background:var(--gold);left:-90px;top:-90px}
-.blob.two{width:220px;height:220px;background:#e9dcff;right:60px;top:45px;filter:blur(7px)}
-.blob.three{width:280px;height:280px;background:#4fc7a5;right:-140px;bottom:-140px}
-.screen{display:none;position:relative;z-index:1}
-.screen.active{display:block}
-.hero{max-width:930px;margin:auto;text-align:center}
-.icons{display:flex;justify-content:center;gap:14px;margin:54px 0 18px}
-.iconbox{width:105px;height:105px;border:6px solid var(--ink);border-radius:26px;background:white;display:grid;place-items:center;font-size:52px;box-shadow:0 7px 0 var(--ink)}
-.iconbox:nth-child(2){background:#ffe777;transform:rotate(-2deg)}
-.eyebrow{font-size:20px;font-weight:900;letter-spacing:.12em;color:var(--purple)}
-h1{font-size:clamp(54px,8vw,92px);line-height:.95;margin:14px 0 18px;letter-spacing:-.04em}
-.subtitle{font-size:clamp(22px,3vw,34px);font-weight:900;color:#536d81;margin-bottom:32px}
-.season{display:inline-block;background:#fff0cb;border:3px solid #e8b35e;color:#8c4e11;border-radius:999px;padding:8px 15px;font-weight:900;margin-bottom:28px}
-.worlds{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:0 auto 30px}
-.world{border:6px solid var(--ink);border-radius:28px;padding:22px 18px;box-shadow:0 7px 0 var(--ink);font-weight:900}
-.world:nth-child(1){background:var(--peach)} .world:nth-child(2){background:var(--mint)} .world:nth-child(3){background:var(--blue)}
-.world-title{font-size:24px}.world-sub{font-size:17px;color:#587086;margin-top:7px}
-.label{font-size:21px;font-weight:900;margin:30px 0 13px}
-.difficulty{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-.diff{border:4px solid #c8d5df;background:white;color:#536d81;border-radius:23px;padding:13px 22px;font-size:19px;font-weight:900;cursor:pointer}
-.diff.selected{background:var(--purple);border-color:var(--ink);color:white;box-shadow:0 5px 0 var(--ink)}
-.primary{margin-top:30px;background:var(--purple);color:white;border:5px solid var(--ink);border-radius:28px;padding:18px 36px;font-size:28px;font-weight:900;box-shadow:0 8px 0 var(--ink);cursor:pointer}
-.primary:active,.choice:active,.diff:active{transform:translateY(4px);box-shadow:none}
-.note{margin-top:22px;color:#728391;font-weight:800}
-.topbar{display:flex;align-items:center;gap:12px;justify-content:space-between;margin:6px 0 22px}
-.pill{border:4px solid var(--ink);background:white;border-radius:999px;padding:8px 14px;font-weight:900;white-space:nowrap}
-.progress{height:22px;background:white;border:4px solid var(--ink);border-radius:999px;overflow:hidden;flex:1;max-width:520px}
-.progress>div{height:100%;background:var(--orange);width:0;transition:width .3s}
-.card{max-width:850px;margin:auto;background:white;border:6px solid var(--ink);border-radius:34px;padding:26px;box-shadow:0 8px 0 var(--ink);text-align:center}
-.tag{text-transform:uppercase;letter-spacing:.08em;color:var(--purple);font-weight:900;font-size:17px}
-.question{font-size:clamp(28px,4vw,42px);font-weight:950;line-height:1.1;margin:13px 0 20px}
-.picture{min-height:210px;border:4px dashed #d7e0e6;border-radius:26px;background:#fffaf0;padding:22px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-size:58px;margin-bottom:18px}
-.choice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.choice{border:4px solid var(--ink);border-radius:22px;background:#f9fcff;padding:16px;min-height:82px;font-size:23px;font-weight:950;color:var(--ink);cursor:pointer;box-shadow:0 5px 0 var(--ink)}
-.choice.correct{background:#dff5d9}.choice.wrong{background:#ffd9d7}
-.speak{border:0;background:#efe9ff;color:#5939b8;border-radius:999px;padding:9px 15px;font-weight:900;cursor:pointer;margin-bottom:16px}
-.feedback{min-height:36px;margin-top:16px;font-size:23px;font-weight:950}
-.reward{font-size:72px;animation:bounce .5s ease}
-@keyframes bounce{50%{transform:scale(1.18)}}
-.complete{text-align:center;max-width:720px;margin:70px auto}
-.complete h2{font-size:56px;margin:10px}
-.complete .trophy{font-size:100px}
-.secondary{margin-top:20px;background:white;border:4px solid var(--ink);border-radius:22px;padding:12px 20px;font-weight:900;cursor:pointer}
-@media (max-width:760px){
-  .worlds{grid-template-columns:1fr}
-  .choice-grid{grid-template-columns:1fr}
-  .icons{margin-top:34px}
-  .iconbox{width:84px;height:84px;font-size:42px}
-  .topbar{flex-wrap:wrap}
-  .progress{order:3;flex-basis:100%;max-width:none}
+button:focus-visible{outline:3px solid #8e7aad;outline-offset:3px}
+.shell{
+  width:min(1180px,calc(100% - 24px));
+  margin:12px auto;
+  min-height:calc(100vh - 24px);
+  background:var(--cream);
+  border:1px solid rgba(255,255,255,.55);
+  border-radius:28px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.topbar{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:22px;
+  align-items:center;
+  padding:20px 24px 14px;
+  border-bottom:1px solid var(--line);
+  background:rgba(255,250,243,.82);
+  backdrop-filter:blur(12px);
+}
+.brand{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.brand-mark{width:34px;height:34px}
+.brand-name{
+  font-family:Georgia, "Times New Roman", serif;
+  font-size:28px;
+  font-weight:700;
+  letter-spacing:-.02em;
+}
+.brand-name span{color:var(--rust)}
+.progress-wrap{min-width:0}
+.progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-weight:700;margin-bottom:6px}
+.progress-track{height:10px;border-radius:999px;background:#e6ddd1;overflow:hidden}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--moss),var(--deep));transition:width .35s}
+.counters{display:flex;gap:8px}
+.counter{
+  display:flex;align-items:center;gap:7px;
+  padding:8px 10px;border:1px solid var(--line);background:#fffaf4;border-radius:14px;
+  font-weight:800;font-size:14px;
+}
+.counter svg{width:22px;height:22px}
+.world-nav{
+  display:flex;gap:8px;overflow:auto;padding:10px 16px;border-bottom:1px solid var(--line);background:#fbf5eb
+}
+.world-tab{
+  flex:0 0 auto;border:1px solid transparent;background:transparent;color:var(--ink2);
+  padding:10px 12px;border-radius:14px;cursor:pointer;font-weight:800;font-size:14px;
+}
+.world-tab.active{background:#eadfce;border-color:#d9c8b5}
+.screen{display:none}.screen.active{display:block}
+.start{
+  padding:44px 24px 58px;
+  background:
+    linear-gradient(rgba(247,240,229,.3),rgba(247,240,229,.95)),
+    radial-gradient(circle at 80% 10%, rgba(213,170,96,.24), transparent 24%);
+}
+.start-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;max-width:1050px;margin:auto;align-items:center}
+.eyebrow{color:var(--rust);font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:12px}
+h1,h2,h3{font-family:Georgia, "Times New Roman", serif}
+h1{font-size:clamp(52px,7vw,88px);line-height:.95;letter-spacing:-.045em;margin:12px 0 16px}
+.lede{font-size:21px;line-height:1.5;color:var(--muted);max-width:650px}
+.start-actions{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+.primary,.secondary{
+  border-radius:16px;padding:14px 18px;font-weight:900;cursor:pointer;border:1px solid transparent
+}
+.primary{background:var(--deep);color:white;box-shadow:var(--soft)}
+.primary:hover{background:#40564e}
+.secondary{background:#fffaf4;border-color:var(--line);color:var(--ink)}
+.levels{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.level{
+  border:1px solid var(--line);background:#fffaf4;padding:10px 12px;border-radius:14px;color:var(--muted);
+  font-weight:800;cursor:pointer
+}
+.level.active{background:#e7ddcf;color:var(--ink);border-color:#cabca9}
+.start-art{
+  background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:14px;box-shadow:var(--soft)
+}
+.start-art svg{display:block;width:100%;height:auto;border-radius:18px}
+.game{padding:20px}
+.game-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px}
+.scene-panel,.task-panel{
+  background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:var(--soft)
+}
+.scene-panel{padding:12px}
+.scene-head,.task-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.scene-head{padding:4px 4px 10px}
+.scene-title{font-family:Georgia,serif;font-size:24px;font-weight:700}
+.scene-sub{font-size:12px;color:var(--muted);font-weight:700}
+.scene{
+  position:relative;border-radius:18px;overflow:hidden;background:#dfe8e4;aspect-ratio:4/3;
+  border:1px solid #d6cbc0
+}
+.scene svg{width:100%;height:100%;display:block}
+.hotspot{
+  position:absolute;width:34px;height:34px;border-radius:999px;border:2px solid rgba(255,255,255,.95);
+  background:rgba(67,89,79,.88);color:white;display:grid;place-items:center;font-weight:900;
+  box-shadow:0 5px 16px rgba(0,0,0,.16);cursor:pointer
+}
+.hotspot.found{background:#b96e43}
+.scene-note{
+  margin-top:10px;padding:11px 12px;border-radius:14px;background:#f1e9dc;color:#6d5f52;font-size:13px;font-weight:800
+}
+.task-panel{padding:20px}
+.world-label{
+  font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--moss);font-weight:900
+}
+.task-title{font-size:38px;line-height:1.02;margin:6px 0 8px}
+.task-copy{color:var(--muted);line-height:1.45;margin:0 0 14px}
+.question-card{
+  background:#f4ecdf;border:1px solid #dfd1c1;border-radius:18px;padding:16px;margin:14px 0
+}
+.question{font-family:Georgia,serif;font-weight:700;font-size:25px;line-height:1.2;margin:0}
+.help-row{display:flex;gap:8px;margin-top:10px}
+.small-btn{
+  border:1px solid var(--line);background:#fffaf4;border-radius:12px;padding:9px 11px;font-weight:800;color:var(--ink2);cursor:pointer
+}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choice{
+  text-align:left;border:1px solid var(--line);background:#fffdf8;border-radius:15px;padding:13px 14px;
+  min-height:66px;font-weight:850;color:var(--ink);cursor:pointer;transition:.15s
+}
+.choice:hover{transform:translateY(-1px);border-color:#bdae9d}
+.choice.correct{background:#e8f0e1;border-color:#a9bea0}
+.choice.wrong{background:#f7e4df;border-color:#d7a59a}
+.feedback{min-height:28px;margin-top:12px;font-weight:900;color:var(--deep)}
+.inventory-wrap{
+  margin-top:18px;padding-top:16px;border-top:1px solid var(--line)
+}
+.inventory-title{font-family:Georgia,serif;font-size:22px;margin:0 0 10px}
+.inventory{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.item{
+  background:#f6efe4;border:1px solid var(--line);border-radius:14px;padding:10px 8px;text-align:center
+}
+.item.locked{opacity:.38;filter:grayscale(1)}
+.item svg{width:42px;height:42px;margin:auto;display:block}
+.item-label{font-size:11px;font-weight:900;margin-top:6px}
+.item-desc{font-size:9px;color:var(--muted);line-height:1.2;margin-top:2px}
+.puzzle-strip{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px
+}
+.puzzle-card{
+  border:1px solid var(--line);background:#fbf6ee;border-radius:15px;padding:10px;cursor:pointer;text-align:left
+}
+.puzzle-art{aspect-ratio:16/8;border-radius:11px;overflow:hidden;background:#eadfce;margin-bottom:8px}
+.puzzle-art svg{width:100%;height:100%}
+.puzzle-name{font-weight:900;font-size:12px}
+.modal{
+  position:fixed;inset:0;background:rgba(34,28,24,.45);display:none;align-items:center;justify-content:center;
+  z-index:20;padding:18px
+}
+.modal.open{display:flex}
+.modal-card{
+  width:min(760px,100%);max-height:90vh;overflow:auto;background:var(--paper);border-radius:24px;padding:20px;box-shadow:var(--shadow)
+}
+.modal-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}
+.modal-title{font-size:30px;margin:0}
+.close{border:0;background:#eee3d7;width:36px;height:36px;border-radius:12px;cursor:pointer;font-weight:900}
+.maze{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:4px;background:#776544;padding:6px;border-radius:16px;max-width:520px;margin:12px auto
+}
+.cell{aspect-ratio:1;background:#d6b565;border-radius:4px;display:grid;place-items:center;font-weight:900;position:relative}
+.cell.wall{background:#7e9a64}
+.cell.goal{background:#e2c37d}
+.cell.player{outline:4px solid #fff;outline-offset:-4px}
+.maze-controls{display:grid;grid-template-columns:repeat(3,54px);gap:6px;justify-content:center;margin:14px 0}
+.maze-controls button{height:48px;border:1px solid var(--line);background:#fffaf4;border-radius:12px;font-weight:900;cursor:pointer}
+.maze-controls .blank{visibility:hidden}
+.shadow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.shadow-choice{border:1px solid var(--line);background:#f9f3ea;border-radius:16px;padding:12px;cursor:pointer}
+.shadow-choice svg{width:100%;height:auto}
+.pattern-row{display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;margin:18px 0}
+.pattern-token{width:74px;height:74px;border:1px solid var(--line);border-radius:16px;display:grid;place-items:center;background:#fbf7ef}
+.pattern-token svg{width:54px;height:54px}
+.final{
+  padding:42px 24px 56px;text-align:center
+}
+.final-card{max-width:860px;margin:auto;background:var(--paper);border:1px solid var(--line);border-radius:24px;box-shadow:var(--soft);padding:24px}
+.final-art{max-width:340px;margin:auto}
+.final-art svg{width:100%;height:auto}
+.final h2{font-size:50px;margin:10px 0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:22px 0}
+.stat{background:#f3eadf;border:1px solid var(--line);border-radius:16px;padding:14px}
+.stat strong{display:block;font-size:32px;font-family:Georgia,serif}
+.stat span{font-size:11px;color:var(--muted);font-weight:800}
+.story-list{text-align:left;max-width:700px;margin:20px auto 0;padding:0;list-style:none}
+.story-list li{padding:10px 0;border-bottom:1px solid var(--line);font-weight:750;color:var(--ink2)}
+@media(max-width:900px){
+  .topbar{grid-template-columns:1fr auto}.progress-wrap{grid-column:1/-1;grid-row:2}
+  .start-grid,.game-grid{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .shell{width:100%;margin:0;border-radius:0;min-height:100vh}
+  .topbar{padding:14px}
+  .brand-name{font-size:22px}
+  .counter{padding:7px 8px}
+  .start{padding:28px 16px 40px}
+  .game{padding:12px}
+  .task-panel{padding:15px}
+  .task-title{font-size:30px}
+  .choices{grid-template-columns:1fr}
+  .inventory{grid-template-columns:repeat(3,1fr)}
+  .puzzle-strip{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
 <body>
-<div id="app">
-  <div class="blob one"></div><div class="blob two"></div><div class="blob three"></div>
-
-  <section id="start" class="screen active hero">
-    <div class="icons">
-      <div class="iconbox">🦕</div>
-      <div class="iconbox">🧱</div>
-      <div class="iconbox">🐶</div>
-    </div>
-    <div class="eyebrow">✨ A BIG THINKING ADVENTURE</div>
-    <h1>Rescue Quest!</h1>
-    <div class="subtitle">Three worlds need one clever explorer.</div>
-    <div class="season">🎃 Fall & Halloween Edition 🍂</div>
-
-    <div class="worlds">
-      <div class="world"><div class="world-title">🦕 Dino Valley</div><div class="world-sub">Logic & clever thinking</div></div>
-      <div class="world"><div class="world-title">🧱 Blocky Forest</div><div class="world-sub">Math & patterns</div></div>
-      <div class="world"><div class="world-title">🐶 Rescue Bay</div><div class="world-sub">Friendship skills</div></div>
+<div class="shell">
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 4C12 11 7 20 9 30c7 1 15-2 21-8 5-5 7-11 6-18-6-1-11 0-16 0Z" fill="#b7653e"/>
+        <path d="M11 29c8-5 14-10 21-19" stroke="#f7f0e5" stroke-width="2.3" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="brand-name">Rescue Quest <span>Kids</span></div>
     </div>
 
-    <div class="label">Choose your challenge</div>
-    <div class="difficulty">
-      <button class="diff" data-level="1">⭐ Warm-up</button>
-      <button class="diff selected" data-level="2">⭐⭐ Clever Explorer</button>
-      <button class="diff" data-level="3">⭐⭐⭐ Super Thinker</button>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>Adventure progress</span><span id="progressText">0 / 10</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
     </div>
-    <button class="primary" id="startBtn">Start the quest →</button>
-    <div class="note">Grown-up teammate welcome • About 8 minutes</div>
-  </section>
 
-  <section id="game" class="screen">
-    <div class="topbar">
-      <div class="pill" id="missionCount">Mission 1</div>
-      <div class="progress"><div id="progressFill"></div></div>
-      <div class="pill">🎃 <span id="pumpkins">0</span></div>
+    <div class="counters">
+      <div class="counter" title="Pumpkins found">
+        <svg viewBox="0 0 30 30" aria-hidden="true"><ellipse cx="15" cy="17" rx="9" ry="8" fill="#d97c43"/><path d="M15 8c1-4 3-5 6-6" stroke="#607956" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="13" y="6" width="4" height="4" rx="2" fill="#607956"/></svg>
+        <span id="pumpkinCount">0</span>
+      </div>
+      <div class="counter" title="Eggs found">
+        <svg viewBox="0 0 30 30" aria-hidden="true"><path d="M15 3C9 3 6 14 7 20c1 5 4 7 8 7s7-2 8-7c1-6-2-17-8-17Z" fill="#e7ece5" stroke="#8ba296" stroke-width="1.5"/><circle cx="12" cy="13" r="1.4" fill="#8ba296"/><circle cx="17" cy="18" r="1.3" fill="#b7653e"/></svg>
+        <span id="eggCount">0</span>
+      </div>
     </div>
-    <div class="card">
-      <div class="tag" id="worldTag"></div>
-      <div class="question" id="question"></div>
-      <button class="speak" id="speakBtn">🔊 Hear the mission</button>
-      <div class="picture" id="picture"></div>
-      <div class="choice-grid" id="choices"></div>
-      <div class="feedback" id="feedback"></div>
-    </div>
-  </section>
+  </header>
 
-  <section id="complete" class="screen complete">
-    <div class="trophy">🏆🎃🦖</div>
-    <h2>Quest Complete!</h2>
-    <p style="font-size:25px;font-weight:900;color:#587086">You rescued the Halloween party and earned <span id="finalPumpkins"></span> pumpkins!</p>
-    <button class="primary" onclick="location.reload()">Play again</button>
-  </section>
+  <nav class="world-nav" id="worldNav"></nav>
+
+  <main>
+    <section id="startScreen" class="screen active start">
+      <div class="start-grid">
+        <div>
+          <div class="eyebrow">Autumn adventure edition</div>
+          <h1>Little questions.<br>Big adventures.</h1>
+          <p class="lede">Explore a cozy fall world filled with logic puzzles, counting, social problem-solving, hidden-object hunts, and a real corn-maze mini game.</p>
+
+          <div class="levels" aria-label="Difficulty">
+            <button class="level" data-level="1">Warm-up</button>
+            <button class="level active" data-level="2">Clever explorer</button>
+            <button class="level" data-level="3">Super thinker</button>
+          </div>
+
+          <div class="start-actions">
+            <button class="primary" id="startBtn">Start the quest</button>
+            <button class="secondary" id="previewMazeBtn">Try the corn maze</button>
+          </div>
+        </div>
+
+        <div class="start-art" id="startArt"></div>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen game">
+      <div class="game-grid">
+        <section class="scene-panel">
+          <div class="scene-head">
+            <div>
+              <div class="scene-title" id="sceneTitle">Pumpkin Patch Path</div>
+              <div class="scene-sub">Tap anything that looks a little suspicious.</div>
+            </div>
+            <button class="small-btn" id="mapBtn">World map</button>
+          </div>
+          <div class="scene" id="scene"></div>
+          <div class="scene-note" id="sceneNote">There may be a hidden pumpkin or egg nearby.</div>
+        </section>
+
+        <section class="task-panel">
+          <div class="task-head">
+            <div>
+              <div class="world-label" id="worldLabel">World 1</div>
+              <h2 class="task-title" id="taskTitle">Pumpkin Patch Path</h2>
+            </div>
+          </div>
+
+          <p class="task-copy" id="taskCopy">The harvest festival needs your help.</p>
+
+          <div class="question-card">
+            <p class="question" id="question">Which pumpkin is the biggest?</p>
+            <div class="help-row">
+              <button class="small-btn" id="hearBtn">Hear question</button>
+              <button class="small-btn" id="hintBtn">Need a hint?</button>
+            </div>
+          </div>
+
+          <div class="choices" id="choices"></div>
+          <div class="feedback" id="feedback"></div>
+
+          <div class="puzzle-strip">
+            <button class="puzzle-card" data-puzzle="shadow">
+              <div class="puzzle-art" id="shadowThumb"></div>
+              <div class="puzzle-name">Shadow Match</div>
+            </button>
+            <button class="puzzle-card" data-puzzle="pattern">
+              <div class="puzzle-art" id="patternThumb"></div>
+              <div class="puzzle-name">Spooky Pattern Trail</div>
+            </button>
+            <button class="puzzle-card" data-puzzle="maze">
+              <div class="puzzle-art" id="mazeThumb"></div>
+              <div class="puzzle-name">Harvest Corn Maze</div>
+            </button>
+          </div>
+
+          <div class="inventory-wrap">
+            <h3 class="inventory-title">Inventory</h3>
+            <div class="inventory" id="inventory"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="finalScreen" class="screen final">
+      <div class="final-card">
+        <div class="final-art" id="finalArt"></div>
+        <div class="eyebrow">Final rescue complete</div>
+        <h2>The Harvest Festival is saved.</h2>
+        <p class="lede" style="margin:auto">You solved puzzles, found hidden treasures, collected tools, and helped everyone reach the celebration.</p>
+
+        <div class="stats">
+          <div class="stat"><strong id="statPumpkins">0</strong><span>Pumpkins</span></div>
+          <div class="stat"><strong id="statEggs">0</strong><span>Eggs</span></div>
+          <div class="stat"><strong id="statItems">0</strong><span>Tools collected</span></div>
+          <div class="stat"><strong id="statSolved">0</strong><span>Missions solved</span></div>
+        </div>
+
+        <ul class="story-list" id="storyList"></ul>
+        <div class="start-actions" style="justify-content:center">
+          <button class="primary" onclick="location.reload()">Play again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 class="modal-title" id="modalTitle">Puzzle</h3>
+      <button class="close" id="closeModal" aria-label="Close">×</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
 </div>
 
 <script>
+const worlds = [
+  {id:"patch", name:"Pumpkin Patch Path", copy:"Count, compare, and look closely."},
+  {id:"dino", name:"Dino Hollow", copy:"Logic, eggs, and rescue thinking."},
+  {id:"barn", name:"Blocky Barn", copy:"Math, patterns, and building."},
+  {id:"maze", name:"Harvest Corn Maze", copy:"Follow clues and find your way."},
+  {id:"bay", name:"Moonlit Rescue Bay", copy:"Friendship and perspective-taking."}
+];
+
+const items = {
+  lantern:{name:"Lantern",desc:"Lights the way",icon:"lantern"},
+  rope:{name:"Rope",desc:"Reach farther",icon:"rope"},
+  map:{name:"Candy Map",desc:"Find clues",icon:"map"},
+  bridge:{name:"Block Bridge",desc:"Build a path",icon:"bridge"},
+  badge:{name:"Buddy Badge",desc:"Help a friend",icon:"badge"}
+};
+
 const missions = [
   {
-    world:"Dino Valley", levels:[1,2,3],
-    q:"Which dinosaur is the smallest?",
-    pic:"🦕　🦖　<span style='font-size:34px'>🦎</span>",
-    choices:["The long-neck","The T-Rex","The tiny dino","They are all the same"],
-    answer:2, praise:"Nice comparing! 🦖"
+    world:"patch", levels:[1,2,3],
+    title:"Pumpkin Patch Path",
+    copy:"The harvest festival needs one perfect pumpkin for the center table.",
+    question:"Which pumpkin is the biggest?",
+    choices:["Top left pumpkin","Top right pumpkin","Bottom left pumpkin","Bottom center pumpkin"],
+    answer:1,
+    hint:"Look at how much space each pumpkin takes up.",
+    hidden:"egg",
+    reward:null
   },
   {
-    world:"Blocky Forest", levels:[1,2,3],
-    q:"Steve needs 8 blocks. He already has 5. How many more does he need?",
-    pic:"🧱 🧱 🧱 🧱 🧱　➕　❓",
-    choices:["2","3","5","8"],
-    answer:1, praise:"You built the answer! 🧱"
+    world:"patch", levels:[1,2,3],
+    title:"Pumpkin Patch Path",
+    copy:"The farm stand needs exactly six pumpkins before sunset.",
+    question:"There are 4 pumpkins by the fence and 2 beside the path. How many are there altogether?",
+    choices:["4","5","6","8"],
+    answer:2,
+    hint:"Start with 4 and count up two more.",
+    hidden:"pumpkin",
+    reward:"map"
   },
   {
-    world:"Blocky Forest", levels:[1,2,3],
-    q:"What comes next in the spooky pattern?",
-    pic:"🎃 👻 🎃 👻 🎃 ❓",
-    choices:["🎃 Pumpkin","👻 Ghost","🦇 Bat","🍂 Leaf"],
-    answer:1, praise:"Pattern power! ✨"
+    world:"dino", levels:[1,2,3],
+    title:"Dino Hollow",
+    copy:"Three eggs rolled out of the nest during a windy afternoon.",
+    question:"Which egg matches the blue-spotted clue?",
+    choices:["The blue-spotted egg","The pink-spotted egg","The green-spotted egg","None of them"],
+    answer:0,
+    hint:"Match the color and the spot pattern.",
+    hidden:"egg",
+    reward:null
   },
   {
-    world:"Dino Valley", levels:[2,3],
-    q:"There are 4 dinosaurs. Two hide behind the pumpkins. How many dinosaurs are there altogether?",
-    pic:"🦖 🦕 <span style='opacity:.35'>🎃🦖　🎃🦕</span>",
-    choices:["2","4","6","I can't know"],
-    answer:1, praise:"Exactly! Hidden dinosaurs still count. 🧠"
+    world:"dino", levels:[2,3],
+    title:"Dino Hollow",
+    copy:"A baby dinosaur slipped into a shallow hollow and needs a safe way out.",
+    question:"Which tool would help most?",
+    choices:["Rope","Leaf","Cupcake","Pillow"],
+    answer:0,
+    hint:"Choose something that can reach down into the hollow.",
+    hidden:"pumpkin",
+    reward:"rope"
   },
   {
-    world:"Rescue Bay", levels:[1,2,3],
-    q:"Rubble's tower falls down. He looks angry and wants to throw a block. What could help?",
-    pic:"🐶 😠　🧱💥",
-    choices:["Throw every block","Take a breath and ask for help","Yell at a friend","Break another tower"],
-    answer:1, praise:"Great problem solving and calming! ❤️"
+    world:"barn", levels:[1,2,3],
+    title:"Blocky Barn",
+    copy:"The builder is finishing a tiny bridge before the festival begins.",
+    question:"A builder has 5 blocks and needs 8. How many more blocks are needed?",
+    choices:["2","3","4","5"],
+    answer:1,
+    hint:"Count from 5 until you reach 8.",
+    hidden:"egg",
+    reward:"bridge"
   },
   {
-    world:"Rescue Bay", levels:[2,3],
-    q:"Chase and Marshall both want the same pumpkin bucket. What is a fair idea?",
-    pic:"🐶 🪣 🐶",
+    world:"barn", levels:[1,2,3],
+    title:"Blocky Barn",
+    copy:"A trail of decorations leads toward the barn door.",
+    question:"The pattern is leaf, candy, leaf, candy, leaf... What comes next?",
+    choices:["Leaf","Candy","Moon","Bat"],
+    answer:1,
+    hint:"The two pictures take turns.",
+    hidden:"pumpkin",
+    reward:null
+  },
+  {
+    world:"maze", levels:[1,2,3],
+    title:"Harvest Corn Maze",
+    copy:"The scarecrow is waiting in the middle of the maze.",
+    question:"Which clue should you follow if the path markers go leaf, moon, leaf, moon...?",
+    choices:["Leaf marker","Moon marker","Candy marker","Bat marker"],
+    answer:0,
+    hint:"The pattern starts again after moon.",
+    hidden:"pumpkin",
+    reward:"lantern"
+  },
+  {
+    world:"bay", levels:[1,2,3],
+    title:"Moonlit Rescue Bay",
+    copy:"Two friends reached the same pumpkin bucket at the same time.",
+    question:"What is a fair idea?",
     choices:["Grab it first","Take turns","Hide it","Say nobody can use it"],
-    answer:1, praise:"Taking turns is a strong friendship plan! 🐾"
+    answer:1,
+    hint:"Look for an answer where both friends get a chance.",
+    hidden:"egg",
+    reward:"badge"
   },
   {
-    world:"Dino Valley", levels:[2,3],
-    q:"A baby dinosaur is stuck in a shallow pit. Which tool is most helpful?",
-    pic:"🦕⬇️　　🪢　🍎　🖍️",
-    choices:["Rope","Apple","Crayon","Nothing"],
-    answer:0, praise:"Great rescue thinking! 🪢"
+    world:"bay", levels:[2,3],
+    title:"Moonlit Rescue Bay",
+    copy:"A costume tower fell after someone bumped it by accident.",
+    question:"Can a friend still feel upset even if it was an accident?",
+    choices:["Yes","No","Only if they cry","Only grown-ups can feel upset"],
+    answer:0,
+    hint:"Feelings can happen even when nobody meant to cause a problem.",
+    hidden:"pumpkin",
+    reward:null
   },
   {
-    world:"Blocky Forest", levels:[3],
-    q:"You have 6 candy pieces. You give 2 to a friend. How many are left?",
-    pic:"🍬 🍬 🍬 🍬 🍬 🍬　➡️　🐶",
-    choices:["2","3","4","6"],
-    answer:2, praise:"Super Thinker math! 🍬"
-  },
-  {
-    world:"Rescue Bay", levels:[3],
-    q:"Alex is upset because a creeper broke her house by accident. Can she still feel mad?",
-    pic:"🏠💥　😢　💚",
-    choices:["Yes, feelings can happen even after accidents","No, accidents erase feelings","Only if she yells","Only grown-ups can be mad"],
-    answer:0, praise:"Exactly. Feelings can be real even when nobody meant harm. ❤️"
+    world:"bay", levels:[3],
+    title:"Moonlit Rescue Bay",
+    copy:"One friend is quiet and standing away from the group.",
+    question:"What is the best clue that they might want help joining in?",
+    choices:["They are watching the group","They are wearing shoes","It is nighttime","There are pumpkins nearby"],
+    answer:0,
+    hint:"Choose the clue that tells you something about what the friend is paying attention to.",
+    hidden:"egg",
+    reward:null
   }
 ];
 
-let level=2, deck=[], index=0, pumpkins=0, locked=false;
-
-document.querySelectorAll(".diff").forEach(b=>{
-  b.onclick=()=>{
-    document.querySelectorAll(".diff").forEach(x=>x.classList.remove("selected"));
-    b.classList.add("selected");
-    level=Number(b.dataset.level);
-  }
-});
-
-document.getElementById("startBtn").onclick=()=>{
-  deck=missions.filter(m=>m.levels.includes(level));
-  deck=shuffle(deck).slice(0, Math.min(7, deck.length));
-  show("game"); render();
+const state = {
+  level:2, deck:[], index:0, pumpkins:0, eggs:0, inventory:[], solved:0, found:false
 };
 
-function shuffle(a){ return [...a].sort(()=>Math.random()-.5); }
-function show(id){ document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active")); document.getElementById(id).classList.add("active"); }
+const el = id => document.getElementById(id);
 
-function render(){
-  if(index>=deck.length){
-    document.getElementById("finalPumpkins").textContent=pumpkins;
-    show("complete"); return;
+function icon(type){
+  const base = {
+    lantern:`<svg viewBox="0 0 64 64"><path d="M22 14h20l4 9v25H18V23z" fill="#d7a55e" stroke="#4f5f58" stroke-width="3"/><rect x="24" y="25" width="16" height="17" rx="7" fill="#fff0b1"/><path d="M25 14c1-7 13-7 14 0" fill="none" stroke="#4f5f58" stroke-width="3"/></svg>`,
+    rope:`<svg viewBox="0 0 64 64"><circle cx="30" cy="30" r="16" fill="none" stroke="#b57d49" stroke-width="6"/><circle cx="30" cy="30" r="9" fill="none" stroke="#d19b61" stroke-width="5"/><path d="M42 43c7 3 9 7 6 12" fill="none" stroke="#b57d49" stroke-width="5" stroke-linecap="round"/></svg>`,
+    map:`<svg viewBox="0 0 64 64"><path d="M9 15l15-5 16 6 15-5v38l-15 5-16-6-15 5z" fill="#e9d8ae" stroke="#5b675f" stroke-width="3"/><circle cx="34" cy="31" r="7" fill="#c47349"/></svg>`,
+    bridge:`<svg viewBox="0 0 64 64"><rect x="10" y="26" width="44" height="10" rx="3" fill="#9b704e"/><rect x="15" y="16" width="16" height="10" rx="2" fill="#b2845e"/><rect x="33" y="16" width="16" height="10" rx="2" fill="#b2845e"/><rect x="15" y="36" width="6" height="14" fill="#6f5641"/><rect x="43" y="36" width="6" height="14" fill="#6f5641"/></svg>`,
+    badge:`<svg viewBox="0 0 64 64"><circle cx="32" cy="31" r="21" fill="#5f776b" stroke="#cba55b" stroke-width="4"/><path d="M32 17c-8 8-11 15-9 23 7 1 14-2 20-8 4-4 6-9 5-15-6-1-11 0-16 0z" fill="#d9b76c"/></svg>`
+  };
+  return base[type] || "";
+}
+
+function tinyPumpkin(){return `<svg viewBox="0 0 60 60"><ellipse cx="30" cy="34" rx="19" ry="16" fill="#cf7545"/><path d="M30 16c2-7 7-9 11-9" stroke="#6a805f" stroke-width="4" fill="none" stroke-linecap="round"/><rect x="27" y="15" width="6" height="7" rx="3" fill="#6a805f"/></svg>`}
+function tinyEgg(){return `<svg viewBox="0 0 60 60"><path d="M30 9c-10 0-15 19-13 30 1 8 6 12 13 12s12-4 13-12c2-11-3-30-13-30z" fill="#ecf0e7" stroke="#80998c" stroke-width="2"/><circle cx="25" cy="28" r="3" fill="#889d90"/><circle cx="34" cy="36" r="2.7" fill="#b7653e"/></svg>`}
+
+function startIllustration(){
+  return `<svg viewBox="0 0 720 520" aria-label="Autumn farm adventure">
+    <defs><linearGradient id="sky" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#dce8e6"/><stop offset="1" stop-color="#f5ead5"/></linearGradient></defs>
+    <rect width="720" height="520" rx="24" fill="url(#sky)"/>
+    <circle cx="585" cy="86" r="38" fill="#e8bf72" opacity=".75"/>
+    <path d="M0 322c94-54 185-21 278-49 104-31 210-16 442 28v219H0z" fill="#a8ba8b"/>
+    <path d="M0 385c150-43 238 9 350-4 102-12 191-37 370 7v132H0z" fill="#7f9a6c"/>
+    <path d="M297 520c0-88 24-137 75-181 48-41 74-82 84-122" stroke="#c9a47a" stroke-width="52" fill="none" stroke-linecap="round"/>
+    <rect x="500" y="174" width="105" height="82" rx="4" fill="#a95c48"/><polygon points="488,179 554,133 617,179" fill="#6d4b3e"/>
+    <rect x="540" y="206" width="28" height="50" fill="#e7d4b7"/>
+    <g transform="translate(87 293)">
+      <ellipse cx="0" cy="24" rx="58" ry="48" fill="#cf7545"/><rect x="-6" y="-35" width="13" height="20" rx="6" fill="#61775d"/>
+      <path d="M1-35c4-18 14-25 26-27" fill="none" stroke="#61775d" stroke-width="7" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(168 338) scale(.7)">
+      <ellipse cx="0" cy="24" rx="58" ry="48" fill="#d98d57"/><rect x="-6" y="-35" width="13" height="20" rx="6" fill="#61775d"/>
+    </g>
+    <g transform="translate(475 330)">
+      <path d="M0 64c0-46 35-76 78-76 46 0 78 30 78 68 0 25-17 43-46 43H40C15 99 0 85 0 64z" fill="#8eaf8c"/>
+      <circle cx="105" cy="31" r="5" fill="#273d36"/><path d="M120 43l25-9" stroke="#273d36" stroke-width="5" stroke-linecap="round"/>
+      <path d="M45 99v28M93 99v28" stroke="#273d36" stroke-width="6" stroke-linecap="round"/>
+      <path d="M6 73l-30-19" stroke="#273d36" stroke-width="7" stroke-linecap="round"/>
+      <path d="M37 4l19-18 12 20" fill="#8eaf8c" stroke="#273d36" stroke-width="5"/>
+      <path d="M72 77c-2-10 4-20 14-20s16 10 14 20" fill="#b7653e" opacity=".55"/>
+    </g>
+    <g opacity=".95">
+      <circle cx="75" cy="95" r="48" fill="#bf734b"/><circle cx="108" cy="73" r="40" fill="#d29556"/><circle cx="43" cy="64" r="36" fill="#9a6749"/>
+      <rect x="72" y="100" width="18" height="210" fill="#6a4c38"/>
+    </g>
+  </svg>`;
+}
+
+function sceneMarkup(world, hidden){
+  const marker = (type, x, y)=>`<button class="hotspot" style="left:${x}%;top:${y}%" data-hidden="${type}" aria-label="Hidden ${type}">?</button>`;
+  if(world==="patch"){
+    return `<svg viewBox="0 0 800 600">
+      <defs><linearGradient id="s1" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#dfe9e7"/><stop offset="1" stop-color="#f5e9d5"/></linearGradient></defs>
+      <rect width="800" height="600" fill="url(#s1)"/><circle cx="664" cy="92" r="42" fill="#e9c575"/>
+      <path d="M0 365c116-54 225-8 336-36 130-33 246-3 464 18v253H0z" fill="#9fb78d"/>
+      <path d="M0 445c142-44 229 7 348-9 129-17 220 0 452 16v148H0z" fill="#78986b"/>
+      <path d="M330 600c15-92 56-154 122-196 54-34 91-74 113-119" stroke="#c8a27b" stroke-width="48" fill="none" stroke-linecap="round"/>
+      <g transform="translate(185 418)"><ellipse cx="0" cy="0" rx="62" ry="50" fill="#cf7545"/><rect x="-7" y="-64" width="14" height="18" rx="6" fill="#637b5d"/></g>
+      <g transform="translate(510 385)"><ellipse cx="0" cy="0" rx="92" ry="72" fill="#d6814d"/><rect x="-8" y="-89" width="16" height="24" rx="7" fill="#637b5d"/></g>
+      <g transform="translate(657 455)"><ellipse cx="0" cy="0" rx="48" ry="38" fill="#d99a61"/><rect x="-5" y="-49" width="10" height="14" rx="5" fill="#637b5d"/></g>
+      <g transform="translate(405 428)">
+        <path d="M0 45c0-34 25-56 56-56 32 0 55 21 55 50 0 18-12 32-34 32H28C11 71 0 61 0 45z" fill="#91ac8b"/>
+        <circle cx="78" cy="20" r="4" fill="#213a33"/>
+      </g>
+      <rect x="94" y="286" width="610" height="14" rx="7" fill="#815f45"/>
+      <rect x="122" y="258" width="16" height="128" fill="#815f45"/><rect x="676" y="258" width="16" height="128" fill="#815f45"/>
+    </svg>${marker(hidden,hidden==="egg"?13:76,hidden==="egg"?71:19)}`;
   }
-  locked=false;
-  const m=deck[index];
-  document.getElementById("missionCount").textContent=`Mission ${index+1} of ${deck.length}`;
-  document.getElementById("progressFill").style.width=`${(index/deck.length)*100}%`;
-  document.getElementById("worldTag").textContent=m.world;
-  document.getElementById("question").textContent=m.q;
-  document.getElementById("picture").innerHTML=m.pic;
-  document.getElementById("feedback").textContent="";
-  const c=document.getElementById("choices"); c.innerHTML="";
-  m.choices.forEach((choice,i)=>{
-    const b=document.createElement("button");
-    b.className="choice"; b.textContent=choice;
-    b.onclick=()=>answer(i,b,m);
-    c.appendChild(b);
+  if(world==="dino"){
+    return `<svg viewBox="0 0 800 600">
+      <rect width="800" height="600" fill="#dce7e4"/><path d="M0 362c133-57 261-26 390-48 143-25 250-8 410 25v261H0z" fill="#9fb88c"/>
+      <path d="M0 466c174-31 296 2 430-14 118-14 225 2 370 16v132H0z" fill="#77956a"/>
+      <path d="M106 391c0-93 72-157 169-157 93 0 165 60 165 141 0 52-35 91-90 91H184c-47 0-78-28-78-75z" fill="#8eaf8c"/>
+      <circle cx="322" cy="300" r="8" fill="#213a33"/><path d="M353 321l42-18" stroke="#213a33" stroke-width="7" stroke-linecap="round"/>
+      <path d="M184 238l37-36 23 41" fill="#8eaf8c" stroke="#213a33" stroke-width="6"/>
+      <path d="M204 461v51M295 461v51" stroke="#213a33" stroke-width="8" stroke-linecap="round"/>
+      <ellipse cx="602" cy="452" rx="116" ry="55" fill="#d8c7ad"/>
+      <path d="M552 386c-27 0-42 52-37 83 3 20 16 31 37 31s34-11 37-31c5-31-10-83-37-83z" fill="#d9e6e3" stroke="#879c92" stroke-width="3"/>
+      <path d="M611 391c-27 0-42 52-37 83 3 20 16 31 37 31s34-11 37-31c5-31-10-83-37-83z" fill="#ead8de" stroke="#b08d99" stroke-width="3"/>
+      <path d="M671 386c-27 0-42 52-37 83 3 20 16 31 37 31s34-11 37-31c5-31-10-83-37-83z" fill="#dce9cd" stroke="#8fa47d" stroke-width="3"/>
+      <circle cx="542" cy="429" r="5" fill="#789aa0"/><circle cx="560" cy="451" r="4" fill="#789aa0"/>
+      <circle cx="604" cy="432" r="5" fill="#b98491"/><circle cx="620" cy="450" r="4" fill="#b98491"/>
+      <circle cx="663" cy="428" r="5" fill="#8fa47d"/><circle cx="680" cy="450" r="4" fill="#8fa47d"/>
+    </svg>${marker(hidden,hidden==="egg"?73:8,hidden==="egg"?65:17)}`;
+  }
+  if(world==="barn"){
+    return `<svg viewBox="0 0 800 600">
+      <rect width="800" height="600" fill="#dde7e6"/><path d="M0 395c136-35 240 4 368-12 128-15 241 1 432 12v205H0z" fill="#9eb88c"/>
+      <rect x="92" y="246" width="264" height="184" fill="#b9674d"/><polygon points="70,250 224,145 380,250" fill="#694a3d"/>
+      <rect x="188" y="327" width="70" height="103" fill="#ead8bb"/>
+      <rect x="470" y="338" width="76" height="76" rx="4" fill="#a97850"/><rect x="554" y="338" width="76" height="76" rx="4" fill="#7f9ea0"/>
+      <rect x="512" y="254" width="76" height="76" rx="4" fill="#d0a35c"/><rect x="596" y="254" width="76" height="76" rx="4" fill="#a97850"/>
+      <circle cx="502" cy="486" r="32" fill="#c47449"/><circle cx="586" cy="486" r="32" fill="#d6b261"/><circle cx="670" cy="486" r="32" fill="#829971"/>
+    </svg>${marker(hidden,hidden==="egg"?28:82,hidden==="egg"?44:12)}`;
+  }
+  if(world==="maze"){
+    return `<svg viewBox="0 0 800 600">
+      <defs><linearGradient id="mzsky" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#e3d7c7"/><stop offset="1" stop-color="#e8b977"/></linearGradient></defs>
+      <rect width="800" height="600" fill="url(#mzsky)"/><circle cx="650" cy="85" r="44" fill="#f0cf82"/>
+      <path d="M0 320c126-28 231-15 338-22 138-10 260 4 462 18v284H0z" fill="#bea24e"/>
+      <g stroke="#7f7c43" stroke-width="34" stroke-linecap="round" fill="none">
+        <path d="M70 530V200h190v120H145v120h250V180h170v185H465v105h250"/>
+        <path d="M330 530V400h90"/>
+      </g>
+      <g transform="translate(532 252)">
+        <circle cx="0" cy="0" r="26" fill="#d9b06a"/><path d="M0-22v-52M-42-52h84" stroke="#5d5548" stroke-width="8" stroke-linecap="round"/>
+        <path d="M-14-5c8 7 20 7 28 0" stroke="#5d5548" stroke-width="4" fill="none"/>
+      </g>
+      <g transform="translate(150 505)">
+        <path d="M0 35c0-28 22-46 50-46s48 18 48 42c0 16-11 26-30 26H24C9 57 0 49 0 35z" fill="#8eaf8c"/>
+        <circle cx="68" cy="15" r="4" fill="#213a33"/>
+      </g>
+    </svg>${marker(hidden,hidden==="pumpkin"?67:14,hidden==="pumpkin"?63:14)}`;
+  }
+  return `<svg viewBox="0 0 800 600">
+    <rect width="800" height="600" fill="#d9dfe0"/><circle cx="645" cy="90" r="46" fill="#f1e6c7"/>
+    <path d="M0 390c142-34 255 2 382-17 148-22 260 8 418 26v201H0z" fill="#7f9473"/>
+    <rect x="260" y="220" width="290" height="190" rx="8" fill="#e7d8c5"/><polygon points="240,225 404,125 570,225" fill="#765263"/>
+    <rect x="370" y="320" width="72" height="90" fill="#ceb68f"/>
+    <g transform="translate(144 430)"><ellipse cx="0" cy="0" rx="56" ry="44" fill="#c7794e"/></g>
+    <g transform="translate(620 405)"><path d="M0 42c0-33 27-55 59-55s56 21 56 48c0 18-13 30-34 30H28C10 65 0 56 0 42z" fill="#8ca787"/></g>
+    <circle cx="672" cy="180" r="20" fill="#67536f"/>
+  </svg>${marker(hidden,hidden==="egg"?82:18,hidden==="egg"?18:72)}`;
+}
+
+function renderWorldNav(active){
+  el("worldNav").innerHTML = worlds.map(w=>`<button class="world-tab ${w.id===active?"active":""}" data-world="${w.id}">${w.name}</button>`).join("");
+  document.querySelectorAll(".world-tab").forEach(b=>b.onclick=()=>{
+    const i = state.deck.findIndex((m,idx)=>idx>=state.index && m.world===b.dataset.world);
+    if(i>=0){state.index=i;renderMission();}
   });
 }
 
-function answer(i,button,m){
-  if(locked) return;
+function renderInventory(){
+  el("inventory").innerHTML = Object.entries(items).map(([key,item])=>`
+    <div class="item ${state.inventory.includes(key)?"":"locked"}">
+      ${icon(item.icon)}
+      <div class="item-label">${item.name}</div>
+      <div class="item-desc">${item.desc}</div>
+    </div>`).join("");
+}
+
+function startGame(){
+  let base = missions.filter(m=>m.levels.includes(state.level));
+  state.deck = shuffle(base).slice(0, Math.min(10, base.length));
+  state.index=0; state.pumpkins=0; state.eggs=0; state.inventory=[]; state.solved=0;
+  show("gameScreen"); renderMission();
+}
+
+function renderMission(){
+  if(state.index>=state.deck.length){finish();return}
+  const m=state.deck[state.index];
+  state.found=false;
+  renderWorldNav(m.world);
+  el("sceneTitle").textContent=m.title;
+  el("scene").innerHTML=sceneMarkup(m.world,m.hidden);
+  el("sceneNote").textContent=`Look closely. There may be a hidden ${m.hidden} nearby.`;
+  el("worldLabel").textContent=`World ${worlds.findIndex(w=>w.id===m.world)+1}`;
+  el("taskTitle").textContent=m.title;
+  el("taskCopy").textContent=m.copy;
+  el("question").textContent=m.question;
+  el("feedback").textContent="";
+  el("choices").innerHTML="";
+  m.choices.forEach((c,i)=>{
+    const b=document.createElement("button");
+    b.className="choice"; b.textContent=c;
+    b.onclick=()=>answer(i,b,m);
+    el("choices").appendChild(b);
+  });
+  el("progressText").textContent=`${state.index} / ${state.deck.length}`;
+  el("progressFill").style.width=`${state.index/state.deck.length*100}%`;
+  updateCounters();
+  renderInventory();
+  document.querySelectorAll(".hotspot").forEach(h=>h.onclick=()=>findHidden(h,m));
+}
+
+function answer(i,b,m){
+  const all=[...document.querySelectorAll(".choice")];
   if(i===m.answer){
-    locked=true;
-    button.classList.add("correct");
-    pumpkins++;
-    document.getElementById("pumpkins").textContent=pumpkins;
-    document.getElementById("feedback").innerHTML=`${m.praise} <span class="reward">🎃</span>`;
-    speak("Great job!");
-    setTimeout(()=>{index++;render();},1300);
-  } else {
-    button.classList.add("wrong");
-    document.getElementById("feedback").textContent="Good try! Look at the pictures and try again. 💛";
-    speak("Good try. Look at the pictures and try again.");
-    setTimeout(()=>button.classList.remove("wrong"),800);
+    b.classList.add("correct"); all.forEach(x=>x.disabled=true);
+    state.solved++;
+    if(m.reward && !state.inventory.includes(m.reward)) state.inventory.push(m.reward);
+    el("feedback").textContent=m.reward ? `Solved. You found the ${items[m.reward].name}.` : "Solved.";
+    renderInventory();
+    setTimeout(()=>{state.index++;renderMission()},900);
+  }else{
+    b.classList.add("wrong");
+    el("feedback").textContent="Try once more.";
+    setTimeout(()=>b.classList.remove("wrong"),650);
   }
 }
 
-function speak(text){
-  if(!("speechSynthesis" in window)) return;
-  speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);
-  u.rate=.86; u.pitch=1.05;
-  speechSynthesis.speak(u);
+function findHidden(h,m){
+  if(state.found)return;
+  state.found=true; h.classList.add("found");
+  h.innerHTML=m.hidden==="pumpkin"?"●":"○";
+  if(m.hidden==="pumpkin")state.pumpkins++;else state.eggs++;
+  el("sceneNote").textContent=`Found the hidden ${m.hidden}.`;
+  updateCounters();
 }
-document.getElementById("speakBtn").onclick=()=>{
-  const m=deck[index];
-  if(!m) return;
-  speak(m.q + ". " + m.choices.map((x,i)=>`Choice ${i+1}: ${x}`).join(". "));
-};
+
+function updateCounters(){
+  el("pumpkinCount").textContent=state.pumpkins;
+  el("eggCount").textContent=state.eggs;
+}
+
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  el(id).classList.add("active");
+}
+
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+
+function speakCurrent(){
+  const m=state.deck[state.index];
+  if(!m || !("speechSynthesis" in window))return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(m.question);
+  u.rate=.9; speechSynthesis.speak(u);
+}
+
+function openModal(title,body){
+  el("modalTitle").textContent=title; el("modalBody").innerHTML=body; el("modal").classList.add("open");
+}
+function closeModal(){el("modal").classList.remove("open")}
+
+function openShadow(){
+  const choices=["pumpkin","ghost","bat"];
+  openModal("Shadow Match",`
+    <p style="color:var(--muted);font-weight:700">Which shadow matches the pumpkin?</p>
+    <div class="shadow-grid">
+      ${choices.map((c,i)=>`<button class="shadow-choice" data-right="${i===0}">
+        ${i===0?`<svg viewBox="0 0 120 90"><ellipse cx="60" cy="52" rx="34" ry="27" fill="#2f2a28"/><rect x="56" y="17" width="8" height="12" rx="3" fill="#2f2a28"/></svg>`:
+        i===1?`<svg viewBox="0 0 120 90"><path d="M60 15c-22 0-34 15-34 35v25l12-8 12 8 10-8 10 8 12-8 12 8V50c0-20-12-35-34-35z" fill="#2f2a28"/></svg>`:
+        `<svg viewBox="0 0 120 90"><path d="M60 46c-16-22-34-25-50-13 9 5 11 15 9 24 12-8 22-8 41-1 19-7 29-7 41 1-2-9 0-19 9-24-16-12-34-9-50 13z" fill="#2f2a28"/></svg>`}
+      </button>`).join("")}
+    </div>
+    <div id="shadowFeedback" class="feedback"></div>`);
+  document.querySelectorAll(".shadow-choice").forEach(b=>b.onclick=()=>{
+    el("shadowFeedback").textContent=b.dataset.right==="true"?"That’s the pumpkin shadow.":"Try a different silhouette.";
+  });
+}
+
+function openPattern(){
+  openModal("Spooky Pattern Trail",`
+    <p style="color:var(--muted);font-weight:700">What comes next?</p>
+    <div class="pattern-row">
+      <div class="pattern-token">${tinyPumpkin()}</div>
+      <div class="pattern-token">${tinyEgg()}</div>
+      <div class="pattern-token">${tinyPumpkin()}</div>
+      <div class="pattern-token">${tinyEgg()}</div>
+      <div class="pattern-token">?</div>
+    </div>
+    <div class="choices">
+      <button class="choice" data-pat="right">Pumpkin</button>
+      <button class="choice" data-pat="wrong">Egg</button>
+      <button class="choice" data-pat="wrong">Leaf</button>
+      <button class="choice" data-pat="wrong">Bat</button>
+    </div>
+    <div id="patternFeedback" class="feedback"></div>`);
+  document.querySelectorAll("[data-pat]").forEach(b=>b.onclick=()=>{
+    el("patternFeedback").textContent=b.dataset.pat==="right"?"Exactly. The pattern repeats.":"Look at what alternates.";
+  });
+}
+
+const mazeMap = [
+  "WWWWWWW",
+  "W...WGW",
+  "W.W.W.W",
+  "W.W...W",
+  "W.WWW.W",
+  "WS....W",
+  "WWWWWWW"
+];
+let player={r:5,c:1};
+function openMaze(){
+  player={r:5,c:1};
+  openModal("Harvest Corn Maze",`
+    <p style="color:var(--muted);font-weight:700">Guide the explorer to the scarecrow in the center path.</p>
+    <div class="maze" id="mazeGrid"></div>
+    <div class="maze-controls">
+      <span class="blank"></span><button data-move="-1,0">↑</button><span class="blank"></span>
+      <button data-move="0,-1">←</button><button data-move="1,0">↓</button><button data-move="0,1">→</button>
+    </div>
+    <div id="mazeFeedback" class="feedback"></div>`);
+  renderMaze();
+  document.querySelectorAll("[data-move]").forEach(b=>b.onclick=()=>{
+    const [dr,dc]=b.dataset.move.split(",").map(Number);
+    movePlayer(dr,dc);
+  });
+}
+function renderMaze(){
+  const g=el("mazeGrid"); if(!g)return;
+  g.innerHTML="";
+  mazeMap.forEach((row,r)=>[...row].forEach((ch,c)=>{
+    const d=document.createElement("div");
+    d.className="cell"+(ch==="W"?" wall":"")+(ch==="G"?" goal":"")+(player.r===r&&player.c===c?" player":"");
+    if(ch==="G") d.textContent="★";
+    if(player.r===r&&player.c===c) d.textContent="●";
+    g.appendChild(d);
+  }));
+}
+function movePlayer(dr,dc){
+  const nr=player.r+dr,nc=player.c+dc;
+  if(mazeMap[nr]?.[nc] && mazeMap[nr][nc]!=="W"){
+    player={r:nr,c:nc};renderMaze();
+    if(mazeMap[nr][nc]==="G") el("mazeFeedback").textContent="You found the scarecrow. Maze complete.";
+  }
+}
+
+function finish(){
+  el("progressText").textContent=`${state.deck.length} / ${state.deck.length}`;
+  el("progressFill").style.width="100%";
+  el("statPumpkins").textContent=state.pumpkins;
+  el("statEggs").textContent=state.eggs;
+  el("statItems").textContent=state.inventory.length;
+  el("statSolved").textContent=state.solved;
+  el("storyList").innerHTML=[
+    state.inventory.includes("lantern")?"The lantern lit the last stretch of the path.":"Moonlight helped guide the way.",
+    state.inventory.includes("bridge")?"The block bridge helped everyone cross safely.":"Careful teamwork got everyone across.",
+    state.inventory.includes("badge")?"The Buddy Badge helped welcome a shy friend.":"Kind words helped a shy friend join in.",
+    state.inventory.includes("rope")?"The rope helped the baby dinosaur climb out.":"Creative thinking helped the baby dinosaur.",
+    state.inventory.includes("map")?"The Candy Map led straight to the festival.":"The pumpkin markers led to the festival."
+  ].map(x=>`<li>${x}</li>`).join("");
+  show("finalScreen");
+}
+
+el("startArt").innerHTML=startIllustration();
+el("finalArt").innerHTML=startIllustration();
+el("shadowThumb").innerHTML=`<svg viewBox="0 0 160 80"><rect width="160" height="80" fill="#eadfce"/><ellipse cx="48" cy="46" rx="26" ry="20" fill="#352f2b"/><rect x="45" y="17" width="6" height="10" rx="2" fill="#352f2b"/><path d="M102 21c-18 0-28 12-28 28v18l10-6 9 6 9-6 10 6 10-6V49c0-16-10-28-20-28z" fill="#8f8175"/></svg>`;
+el("patternThumb").innerHTML=`<svg viewBox="0 0 160 80"><rect width="160" height="80" fill="#efe5d8"/><circle cx="28" cy="40" r="16" fill="#c97849"/><ellipse cx="72" cy="40" rx="13" ry="18" fill="#e8ece5"/><circle cx="112" cy="40" r="16" fill="#c97849"/><text x="143" y="49" font-size="28" text-anchor="middle" fill="#6b625b">?</text></svg>`;
+el("mazeThumb").innerHTML=`<svg viewBox="0 0 160 80"><rect width="160" height="80" fill="#d6b767"/><path d="M12 68V15h45v20H30v18h58V15h38v41h22" fill="none" stroke="#71865d" stroke-width="12" stroke-linecap="round"/></svg>`;
+
+document.querySelectorAll(".level").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".level").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active"); state.level=Number(b.dataset.level);
+});
+
+el("startBtn").onclick=startGame;
+el("previewMazeBtn").onclick=openMaze;
+el("hearBtn").onclick=speakCurrent;
+el("hintBtn").onclick=()=>{const m=state.deck[state.index]; if(m)el("feedback").textContent=m.hint};
+el("mapBtn").onclick=()=>openModal("World Map",`
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+    ${worlds.map((w,i)=>`<div style="padding:16px;border:1px solid var(--line);border-radius:16px;background:#f7f0e5"><strong>${i+1}. ${w.name}</strong><div style="color:var(--muted);margin-top:5px">${w.copy}</div></div>`).join("")}
+  </div>`);
+el("closeModal").onclick=closeModal;
+el("modal").onclick=e=>{if(e.target===el("modal"))closeModal()};
+document.querySelectorAll(".puzzle-card").forEach(b=>b.onclick=()=>{
+  if(b.dataset.puzzle==="shadow")openShadow();
+  if(b.dataset.puzzle==="pattern")openPattern();
+  if(b.dataset.puzzle==="maze")openMaze();
+});
+
+renderWorldNav("patch");
+renderInventory();
 </script>
 </body>
 </html>
