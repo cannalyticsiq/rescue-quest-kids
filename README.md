@@ -1,22 +1,40 @@
-# Rescue Quest Kids v3
+# Rescue Quest Kids — full-stack build
 
-A polished, cozy autumn educational web game for a bright preschooler.
+This is the clean, modular version of the app. The UI is no longer one giant screenshot or one giant HTML file.
 
-## What changed in v3
-- Less "preschool worksheet" styling
-- Muted autumn palette and cleaner typography
-- No external image dependencies
-- Interactive hidden pumpkin / egg finds
-- Collectible inventory tools
-- Shadow Match mini puzzle
-- Spooky Pattern Trail mini puzzle
-- Fully interactive Harvest Corn Maze
-- Social-emotional missions
-- Math, logic, counting, and pattern challenges
-- Final rescue summary
+## Run locally
 
-## Deploy on GitHub Pages
-Replace the current `index.html` in your `rescue-quest-kids` repository with this file and commit the change. GitHub Pages will redeploy automatically.
+```bash
+npm install
+npm run dev
+```
 
-## Notes
-All illustrations are inline SVG, so nothing should fail because an external image URL disappears.
+Open http://localhost:3000
+
+## What is implemented
+
+- modular frontend
+- Express backend
+- API-served game content
+- saved profile/progress API
+- localStorage state
+- 5 worlds
+- inventory and rewards
+- hidden pumpkins/eggs
+- Halloween mini puzzles
+- interactive corn maze
+- click-to-move explorer character foundation
+- responsive layout
+- reference mockups stored under `public/assets/reference/`
+
+## Deployment
+
+GitHub stores the code. GitHub Pages cannot execute the Node backend.
+
+For the full-stack app, connect this GitHub repository to Render or Railway. A `render.yaml` is included.
+
+If you only want GitHub Pages, publish the `public/` folder and the frontend can be adjusted to use static content/localStorage only.
+
+## Next art pass
+
+The remaining big visual upgrade is dedicated artwork for Dino Hollow, Blocky Barn, and Moonlit Rescue Bay plus a transparent explorer-dino sprite sheet. The code is already structured so those can be dropped into `public/assets/worlds/` and the character module without rebuilding the app architecture.

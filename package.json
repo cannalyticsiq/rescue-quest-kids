@@ -1,0 +1,17 @@
+{
+  "name": "rescue-quest-kids",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server/server.js",
+    "start": "node server/server.js",
+    "check": "node --check server/server.js && node --check server/storage.js && node --check public/src/app.js && node --check public/src/api.js && node --check public/src/store.js && node --check public/src/character.js && node --check public/src/puzzles.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
