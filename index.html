@@ -3,372 +3,487 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<meta name="theme-color" content="#f4ecdf" />
 <title>Rescue Quest Kids</title>
+<meta name="theme-color" content="#f7f2ea" />
 <style>
 :root{
-  --cream:#f7f0e5;
-  --paper:#fffaf3;
-  --paper2:#f0e6d8;
-  --ink:#213a33;
-  --ink2:#314b43;
-  --muted:#6f7f78;
-  --moss:#6d8267;
-  --deep:#496057;
-  --rust:#b7653e;
-  --amber:#d8a85e;
-  --plum:#6f5878;
-  --sage:#cbd8c3;
-  --sky:#dbe6e6;
-  --line:#d9ccbd;
-  --shadow:0 18px 50px rgba(69,52,41,.12);
-  --soft:0 8px 20px rgba(69,52,41,.08);
+  --cream:#f7f2ea;
+  --paper:#fbf8f2;
+  --card:#fffdf9;
+  --line:#e4d8c8;
+  --line-2:#d8c7b4;
+  --ink:#21352f;
+  --ink-soft:#5f6e67;
+  --green:#416a59;
+  --green-2:#6f8a79;
+  --gold:#c7964c;
+  --rust:#b96d42;
+  --sand:#efe3d1;
+  --shadow:0 18px 50px rgba(71,54,39,.12);
+  --soft:0 8px 22px rgba(71,54,39,.07);
 }
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:#c6b6a7}
+html,body{margin:0;height:100%}
 body{
-  font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color:var(--ink);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background:
-    radial-gradient(circle at 15% 0%, #d9c5ad 0, transparent 30%),
-    linear-gradient(#cab8a8,#b8aa9d);
+    radial-gradient(circle at 10% 0%, rgba(255,255,255,.45), transparent 24%),
+    linear-gradient(180deg,#bea78d 0%, #8e755f 100%);
+  color:var(--ink);
 }
 button{font:inherit}
-button:focus-visible{outline:3px solid #8e7aad;outline-offset:3px}
-.shell{
-  width:min(1180px,calc(100% - 24px));
-  margin:12px auto;
-  min-height:calc(100vh - 24px);
-  background:var(--cream);
+button:focus-visible{outline:3px solid #93a89c;outline-offset:2px}
+.app{
+  width:min(1360px,calc(100% - 28px));
+  min-height:calc(100vh - 28px);
+  margin:14px auto;
+  background:rgba(248,243,235,.92);
+  backdrop-filter:blur(10px);
   border:1px solid rgba(255,255,255,.55);
   border-radius:28px;
+  overflow:hidden;
   box-shadow:var(--shadow);
+}
+header{
+  display:grid;
+  grid-template-columns: 1.3fr .7fr .9fr auto;
+  gap:18px;
+  align-items:center;
+  padding:18px 22px 14px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg, rgba(255,255,255,.5), rgba(251,248,242,.78));
+}
+.brand{display:flex;gap:14px;align-items:center;min-width:0}
+.brand-mark{
+  width:40px;height:40px;flex:0 0 40px;border-radius:50%;
+  display:grid;place-items:center;background:#f0e1cf;
+}
+.brand h1{
+  margin:0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size:29px;line-height:1;letter-spacing:-.03em;font-weight:700;
+}
+.brand h1 span{color:var(--rust)}
+.brand p{margin:4px 0 0;color:var(--ink-soft);font-size:12px;font-weight:600}
+.mantra{
+  text-align:center;
+  color:#8d6e4d;
+  font-family: Georgia, serif;
+  font-style:italic;
+  font-size:14px;
+  line-height:1.35;
+}
+.progress-stack{min-width:0}
+.progress-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;color:var(--ink-soft);font-size:12px;font-weight:700}
+.progress-bar{
+  height:14px;border-radius:999px;background:#efe6dc;border:1px solid #e2d5c7;overflow:hidden;
+}
+.progress-fill{
+  height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#6d8c79,#416a59);transition:width .35s;
+}
+.meters{display:flex;align-items:center;gap:12px}
+.meter{
+  display:flex;align-items:center;gap:6px;
+  color:var(--ink);font-weight:800;font-size:15px;
+}
+.icon-sm{width:28px;height:28px;display:block}
+.gear{
+  width:36px;height:36px;border:1px solid var(--line);background:#fffaf3;border-radius:14px;
+  display:grid;place-items:center;color:#8a816f
+}
+nav.tabs{
+  display:grid;grid-template-columns: repeat(5, minmax(0,1fr)) auto;
+  gap:0;
+  border-bottom:1px solid var(--line);
+  background:rgba(255,252,246,.78);
+}
+.tab{
+  display:flex;align-items:center;gap:12px;
+  padding:16px 18px;
+  background:transparent;border:0;border-right:1px solid var(--line);
+  text-align:left;cursor:pointer;min-width:0;
+}
+.tab.active{
+  background:#f4e4c9;
+  box-shadow:inset 0 0 0 1px #e2d0b9;
+}
+.tab:last-child{border-right:0}
+.tab strong{
+  display:block;
+  font-family:Georgia, serif;
+  font-size:17px;font-weight:700;line-height:1.1;
+}
+.tab span{
+  display:block;color:var(--ink-soft);font-size:12px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+.tab .tab-art{width:48px;height:48px;flex:0 0 48px}
+main{padding:14px}
+.screen{display:none}
+.screen.active{display:block}
+.layout{
+  display:grid;grid-template-columns: 1.7fr .95fr;gap:12px;
+}
+.panel{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:24px;
+  box-shadow:var(--soft);
+}
+.scene-panel{
   overflow:hidden;
 }
-.topbar{
-  display:grid;
-  grid-template-columns:auto 1fr auto;
-  gap:22px;
-  align-items:center;
-  padding:20px 24px 14px;
-  border-bottom:1px solid var(--line);
-  background:rgba(255,250,243,.82);
-  backdrop-filter:blur(12px);
-}
-.brand{display:flex;align-items:center;gap:10px;white-space:nowrap}
-.brand-mark{width:34px;height:34px}
-.brand-name{
-  font-family:Georgia, "Times New Roman", serif;
-  font-size:28px;
-  font-weight:700;
-  letter-spacing:-.02em;
-}
-.brand-name span{color:var(--rust)}
-.progress-wrap{min-width:0}
-.progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-weight:700;margin-bottom:6px}
-.progress-track{height:10px;border-radius:999px;background:#e6ddd1;overflow:hidden}
-.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--moss),var(--deep));transition:width .35s}
-.counters{display:flex;gap:8px}
-.counter{
-  display:flex;align-items:center;gap:7px;
-  padding:8px 10px;border:1px solid var(--line);background:#fffaf4;border-radius:14px;
-  font-weight:800;font-size:14px;
-}
-.counter svg{width:22px;height:22px}
-.world-nav{
-  display:flex;gap:8px;overflow:auto;padding:10px 16px;border-bottom:1px solid var(--line);background:#fbf5eb
-}
-.world-tab{
-  flex:0 0 auto;border:1px solid transparent;background:transparent;color:var(--ink2);
-  padding:10px 12px;border-radius:14px;cursor:pointer;font-weight:800;font-size:14px;
-}
-.world-tab.active{background:#eadfce;border-color:#d9c8b5}
-.screen{display:none}.screen.active{display:block}
-.start{
-  padding:44px 24px 58px;
-  background:
-    linear-gradient(rgba(247,240,229,.3),rgba(247,240,229,.95)),
-    radial-gradient(circle at 80% 10%, rgba(213,170,96,.24), transparent 24%);
-}
-.start-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;max-width:1050px;margin:auto;align-items:center}
-.eyebrow{color:var(--rust);font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:12px}
-h1,h2,h3{font-family:Georgia, "Times New Roman", serif}
-h1{font-size:clamp(52px,7vw,88px);line-height:.95;letter-spacing:-.045em;margin:12px 0 16px}
-.lede{font-size:21px;line-height:1.5;color:var(--muted);max-width:650px}
-.start-actions{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
-.primary,.secondary{
-  border-radius:16px;padding:14px 18px;font-weight:900;cursor:pointer;border:1px solid transparent
-}
-.primary{background:var(--deep);color:white;box-shadow:var(--soft)}
-.primary:hover{background:#40564e}
-.secondary{background:#fffaf4;border-color:var(--line);color:var(--ink)}
-.levels{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
-.level{
-  border:1px solid var(--line);background:#fffaf4;padding:10px 12px;border-radius:14px;color:var(--muted);
-  font-weight:800;cursor:pointer
-}
-.level.active{background:#e7ddcf;color:var(--ink);border-color:#cabca9}
-.start-art{
-  background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:14px;box-shadow:var(--soft)
-}
-.start-art svg{display:block;width:100%;height:auto;border-radius:18px}
-.game{padding:20px}
-.game-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px}
-.scene-panel,.task-panel{
-  background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:var(--soft)
-}
-.scene-panel{padding:12px}
-.scene-head,.task-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
-.scene-head{padding:4px 4px 10px}
-.scene-title{font-family:Georgia,serif;font-size:24px;font-weight:700}
-.scene-sub{font-size:12px;color:var(--muted);font-weight:700}
 .scene{
-  position:relative;border-radius:18px;overflow:hidden;background:#dfe8e4;aspect-ratio:4/3;
-  border:1px solid #d6cbc0
+  position:relative;
+  aspect-ratio: 1.16 / 1;
+  background:#eadfce;
 }
-.scene svg{width:100%;height:100%;display:block}
-.hotspot{
-  position:absolute;width:34px;height:34px;border-radius:999px;border:2px solid rgba(255,255,255,.95);
-  background:rgba(67,89,79,.88);color:white;display:grid;place-items:center;font-weight:900;
-  box-shadow:0 5px 16px rgba(0,0,0,.16);cursor:pointer
+.scene svg{display:block;width:100%;height:100%}
+.badge-pin{
+  position:absolute;
+  display:flex;align-items:center;justify-content:center;
+  min-width:54px;height:54px;padding:0 14px;border-radius:999px;
+  background:rgba(82,64,94,.9);color:white;font-weight:800;
+  border:3px solid rgba(255,255,255,.92);box-shadow:0 10px 28px rgba(0,0,0,.18);
+  cursor:pointer;
 }
-.hotspot.found{background:#b96e43}
-.scene-note{
-  margin-top:10px;padding:11px 12px;border-radius:14px;background:#f1e9dc;color:#6d5f52;font-size:13px;font-weight:800
+.badge-pin.pumpkin{background:rgba(173,112,55,.92)}
+.badge-pin.candy{background:rgba(184,110,67,.92)}
+.badge-pin.bat{background:rgba(76,64,79,.92)}
+.tip{
+  display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;
+  padding:14px 16px;border-top:1px solid var(--line);background:#fcf8f1;
 }
-.task-panel{padding:20px}
-.world-label{
-  font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--moss);font-weight:900
+.tip-avatar{
+  width:58px;height:58px;border-radius:50%;overflow:hidden;border:3px solid #d7c6b2;background:#dce6df
 }
-.task-title{font-size:38px;line-height:1.02;margin:6px 0 8px}
-.task-copy{color:var(--muted);line-height:1.45;margin:0 0 14px}
-.question-card{
-  background:#f4ecdf;border:1px solid #dfd1c1;border-radius:18px;padding:16px;margin:14px 0
+.tip-title{font-family:Georgia, serif;font-size:14px;font-weight:700;color:#355346}
+.tip p{margin:2px 0 0;font-size:13px;color:var(--ink-soft);font-weight:600}
+.right{
+  display:grid;gap:12px;
 }
-.question{font-family:Georgia,serif;font-weight:700;font-size:25px;line-height:1.2;margin:0}
-.help-row{display:flex;gap:8px;margin-top:10px}
-.small-btn{
-  border:1px solid var(--line);background:#fffaf4;border-radius:12px;padding:9px 11px;font-weight:800;color:var(--ink2);cursor:pointer
+.content{
+  padding:18px 18px 16px;
 }
-.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.world-number{
+  color:var(--green);font-size:13px;font-weight:800;margin-bottom:4px;
+}
+.page-title{
+  font-family:Georgia, serif;
+  font-size:32px;line-height:1.06;letter-spacing:-.03em;margin:0 0 8px;
+}
+.lead{font-size:15px;line-height:1.45;color:var(--ink-soft);margin:0 0 14px}
+.question-box{
+  background:#f7f0e6;border:1px solid #ebdecf;border-radius:20px;padding:16px 18px;margin-bottom:12px;
+}
+.question{
+  margin:0;font-family:Georgia, serif;font-size:22px;line-height:1.18;
+}
+.question-sub{
+  color:var(--ink-soft);font-size:13px;font-weight:600;margin-top:6px;
+}
+.choice-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+}
 .choice{
-  text-align:left;border:1px solid var(--line);background:#fffdf8;border-radius:15px;padding:13px 14px;
-  min-height:66px;font-weight:850;color:var(--ink);cursor:pointer;transition:.15s
+  display:flex;align-items:center;gap:12px;text-align:left;
+  border:1px solid var(--line);background:#fffdf9;border-radius:18px;padding:12px 13px;
+  cursor:pointer;min-height:78px;transition:transform .15s, border-color .15s, background .15s;
 }
-.choice:hover{transform:translateY(-1px);border-color:#bdae9d}
-.choice.correct{background:#e8f0e1;border-color:#a9bea0}
-.choice.wrong{background:#f7e4df;border-color:#d7a59a}
-.feedback{min-height:28px;margin-top:12px;font-weight:900;color:var(--deep)}
-.inventory-wrap{
-  margin-top:18px;padding-top:16px;border-top:1px solid var(--line)
+.choice:hover{transform:translateY(-1px);border-color:#cfbaa2}
+.choice.correct{background:#e8f0ea;border-color:#aebead}
+.choice.wrong{background:#f6e8e2;border-color:#dbb6a6}
+.choice-art{
+  width:70px;height:54px;flex:0 0 70px;display:grid;place-items:center;border-radius:14px;background:#fbf5ee;
 }
-.inventory-title{font-family:Georgia,serif;font-size:22px;margin:0 0 10px}
-.inventory{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.choice-label{
+  font-weight:800;font-size:14px;color:var(--ink)
+}
+.section-head{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:10px
+}
+.section-head h3{
+  margin:0;font-family:Georgia, serif;font-size:19px
+}
+.section-head span{
+  color:#9a8a72;font-size:12px;font-weight:600
+}
+.puzzle-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+}
+.puzzle{
+  border:1px solid var(--line);background:#fbf6ef;border-radius:16px;overflow:hidden;cursor:pointer;text-align:left
+}
+.puzzle .art{aspect-ratio: 16/9;background:#e9dbc9}
+.puzzle .art svg{width:100%;height:100%;display:block}
+.puzzle .name{
+  padding:8px 10px 11px;font-weight:800;font-size:13px;line-height:1.2
+}
+.inventory-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:10px;
+}
 .item{
-  background:#f6efe4;border:1px solid var(--line);border-radius:14px;padding:10px 8px;text-align:center
+  border:1px solid var(--line);background:#f8f1e8;border-radius:16px;padding:10px 8px;text-align:center
 }
-.item.locked{opacity:.38;filter:grayscale(1)}
-.item svg{width:42px;height:42px;margin:auto;display:block}
-.item-label{font-size:11px;font-weight:900;margin-top:6px}
-.item-desc{font-size:9px;color:var(--muted);line-height:1.2;margin-top:2px}
-.puzzle-strip{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px
+.item.locked{opacity:.45;filter:grayscale(1)}
+.item svg{width:54px;height:54px;display:block;margin:auto}
+.item strong{display:block;font-size:12px;line-height:1.15;margin-top:6px}
+.item span{display:block;font-size:11px;line-height:1.2;color:var(--ink-soft);margin-top:3px}
+.controls{
+  display:grid;grid-template-columns: 1fr 1.25fr;gap:12px;
 }
-.puzzle-card{
-  border:1px solid var(--line);background:#fbf6ee;border-radius:15px;padding:10px;cursor:pointer;text-align:left
+.ghost-btn,.primary-btn{
+  width:100%;
+  border-radius:18px;padding:16px 18px;font-weight:900;font-size:16px;cursor:pointer
 }
-.puzzle-art{aspect-ratio:16/8;border-radius:11px;overflow:hidden;background:#eadfce;margin-bottom:8px}
-.puzzle-art svg{width:100%;height:100%}
-.puzzle-name{font-weight:900;font-size:12px}
+.ghost-btn{
+  background:#fbf5ec;border:1px solid var(--line);color:#7b6b57
+}
+.primary-btn{
+  border:1px solid #6f8a79;background:linear-gradient(180deg,#5f816f,#416a59);color:white;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 10px 24px rgba(65,106,89,.18);
+}
+.feedback{
+  min-height:22px;margin:10px 0 2px;font-size:14px;font-weight:800;color:#476658
+}
 .modal{
-  position:fixed;inset:0;background:rgba(34,28,24,.45);display:none;align-items:center;justify-content:center;
-  z-index:20;padding:18px
+  position:fixed;inset:0;background:rgba(40,31,24,.5);
+  display:none;align-items:center;justify-content:center;padding:16px;z-index:50
 }
 .modal.open{display:flex}
 .modal-card{
-  width:min(760px,100%);max-height:90vh;overflow:auto;background:var(--paper);border-radius:24px;padding:20px;box-shadow:var(--shadow)
+  width:min(860px,100%);max-height:92vh;overflow:auto;
+  background:#fffaf3;border-radius:24px;border:1px solid var(--line);box-shadow:var(--shadow);padding:18px
 }
-.modal-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}
-.modal-title{font-size:30px;margin:0}
-.close{border:0;background:#eee3d7;width:36px;height:36px;border-radius:12px;cursor:pointer;font-weight:900}
-.maze{
-  display:grid;grid-template-columns:repeat(7,1fr);gap:4px;background:#776544;padding:6px;border-radius:16px;max-width:520px;margin:12px auto
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.modal-head h3{margin:0;font-family:Georgia,serif;font-size:28px}
+.close{
+  width:40px;height:40px;border-radius:14px;border:1px solid var(--line);background:#fbf4ea;cursor:pointer
 }
-.cell{aspect-ratio:1;background:#d6b565;border-radius:4px;display:grid;place-items:center;font-weight:900;position:relative}
-.cell.wall{background:#7e9a64}
-.cell.goal{background:#e2c37d}
-.cell.player{outline:4px solid #fff;outline-offset:-4px}
-.maze-controls{display:grid;grid-template-columns:repeat(3,54px);gap:6px;justify-content:center;margin:14px 0}
-.maze-controls button{height:48px;border:1px solid var(--line);background:#fffaf4;border-radius:12px;font-weight:900;cursor:pointer}
-.maze-controls .blank{visibility:hidden}
-.shadow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.shadow-choice{border:1px solid var(--line);background:#f9f3ea;border-radius:16px;padding:12px;cursor:pointer}
-.shadow-choice svg{width:100%;height:auto}
-.pattern-row{display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;margin:18px 0}
-.pattern-token{width:74px;height:74px;border:1px solid var(--line);border-radius:16px;display:grid;place-items:center;background:#fbf7ef}
-.pattern-token svg{width:54px;height:54px}
+.modal p{color:var(--ink-soft);font-weight:600}
+.maze-grid{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:4px;max-width:520px;margin:16px auto;
+  background:#7e6747;padding:8px;border-radius:18px
+}
+.cell{aspect-ratio:1;border-radius:6px;background:#d7b566;display:grid;place-items:center;font-weight:900}
+.cell.wall{background:#7f925f}
+.cell.goal{background:#f5dca0}
+.cell.player{outline:4px solid white;outline-offset:-4px}
+.maze-controls{
+  display:grid;grid-template-columns:repeat(3,54px);gap:8px;justify-content:center;margin:12px 0
+}
+.maze-controls button{
+  height:48px;border-radius:14px;border:1px solid var(--line);background:#fffdf8;cursor:pointer;font-weight:900
+}
+.blank{visibility:hidden}
 .final{
-  padding:42px 24px 56px;text-align:center
+  padding:26px;
 }
-.final-card{max-width:860px;margin:auto;background:var(--paper);border:1px solid var(--line);border-radius:24px;box-shadow:var(--soft);padding:24px}
-.final-art{max-width:340px;margin:auto}
-.final-art svg{width:100%;height:auto}
-.final h2{font-size:50px;margin:10px 0}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:22px 0}
-.stat{background:#f3eadf;border:1px solid var(--line);border-radius:16px;padding:14px}
-.stat strong{display:block;font-size:32px;font-family:Georgia,serif}
-.stat span{font-size:11px;color:var(--muted);font-weight:800}
-.story-list{text-align:left;max-width:700px;margin:20px auto 0;padding:0;list-style:none}
-.story-list li{padding:10px 0;border-bottom:1px solid var(--line);font-weight:750;color:var(--ink2)}
-@media(max-width:900px){
-  .topbar{grid-template-columns:1fr auto}.progress-wrap{grid-column:1/-1;grid-row:2}
-  .start-grid,.game-grid{grid-template-columns:1fr}
+.final-card{
+  max-width:950px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:28px;box-shadow:var(--soft);padding:24px
 }
-@media(max-width:620px){
-  .shell{width:100%;margin:0;border-radius:0;min-height:100vh}
-  .topbar{padding:14px}
-  .brand-name{font-size:22px}
-  .counter{padding:7px 8px}
-  .start{padding:28px 16px 40px}
-  .game{padding:12px}
-  .task-panel{padding:15px}
-  .task-title{font-size:30px}
-  .choices{grid-template-columns:1fr}
-  .inventory{grid-template-columns:repeat(3,1fr)}
-  .puzzle-strip{grid-template-columns:1fr}
-  .stats{grid-template-columns:repeat(2,1fr)}
+.final h2{
+  margin:10px 0 8px;font-family:Georgia,serif;font-size:48px;line-height:1
+}
+.final p{color:var(--ink-soft)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 20px}
+.stat{
+  padding:14px;background:#f6efe5;border:1px solid var(--line);border-radius:18px;text-align:center
+}
+.stat strong{display:block;font-family:Georgia,serif;font-size:32px}
+.stat span{font-size:12px;color:var(--ink-soft);font-weight:700}
+.story{
+  list-style:none;padding:0;margin:0
+}
+.story li{
+  padding:11px 0;border-bottom:1px solid var(--line);font-weight:700;color:#435750
+}
+.hidden{display:none}
+@media (max-width:1160px){
+  header{grid-template-columns:1fr .8fr auto;grid-template-areas:"brand progress meters" "mantra progress meters"}
+  .brand{grid-area:brand}.mantra{grid-area:mantra;text-align:left;padding-left:54px}.progress-stack{grid-area:progress}.meters{grid-area:meters}
+  nav.tabs{grid-template-columns:repeat(3,1fr)}
+  .map-tab{grid-column:1/-1;border-top:1px solid var(--line)}
+}
+@media (max-width:960px){
+  .layout{grid-template-columns:1fr}
+}
+@media (max-width:740px){
+  .app{width:100%;min-height:100vh;margin:0;border-radius:0}
+  header{grid-template-columns:1fr;gap:10px}
+  .mantra{padding-left:0;text-align:left}
+  nav.tabs{grid-template-columns:1fr 1fr}
+  .choice-grid,.controls,.inventory-grid,.stats{grid-template-columns:1fr}
+  .puzzle-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-<div class="shell">
-  <header class="topbar">
+<div class="app">
+  <header>
     <div class="brand">
-      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M20 4C12 11 7 20 9 30c7 1 15-2 21-8 5-5 7-11 6-18-6-1-11 0-16 0Z" fill="#b7653e"/>
-        <path d="M11 29c8-5 14-10 21-19" stroke="#f7f0e5" stroke-width="2.3" fill="none" stroke-linecap="round"/>
-      </svg>
-      <div class="brand-name">Rescue Quest <span>Kids</span></div>
-    </div>
-
-    <div class="progress-wrap">
-      <div class="progress-label"><span>Adventure progress</span><span id="progressText">0 / 10</span></div>
-      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-    </div>
-
-    <div class="counters">
-      <div class="counter" title="Pumpkins found">
-        <svg viewBox="0 0 30 30" aria-hidden="true"><ellipse cx="15" cy="17" rx="9" ry="8" fill="#d97c43"/><path d="M15 8c1-4 3-5 6-6" stroke="#607956" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="13" y="6" width="4" height="4" rx="2" fill="#607956"/></svg>
-        <span id="pumpkinCount">0</span>
+      <div class="brand-mark" id="brandLeaf"></div>
+      <div>
+        <h1>Rescue Quest <span>Kids</span></h1>
+        <p>Small Explorers. A Brighter Tomorrow.</p>
       </div>
-      <div class="counter" title="Eggs found">
-        <svg viewBox="0 0 30 30" aria-hidden="true"><path d="M15 3C9 3 6 14 7 20c1 5 4 7 8 7s7-2 8-7c1-6-2-17-8-17Z" fill="#e7ece5" stroke="#8ba296" stroke-width="1.5"/><circle cx="12" cy="13" r="1.4" fill="#8ba296"/><circle cx="17" cy="18" r="1.3" fill="#b7653e"/></svg>
-        <span id="eggCount">0</span>
-      </div>
+    </div>
+    <div class="mantra">Kind Kids<br>Change Big Things</div>
+    <div class="progress-stack">
+      <div class="progress-head"><span>Adventure Progress</span><span id="progressText">0 / 10</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <div class="meters">
+      <div class="meter"><span id="pumpkinIcon"></span><span id="pumpkinCount">0</span></div>
+      <div class="meter"><span id="eggIcon"></span><span id="eggCount">0</span></div>
+      <div class="gear" id="gearIcon"></div>
     </div>
   </header>
 
-  <nav class="world-nav" id="worldNav"></nav>
+  <nav class="tabs" id="tabs"></nav>
 
   <main>
-    <section id="startScreen" class="screen active start">
-      <div class="start-grid">
-        <div>
-          <div class="eyebrow">Autumn adventure edition</div>
-          <h1>Little questions.<br>Big adventures.</h1>
-          <p class="lede">Explore a cozy fall world filled with logic puzzles, counting, social problem-solving, hidden-object hunts, and a real corn-maze mini game.</p>
-
-          <div class="levels" aria-label="Difficulty">
-            <button class="level" data-level="1">Warm-up</button>
-            <button class="level active" data-level="2">Clever explorer</button>
-            <button class="level" data-level="3">Super thinker</button>
-          </div>
-
-          <div class="start-actions">
-            <button class="primary" id="startBtn">Start the quest</button>
-            <button class="secondary" id="previewMazeBtn">Try the corn maze</button>
+    <section id="startScreen" class="screen active">
+      <div class="layout">
+        <div class="panel scene-panel">
+          <div class="scene" id="startScene"></div>
+          <div class="tip">
+            <div class="tip-avatar" id="guideAvatar"></div>
+            <div>
+              <div class="tip-title">Explorer Tip:</div>
+              <p>Choose a world, solve gentle puzzles, and collect items for the final rescue.</p>
+            </div>
+            <div id="leafMini"></div>
           </div>
         </div>
 
-        <div class="start-art" id="startArt"></div>
+        <div class="right">
+          <div class="panel content">
+            <div class="world-number">Welcome</div>
+            <h2 class="page-title">A cozy fall adventure for a bright little thinker.</h2>
+            <p class="lead">This version is designed to feel much closer to the polished concept art you liked: cleaner typography, a calmer palette, richer layout, and more premium game UI.</p>
+
+            <div class="question-box">
+              <p class="question">Choose a difficulty</p>
+              <div class="question-sub">You can switch between easier and more advanced prompts.</div>
+            </div>
+
+            <div class="choice-grid" id="difficultyChoices"></div>
+
+            <div class="feedback" id="startFeedback"></div>
+
+            <div class="section-head" style="margin-top:18px">
+              <h3>Included mini games</h3>
+              <span>Built right into the app</span>
+            </div>
+            <div class="puzzle-grid">
+              <button class="puzzle" data-puzzle="shadow">
+                <div class="art" id="shadowThumb"></div>
+                <div class="name">Shadow Match</div>
+              </button>
+              <button class="puzzle" data-puzzle="pattern">
+                <div class="art" id="patternThumb"></div>
+                <div class="name">Spooky Pattern Trail</div>
+              </button>
+              <button class="puzzle" data-puzzle="maze">
+                <div class="art" id="mazeThumb"></div>
+                <div class="name">Harvest Corn Maze</div>
+              </button>
+            </div>
+
+            <div class="controls" style="margin-top:18px">
+              <button class="ghost-btn" id="previewMazeBtn">Preview Corn Maze</button>
+              <button class="primary-btn" id="startBtn">Start the Quest</button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="gameScreen" class="screen game">
-      <div class="game-grid">
-        <section class="scene-panel">
-          <div class="scene-head">
+    <section id="gameScreen" class="screen">
+      <div class="layout">
+        <div class="panel scene-panel">
+          <div class="scene" id="sceneArea"></div>
+          <div class="tip">
+            <div class="tip-avatar" id="tipAvatar"></div>
             <div>
-              <div class="scene-title" id="sceneTitle">Pumpkin Patch Path</div>
-              <div class="scene-sub">Tap anything that looks a little suspicious.</div>
+              <div class="tip-title">Explorer Tip:</div>
+              <p id="tipText">Look closely at the scene for clues and hidden finds.</p>
             </div>
-            <button class="small-btn" id="mapBtn">World map</button>
+            <div id="tipLeaf"></div>
           </div>
-          <div class="scene" id="scene"></div>
-          <div class="scene-note" id="sceneNote">There may be a hidden pumpkin or egg nearby.</div>
-        </section>
+        </div>
 
-        <section class="task-panel">
-          <div class="task-head">
-            <div>
-              <div class="world-label" id="worldLabel">World 1</div>
-              <h2 class="task-title" id="taskTitle">Pumpkin Patch Path</h2>
+        <div class="right">
+          <div class="panel content">
+            <div class="world-number" id="worldNumber">World 1</div>
+            <h2 class="page-title" id="titleText">Pumpkin Patch Path</h2>
+            <p class="lead" id="leadText">The animals are getting ready for the Harvest Festival.</p>
+
+            <div class="question-box">
+              <p class="question" id="questionText">Which pumpkin is the biggest?</p>
+              <div class="question-sub" id="questionSub">Look closely at the pumpkins in the picture.</div>
+            </div>
+
+            <div class="choice-grid" id="choiceGrid"></div>
+            <div class="feedback" id="feedback"></div>
+
+            <div class="panel content" style="padding:14px;margin-top:14px;background:#fdf9f2">
+              <div class="section-head">
+                <h3>Halloween Puzzles</h3>
+                <span>Solve puzzles. Discover kindness.</span>
+              </div>
+              <div class="puzzle-grid">
+                <button class="puzzle" data-puzzle="shadow">
+                  <div class="art" id="shadowThumb2"></div>
+                  <div class="name">Shadow Match</div>
+                </button>
+                <button class="puzzle" data-puzzle="pattern">
+                  <div class="art" id="patternThumb2"></div>
+                  <div class="name">Spooky Pattern Trail</div>
+                </button>
+                <button class="puzzle" data-puzzle="maze">
+                  <div class="art" id="mazeThumb2"></div>
+                  <div class="name">Harvest Corn Maze</div>
+                </button>
+              </div>
+            </div>
+
+            <div style="margin-top:14px">
+              <div class="section-head">
+                <h3>Inventory</h3>
+                <span>Tools for a kinder, brighter world</span>
+              </div>
+              <div class="inventory-grid" id="inventoryGrid"></div>
+            </div>
+
+            <div class="controls" style="margin-top:16px">
+              <button class="ghost-btn" id="hintBtn">Need a Hint?</button>
+              <button class="primary-btn" id="answerBtn">Check My Answer</button>
             </div>
           </div>
-
-          <p class="task-copy" id="taskCopy">The harvest festival needs your help.</p>
-
-          <div class="question-card">
-            <p class="question" id="question">Which pumpkin is the biggest?</p>
-            <div class="help-row">
-              <button class="small-btn" id="hearBtn">Hear question</button>
-              <button class="small-btn" id="hintBtn">Need a hint?</button>
-            </div>
-          </div>
-
-          <div class="choices" id="choices"></div>
-          <div class="feedback" id="feedback"></div>
-
-          <div class="puzzle-strip">
-            <button class="puzzle-card" data-puzzle="shadow">
-              <div class="puzzle-art" id="shadowThumb"></div>
-              <div class="puzzle-name">Shadow Match</div>
-            </button>
-            <button class="puzzle-card" data-puzzle="pattern">
-              <div class="puzzle-art" id="patternThumb"></div>
-              <div class="puzzle-name">Spooky Pattern Trail</div>
-            </button>
-            <button class="puzzle-card" data-puzzle="maze">
-              <div class="puzzle-art" id="mazeThumb"></div>
-              <div class="puzzle-name">Harvest Corn Maze</div>
-            </button>
-          </div>
-
-          <div class="inventory-wrap">
-            <h3 class="inventory-title">Inventory</h3>
-            <div class="inventory" id="inventory"></div>
-          </div>
-        </section>
+        </div>
       </div>
     </section>
 
     <section id="finalScreen" class="screen final">
       <div class="final-card">
-        <div class="final-art" id="finalArt"></div>
-        <div class="eyebrow">Final rescue complete</div>
-        <h2>The Harvest Festival is saved.</h2>
-        <p class="lede" style="margin:auto">You solved puzzles, found hidden treasures, collected tools, and helped everyone reach the celebration.</p>
+        <div id="finalArt"></div>
+        <div class="world-number">Final Rescue Complete</div>
+        <h2>The Harvest Festival Is Saved.</h2>
+        <p>You solved puzzles, found hidden surprises, and collected the tools needed to help everyone reach the celebration.</p>
 
         <div class="stats">
-          <div class="stat"><strong id="statPumpkins">0</strong><span>Pumpkins</span></div>
-          <div class="stat"><strong id="statEggs">0</strong><span>Eggs</span></div>
-          <div class="stat"><strong id="statItems">0</strong><span>Tools collected</span></div>
-          <div class="stat"><strong id="statSolved">0</strong><span>Missions solved</span></div>
+          <div class="stat"><strong id="statPumpkins">0</strong><span>Pumpkins Found</span></div>
+          <div class="stat"><strong id="statEggs">0</strong><span>Eggs Found</span></div>
+          <div class="stat"><strong id="statItems">0</strong><span>Inventory Tools</span></div>
+          <div class="stat"><strong id="statSolved">0</strong><span>Missions Solved</span></div>
         </div>
 
-        <ul class="story-list" id="storyList"></ul>
-        <div class="start-actions" style="justify-content:center">
-          <button class="primary" onclick="location.reload()">Play again</button>
+        <ul class="story" id="storyList"></ul>
+
+        <div class="controls" style="max-width:500px;margin:24px auto 0">
+          <button class="ghost-btn" onclick="location.reload()">Play Again</button>
+          <button class="primary-btn" id="openMapFromEnd">See World Map</button>
         </div>
       </div>
     </section>
@@ -378,8 +493,8 @@ h1{font-size:clamp(52px,7vw,88px);line-height:.95;letter-spacing:-.045em;margin:
 <div class="modal" id="modal">
   <div class="modal-card">
     <div class="modal-head">
-      <h3 class="modal-title" id="modalTitle">Puzzle</h3>
-      <button class="close" id="closeModal" aria-label="Close">×</button>
+      <h3 id="modalTitle">Puzzle</h3>
+      <button class="close" id="closeModal">✕</button>
     </div>
     <div id="modalBody"></div>
   </div>
@@ -387,402 +502,130 @@ h1{font-size:clamp(52px,7vw,88px);line-height:.95;letter-spacing:-.045em;margin:
 
 <script>
 const worlds = [
-  {id:"patch", name:"Pumpkin Patch Path", copy:"Count, compare, and look closely."},
-  {id:"dino", name:"Dino Hollow", copy:"Logic, eggs, and rescue thinking."},
-  {id:"barn", name:"Blocky Barn", copy:"Math, patterns, and building."},
-  {id:"maze", name:"Harvest Corn Maze", copy:"Follow clues and find your way."},
-  {id:"bay", name:"Moonlit Rescue Bay", copy:"Friendship and perspective-taking."}
+  {id:"patch", title:"Pumpkin Patch Path", subtitle:"Where kindness grows"},
+  {id:"dino", title:"Dino Hollow", subtitle:"Brave friends, brighter days"},
+  {id:"barn", title:"Blocky Barn", subtitle:"Build solutions together"},
+  {id:"maze", title:"Harvest Corn Maze", subtitle:"Find your way, help a friend"},
+  {id:"bay", title:"Moonlit Rescue Bay", subtitle:"A kinder tomorrow"}
 ];
 
 const items = {
-  lantern:{name:"Lantern",desc:"Lights the way",icon:"lantern"},
-  rope:{name:"Rope",desc:"Reach farther",icon:"rope"},
-  map:{name:"Candy Map",desc:"Find clues",icon:"map"},
-  bridge:{name:"Block Bridge",desc:"Build a path",icon:"bridge"},
-  badge:{name:"Buddy Badge",desc:"Help a friend",icon:"badge"}
+  lantern:{name:"Lantern", desc:"Lights the way", icon:"lantern"},
+  rope:{name:"Rope", desc:"Reach further", icon:"rope"},
+  map:{name:"Candy Map", desc:"Find hidden surprises", icon:"map"},
+  bridge:{name:"Block Bridge", desc:"Build a better path", icon:"bridge"},
+  badge:{name:"Buddy Badge", desc:"You help others", icon:"badge"}
 };
 
 const missions = [
   {
-    world:"patch", levels:[1,2,3],
+    world:"patch",
     title:"Pumpkin Patch Path",
-    copy:"The harvest festival needs one perfect pumpkin for the center table.",
+    worldNumber:"World 1",
+    lead:"The animals are getting ready for the Harvest Festival. Help our dino friend find the right pumpkin so we can bring it to the celebration.",
     question:"Which pumpkin is the biggest?",
-    choices:["Top left pumpkin","Top right pumpkin","Bottom left pumpkin","Bottom center pumpkin"],
+    sub:"Look closely at the pumpkins in the picture.",
+    choices:[
+      {label:"Top Left Pumpkin", art:"pumpkin-small"},
+      {label:"Top Right Pumpkin", art:"pumpkin-big"},
+      {label:"Bottom Left Pumpkin", art:"pumpkin-tiny"},
+      {label:"Bottom Center Pumpkin", art:"pumpkin-mid"}
+    ],
     answer:1,
-    hint:"Look at how much space each pumpkin takes up.",
+    hint:"Compare the pumpkins by size, not by which one is closest to the edge.",
+    reward:null,
     hidden:"egg",
-    reward:null
+    tip:"Look carefully... sometimes the biggest things are closer than you think!"
   },
   {
-    world:"patch", levels:[1,2,3],
-    title:"Pumpkin Patch Path",
-    copy:"The farm stand needs exactly six pumpkins before sunset.",
-    question:"There are 4 pumpkins by the fence and 2 beside the path. How many are there altogether?",
-    choices:["4","5","6","8"],
-    answer:2,
-    hint:"Start with 4 and count up two more.",
-    hidden:"pumpkin",
-    reward:"map"
-  },
-  {
-    world:"dino", levels:[1,2,3],
+    world:"dino",
     title:"Dino Hollow",
-    copy:"Three eggs rolled out of the nest during a windy afternoon.",
+    worldNumber:"World 2",
+    lead:"Three eggs rolled out of the nest. Can you match the one with the same clues as the nest drawing?",
     question:"Which egg matches the blue-spotted clue?",
-    choices:["The blue-spotted egg","The pink-spotted egg","The green-spotted egg","None of them"],
+    sub:"Look for the egg with blue spots.",
+    choices:[
+      {label:"Blue-Spotted Egg", art:"egg-blue"},
+      {label:"Pink-Spotted Egg", art:"egg-pink"},
+      {label:"Green-Spotted Egg", art:"egg-green"},
+      {label:"Striped Egg", art:"egg-striped"}
+    ],
     answer:0,
-    hint:"Match the color and the spot pattern.",
-    hidden:"egg",
-    reward:null
-  },
-  {
-    world:"dino", levels:[2,3],
-    title:"Dino Hollow",
-    copy:"A baby dinosaur slipped into a shallow hollow and needs a safe way out.",
-    question:"Which tool would help most?",
-    choices:["Rope","Leaf","Cupcake","Pillow"],
-    answer:0,
-    hint:"Choose something that can reach down into the hollow.",
+    hint:"Only one egg has blue spots.",
+    reward:"rope",
     hidden:"pumpkin",
-    reward:"rope"
+    tip:"When you feel unsure, match one detail at a time."
   },
   {
-    world:"barn", levels:[1,2,3],
+    world:"barn",
     title:"Blocky Barn",
-    copy:"The builder is finishing a tiny bridge before the festival begins.",
-    question:"A builder has 5 blocks and needs 8. How many more blocks are needed?",
-    choices:["2","3","4","5"],
+    worldNumber:"World 3",
+    lead:"The builder is finishing a path before sunset. Use early math to help.",
+    question:"A builder has 5 blocks and needs 8. How many more are needed?",
+    sub:"Count up from 5 to 8.",
+    choices:[
+      {label:"2 more blocks", art:"blocks-2"},
+      {label:"3 more blocks", art:"blocks-3"},
+      {label:"4 more blocks", art:"blocks-4"},
+      {label:"5 more blocks", art:"blocks-5"}
+    ],
     answer:1,
-    hint:"Count from 5 until you reach 8.",
+    hint:"5... 6, 7, 8. How many did you count?",
+    reward:"bridge",
     hidden:"egg",
-    reward:"bridge"
+    tip:"You can use your fingers or count aloud."
   },
   {
-    world:"barn", levels:[1,2,3],
-    title:"Blocky Barn",
-    copy:"A trail of decorations leads toward the barn door.",
-    question:"The pattern is leaf, candy, leaf, candy, leaf... What comes next?",
-    choices:["Leaf","Candy","Moon","Bat"],
-    answer:1,
-    hint:"The two pictures take turns.",
-    hidden:"pumpkin",
-    reward:null
-  },
-  {
-    world:"maze", levels:[1,2,3],
+    world:"maze",
     title:"Harvest Corn Maze",
-    copy:"The scarecrow is waiting in the middle of the maze.",
-    question:"Which clue should you follow if the path markers go leaf, moon, leaf, moon...?",
-    choices:["Leaf marker","Moon marker","Candy marker","Bat marker"],
-    answer:0,
-    hint:"The pattern starts again after moon.",
+    worldNumber:"World 4",
+    lead:"Follow the clues, solve Halloween puzzles, and help guide our explorer through the corn maze.",
+    question:"Which path leads to the scarecrow?",
+    sub:"Look at the clues around the maze.",
+    choices:[
+      {label:"Leaf Path", art:"leaf"},
+      {label:"Moon Path", art:"moon"},
+      {label:"Candy Path", art:"candy"},
+      {label:"Bat Path", art:"bat"}
+    ],
+    answer:2,
+    hint:"Follow the sign posts and clue markers near the turns.",
+    reward:"lantern",
     hidden:"pumpkin",
-    reward:"lantern"
+    tip:"Look for clues near the turns!"
   },
   {
-    world:"bay", levels:[1,2,3],
+    world:"bay",
     title:"Moonlit Rescue Bay",
-    copy:"Two friends reached the same pumpkin bucket at the same time.",
+    worldNumber:"World 5",
+    lead:"Two friends reached the same pumpkin bucket at the same time. Help them solve the problem kindly.",
     question:"What is a fair idea?",
-    choices:["Grab it first","Take turns","Hide it","Say nobody can use it"],
+    sub:"Choose the kindest and fairest answer.",
+    choices:[
+      {label:"Grab it first", art:"grab"},
+      {label:"Take turns", art:"turns"},
+      {label:"Hide it", art:"hide"},
+      {label:"Say nobody can use it", art:"nobody"}
+    ],
     answer:1,
-    hint:"Look for an answer where both friends get a chance.",
+    hint:"A fair answer gives both friends a chance.",
+    reward:"badge",
     hidden:"egg",
-    reward:"badge"
-  },
-  {
-    world:"bay", levels:[2,3],
-    title:"Moonlit Rescue Bay",
-    copy:"A costume tower fell after someone bumped it by accident.",
-    question:"Can a friend still feel upset even if it was an accident?",
-    choices:["Yes","No","Only if they cry","Only grown-ups can feel upset"],
-    answer:0,
-    hint:"Feelings can happen even when nobody meant to cause a problem.",
-    hidden:"pumpkin",
-    reward:null
-  },
-  {
-    world:"bay", levels:[3],
-    title:"Moonlit Rescue Bay",
-    copy:"One friend is quiet and standing away from the group.",
-    question:"What is the best clue that they might want help joining in?",
-    choices:["They are watching the group","They are wearing shoes","It is nighttime","There are pumpkins nearby"],
-    answer:0,
-    hint:"Choose the clue that tells you something about what the friend is paying attention to.",
-    hidden:"egg",
-    reward:null
+    tip:"Think about what would feel fair to both friends."
   }
 ];
 
 const state = {
-  level:2, deck:[], index:0, pumpkins:0, eggs:0, inventory:[], solved:0, found:false
+  level:2,
+  deck:missions,
+  index:0,
+  pumpkins:0,
+  eggs:0,
+  inventory:[],
+  selected:null,
+  solved:0,
+  foundHidden:false
 };
-
-const el = id => document.getElementById(id);
-
-function icon(type){
-  const base = {
-    lantern:`<svg viewBox="0 0 64 64"><path d="M22 14h20l4 9v25H18V23z" fill="#d7a55e" stroke="#4f5f58" stroke-width="3"/><rect x="24" y="25" width="16" height="17" rx="7" fill="#fff0b1"/><path d="M25 14c1-7 13-7 14 0" fill="none" stroke="#4f5f58" stroke-width="3"/></svg>`,
-    rope:`<svg viewBox="0 0 64 64"><circle cx="30" cy="30" r="16" fill="none" stroke="#b57d49" stroke-width="6"/><circle cx="30" cy="30" r="9" fill="none" stroke="#d19b61" stroke-width="5"/><path d="M42 43c7 3 9 7 6 12" fill="none" stroke="#b57d49" stroke-width="5" stroke-linecap="round"/></svg>`,
-    map:`<svg viewBox="0 0 64 64"><path d="M9 15l15-5 16 6 15-5v38l-15 5-16-6-15 5z" fill="#e9d8ae" stroke="#5b675f" stroke-width="3"/><circle cx="34" cy="31" r="7" fill="#c47349"/></svg>`,
-    bridge:`<svg viewBox="0 0 64 64"><rect x="10" y="26" width="44" height="10" rx="3" fill="#9b704e"/><rect x="15" y="16" width="16" height="10" rx="2" fill="#b2845e"/><rect x="33" y="16" width="16" height="10" rx="2" fill="#b2845e"/><rect x="15" y="36" width="6" height="14" fill="#6f5641"/><rect x="43" y="36" width="6" height="14" fill="#6f5641"/></svg>`,
-    badge:`<svg viewBox="0 0 64 64"><circle cx="32" cy="31" r="21" fill="#5f776b" stroke="#cba55b" stroke-width="4"/><path d="M32 17c-8 8-11 15-9 23 7 1 14-2 20-8 4-4 6-9 5-15-6-1-11 0-16 0z" fill="#d9b76c"/></svg>`
-  };
-  return base[type] || "";
-}
-
-function tinyPumpkin(){return `<svg viewBox="0 0 60 60"><ellipse cx="30" cy="34" rx="19" ry="16" fill="#cf7545"/><path d="M30 16c2-7 7-9 11-9" stroke="#6a805f" stroke-width="4" fill="none" stroke-linecap="round"/><rect x="27" y="15" width="6" height="7" rx="3" fill="#6a805f"/></svg>`}
-function tinyEgg(){return `<svg viewBox="0 0 60 60"><path d="M30 9c-10 0-15 19-13 30 1 8 6 12 13 12s12-4 13-12c2-11-3-30-13-30z" fill="#ecf0e7" stroke="#80998c" stroke-width="2"/><circle cx="25" cy="28" r="3" fill="#889d90"/><circle cx="34" cy="36" r="2.7" fill="#b7653e"/></svg>`}
-
-function startIllustration(){
-  return `<svg viewBox="0 0 720 520" aria-label="Autumn farm adventure">
-    <defs><linearGradient id="sky" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#dce8e6"/><stop offset="1" stop-color="#f5ead5"/></linearGradient></defs>
-    <rect width="720" height="520" rx="24" fill="url(#sky)"/>
-    <circle cx="585" cy="86" r="38" fill="#e8bf72" opacity=".75"/>
-    <path d="M0 322c94-54 185-21 278-49 104-31 210-16 442 28v219H0z" fill="#a8ba8b"/>
-    <path d="M0 385c150-43 238 9 350-4 102-12 191-37 370 7v132H0z" fill="#7f9a6c"/>
-    <path d="M297 520c0-88 24-137 75-181 48-41 74-82 84-122" stroke="#c9a47a" stroke-width="52" fill="none" stroke-linecap="round"/>
-    <rect x="500" y="174" width="105" height="82" rx="4" fill="#a95c48"/><polygon points="488,179 554,133 617,179" fill="#6d4b3e"/>
-    <rect x="540" y="206" width="28" height="50" fill="#e7d4b7"/>
-    <g transform="translate(87 293)">
-      <ellipse cx="0" cy="24" rx="58" ry="48" fill="#cf7545"/><rect x="-6" y="-35" width="13" height="20" rx="6" fill="#61775d"/>
-      <path d="M1-35c4-18 14-25 26-27" fill="none" stroke="#61775d" stroke-width="7" stroke-linecap="round"/>
-    </g>
-    <g transform="translate(168 338) scale(.7)">
-      <ellipse cx="0" cy="24" rx="58" ry="48" fill="#d98d57"/><rect x="-6" y="-35" width="13" height="20" rx="6" fill="#61775d"/>
-    </g>
-    <g transform="translate(475 330)">
-      <path d="M0 64c0-46 35-76 78-76 46 0 78 30 78 68 0 25-17 43-46 43H40C15 99 0 85 0 64z" fill="#8eaf8c"/>
-      <circle cx="105" cy="31" r="5" fill="#273d36"/><path d="M120 43l25-9" stroke="#273d36" stroke-width="5" stroke-linecap="round"/>
-      <path d="M45 99v28M93 99v28" stroke="#273d36" stroke-width="6" stroke-linecap="round"/>
-      <path d="M6 73l-30-19" stroke="#273d36" stroke-width="7" stroke-linecap="round"/>
-      <path d="M37 4l19-18 12 20" fill="#8eaf8c" stroke="#273d36" stroke-width="5"/>
-      <path d="M72 77c-2-10 4-20 14-20s16 10 14 20" fill="#b7653e" opacity=".55"/>
-    </g>
-    <g opacity=".95">
-      <circle cx="75" cy="95" r="48" fill="#bf734b"/><circle cx="108" cy="73" r="40" fill="#d29556"/><circle cx="43" cy="64" r="36" fill="#9a6749"/>
-      <rect x="72" y="100" width="18" height="210" fill="#6a4c38"/>
-    </g>
-  </svg>`;
-}
-
-function sceneMarkup(world, hidden){
-  const marker = (type, x, y)=>`<button class="hotspot" style="left:${x}%;top:${y}%" data-hidden="${type}" aria-label="Hidden ${type}">?</button>`;
-  if(world==="patch"){
-    return `<svg viewBox="0 0 800 600">
-      <defs><linearGradient id="s1" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#dfe9e7"/><stop offset="1" stop-color="#f5e9d5"/></linearGradient></defs>
-      <rect width="800" height="600" fill="url(#s1)"/><circle cx="664" cy="92" r="42" fill="#e9c575"/>
-      <path d="M0 365c116-54 225-8 336-36 130-33 246-3 464 18v253H0z" fill="#9fb78d"/>
-      <path d="M0 445c142-44 229 7 348-9 129-17 220 0 452 16v148H0z" fill="#78986b"/>
-      <path d="M330 600c15-92 56-154 122-196 54-34 91-74 113-119" stroke="#c8a27b" stroke-width="48" fill="none" stroke-linecap="round"/>
-      <g transform="translate(185 418)"><ellipse cx="0" cy="0" rx="62" ry="50" fill="#cf7545"/><rect x="-7" y="-64" width="14" height="18" rx="6" fill="#637b5d"/></g>
-      <g transform="translate(510 385)"><ellipse cx="0" cy="0" rx="92" ry="72" fill="#d6814d"/><rect x="-8" y="-89" width="16" height="24" rx="7" fill="#637b5d"/></g>
-      <g transform="translate(657 455)"><ellipse cx="0" cy="0" rx="48" ry="38" fill="#d99a61"/><rect x="-5" y="-49" width="10" height="14" rx="5" fill="#637b5d"/></g>
-      <g transform="translate(405 428)">
-        <path d="M0 45c0-34 25-56 56-56 32 0 55 21 55 50 0 18-12 32-34 32H28C11 71 0 61 0 45z" fill="#91ac8b"/>
-        <circle cx="78" cy="20" r="4" fill="#213a33"/>
-      </g>
-      <rect x="94" y="286" width="610" height="14" rx="7" fill="#815f45"/>
-      <rect x="122" y="258" width="16" height="128" fill="#815f45"/><rect x="676" y="258" width="16" height="128" fill="#815f45"/>
-    </svg>${marker(hidden,hidden==="egg"?13:76,hidden==="egg"?71:19)}`;
-  }
-  if(world==="dino"){
-    return `<svg viewBox="0 0 800 600">
-      <rect width="800" height="600" fill="#dce7e4"/><path d="M0 362c133-57 261-26 390-48 143-25 250-8 410 25v261H0z" fill="#9fb88c"/>
-      <path d="M0 466c174-31 296 2 430-14 118-14 225 2 370 16v132H0z" fill="#77956a"/>
-      <path d="M106 391c0-93 72-157 169-157 93 0 165 60 165 141 0 52-35 91-90 91H184c-47 0-78-28-78-75z" fill="#8eaf8c"/>
-      <circle cx="322" cy="300" r="8" fill="#213a33"/><path d="M353 321l42-18" stroke="#213a33" stroke-width="7" stroke-linecap="round"/>
-      <path d="M184 238l37-36 23 41" fill="#8eaf8c" stroke="#213a33" stroke-width="6"/>
-      <path d="M204 461v51M295 461v51" stroke="#213a33" stroke-width="8" stroke-linecap="round"/>
-      <ellipse cx="602" cy="452" rx="116" ry="55" fill="#d8c7ad"/>
-      <path d="M552 386c-27 0-42 52-37 83 3 20 16 31 37 31s34-11 37-31c5-31-10-83-37-83z" fill="#d9e6e3" stroke="#879c92" stroke-width="3"/>
-      <path d="M611 391c-27 0-42 52-37 83 3 20 16 31 37 31s34-11 37-31c5-31-10-83-37-83z" fill="#ead8de" stroke="#b08d99" stroke-width="3"/>
-      <path d="M671 386c-27 0-42 52-37 83 3 20 16 31 37 31s34-11 37-31c5-31-10-83-37-83z" fill="#dce9cd" stroke="#8fa47d" stroke-width="3"/>
-      <circle cx="542" cy="429" r="5" fill="#789aa0"/><circle cx="560" cy="451" r="4" fill="#789aa0"/>
-      <circle cx="604" cy="432" r="5" fill="#b98491"/><circle cx="620" cy="450" r="4" fill="#b98491"/>
-      <circle cx="663" cy="428" r="5" fill="#8fa47d"/><circle cx="680" cy="450" r="4" fill="#8fa47d"/>
-    </svg>${marker(hidden,hidden==="egg"?73:8,hidden==="egg"?65:17)}`;
-  }
-  if(world==="barn"){
-    return `<svg viewBox="0 0 800 600">
-      <rect width="800" height="600" fill="#dde7e6"/><path d="M0 395c136-35 240 4 368-12 128-15 241 1 432 12v205H0z" fill="#9eb88c"/>
-      <rect x="92" y="246" width="264" height="184" fill="#b9674d"/><polygon points="70,250 224,145 380,250" fill="#694a3d"/>
-      <rect x="188" y="327" width="70" height="103" fill="#ead8bb"/>
-      <rect x="470" y="338" width="76" height="76" rx="4" fill="#a97850"/><rect x="554" y="338" width="76" height="76" rx="4" fill="#7f9ea0"/>
-      <rect x="512" y="254" width="76" height="76" rx="4" fill="#d0a35c"/><rect x="596" y="254" width="76" height="76" rx="4" fill="#a97850"/>
-      <circle cx="502" cy="486" r="32" fill="#c47449"/><circle cx="586" cy="486" r="32" fill="#d6b261"/><circle cx="670" cy="486" r="32" fill="#829971"/>
-    </svg>${marker(hidden,hidden==="egg"?28:82,hidden==="egg"?44:12)}`;
-  }
-  if(world==="maze"){
-    return `<svg viewBox="0 0 800 600">
-      <defs><linearGradient id="mzsky" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#e3d7c7"/><stop offset="1" stop-color="#e8b977"/></linearGradient></defs>
-      <rect width="800" height="600" fill="url(#mzsky)"/><circle cx="650" cy="85" r="44" fill="#f0cf82"/>
-      <path d="M0 320c126-28 231-15 338-22 138-10 260 4 462 18v284H0z" fill="#bea24e"/>
-      <g stroke="#7f7c43" stroke-width="34" stroke-linecap="round" fill="none">
-        <path d="M70 530V200h190v120H145v120h250V180h170v185H465v105h250"/>
-        <path d="M330 530V400h90"/>
-      </g>
-      <g transform="translate(532 252)">
-        <circle cx="0" cy="0" r="26" fill="#d9b06a"/><path d="M0-22v-52M-42-52h84" stroke="#5d5548" stroke-width="8" stroke-linecap="round"/>
-        <path d="M-14-5c8 7 20 7 28 0" stroke="#5d5548" stroke-width="4" fill="none"/>
-      </g>
-      <g transform="translate(150 505)">
-        <path d="M0 35c0-28 22-46 50-46s48 18 48 42c0 16-11 26-30 26H24C9 57 0 49 0 35z" fill="#8eaf8c"/>
-        <circle cx="68" cy="15" r="4" fill="#213a33"/>
-      </g>
-    </svg>${marker(hidden,hidden==="pumpkin"?67:14,hidden==="pumpkin"?63:14)}`;
-  }
-  return `<svg viewBox="0 0 800 600">
-    <rect width="800" height="600" fill="#d9dfe0"/><circle cx="645" cy="90" r="46" fill="#f1e6c7"/>
-    <path d="M0 390c142-34 255 2 382-17 148-22 260 8 418 26v201H0z" fill="#7f9473"/>
-    <rect x="260" y="220" width="290" height="190" rx="8" fill="#e7d8c5"/><polygon points="240,225 404,125 570,225" fill="#765263"/>
-    <rect x="370" y="320" width="72" height="90" fill="#ceb68f"/>
-    <g transform="translate(144 430)"><ellipse cx="0" cy="0" rx="56" ry="44" fill="#c7794e"/></g>
-    <g transform="translate(620 405)"><path d="M0 42c0-33 27-55 59-55s56 21 56 48c0 18-13 30-34 30H28C10 65 0 56 0 42z" fill="#8ca787"/></g>
-    <circle cx="672" cy="180" r="20" fill="#67536f"/>
-  </svg>${marker(hidden,hidden==="egg"?82:18,hidden==="egg"?18:72)}`;
-}
-
-function renderWorldNav(active){
-  el("worldNav").innerHTML = worlds.map(w=>`<button class="world-tab ${w.id===active?"active":""}" data-world="${w.id}">${w.name}</button>`).join("");
-  document.querySelectorAll(".world-tab").forEach(b=>b.onclick=()=>{
-    const i = state.deck.findIndex((m,idx)=>idx>=state.index && m.world===b.dataset.world);
-    if(i>=0){state.index=i;renderMission();}
-  });
-}
-
-function renderInventory(){
-  el("inventory").innerHTML = Object.entries(items).map(([key,item])=>`
-    <div class="item ${state.inventory.includes(key)?"":"locked"}">
-      ${icon(item.icon)}
-      <div class="item-label">${item.name}</div>
-      <div class="item-desc">${item.desc}</div>
-    </div>`).join("");
-}
-
-function startGame(){
-  let base = missions.filter(m=>m.levels.includes(state.level));
-  state.deck = shuffle(base).slice(0, Math.min(10, base.length));
-  state.index=0; state.pumpkins=0; state.eggs=0; state.inventory=[]; state.solved=0;
-  show("gameScreen"); renderMission();
-}
-
-function renderMission(){
-  if(state.index>=state.deck.length){finish();return}
-  const m=state.deck[state.index];
-  state.found=false;
-  renderWorldNav(m.world);
-  el("sceneTitle").textContent=m.title;
-  el("scene").innerHTML=sceneMarkup(m.world,m.hidden);
-  el("sceneNote").textContent=`Look closely. There may be a hidden ${m.hidden} nearby.`;
-  el("worldLabel").textContent=`World ${worlds.findIndex(w=>w.id===m.world)+1}`;
-  el("taskTitle").textContent=m.title;
-  el("taskCopy").textContent=m.copy;
-  el("question").textContent=m.question;
-  el("feedback").textContent="";
-  el("choices").innerHTML="";
-  m.choices.forEach((c,i)=>{
-    const b=document.createElement("button");
-    b.className="choice"; b.textContent=c;
-    b.onclick=()=>answer(i,b,m);
-    el("choices").appendChild(b);
-  });
-  el("progressText").textContent=`${state.index} / ${state.deck.length}`;
-  el("progressFill").style.width=`${state.index/state.deck.length*100}%`;
-  updateCounters();
-  renderInventory();
-  document.querySelectorAll(".hotspot").forEach(h=>h.onclick=()=>findHidden(h,m));
-}
-
-function answer(i,b,m){
-  const all=[...document.querySelectorAll(".choice")];
-  if(i===m.answer){
-    b.classList.add("correct"); all.forEach(x=>x.disabled=true);
-    state.solved++;
-    if(m.reward && !state.inventory.includes(m.reward)) state.inventory.push(m.reward);
-    el("feedback").textContent=m.reward ? `Solved. You found the ${items[m.reward].name}.` : "Solved.";
-    renderInventory();
-    setTimeout(()=>{state.index++;renderMission()},900);
-  }else{
-    b.classList.add("wrong");
-    el("feedback").textContent="Try once more.";
-    setTimeout(()=>b.classList.remove("wrong"),650);
-  }
-}
-
-function findHidden(h,m){
-  if(state.found)return;
-  state.found=true; h.classList.add("found");
-  h.innerHTML=m.hidden==="pumpkin"?"●":"○";
-  if(m.hidden==="pumpkin")state.pumpkins++;else state.eggs++;
-  el("sceneNote").textContent=`Found the hidden ${m.hidden}.`;
-  updateCounters();
-}
-
-function updateCounters(){
-  el("pumpkinCount").textContent=state.pumpkins;
-  el("eggCount").textContent=state.eggs;
-}
-
-function show(id){
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  el(id).classList.add("active");
-}
-
-function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
-
-function speakCurrent(){
-  const m=state.deck[state.index];
-  if(!m || !("speechSynthesis" in window))return;
-  speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(m.question);
-  u.rate=.9; speechSynthesis.speak(u);
-}
-
-function openModal(title,body){
-  el("modalTitle").textContent=title; el("modalBody").innerHTML=body; el("modal").classList.add("open");
-}
-function closeModal(){el("modal").classList.remove("open")}
-
-function openShadow(){
-  const choices=["pumpkin","ghost","bat"];
-  openModal("Shadow Match",`
-    <p style="color:var(--muted);font-weight:700">Which shadow matches the pumpkin?</p>
-    <div class="shadow-grid">
-      ${choices.map((c,i)=>`<button class="shadow-choice" data-right="${i===0}">
-        ${i===0?`<svg viewBox="0 0 120 90"><ellipse cx="60" cy="52" rx="34" ry="27" fill="#2f2a28"/><rect x="56" y="17" width="8" height="12" rx="3" fill="#2f2a28"/></svg>`:
-        i===1?`<svg viewBox="0 0 120 90"><path d="M60 15c-22 0-34 15-34 35v25l12-8 12 8 10-8 10 8 12-8 12 8V50c0-20-12-35-34-35z" fill="#2f2a28"/></svg>`:
-        `<svg viewBox="0 0 120 90"><path d="M60 46c-16-22-34-25-50-13 9 5 11 15 9 24 12-8 22-8 41-1 19-7 29-7 41 1-2-9 0-19 9-24-16-12-34-9-50 13z" fill="#2f2a28"/></svg>`}
-      </button>`).join("")}
-    </div>
-    <div id="shadowFeedback" class="feedback"></div>`);
-  document.querySelectorAll(".shadow-choice").forEach(b=>b.onclick=()=>{
-    el("shadowFeedback").textContent=b.dataset.right==="true"?"That’s the pumpkin shadow.":"Try a different silhouette.";
-  });
-}
-
-function openPattern(){
-  openModal("Spooky Pattern Trail",`
-    <p style="color:var(--muted);font-weight:700">What comes next?</p>
-    <div class="pattern-row">
-      <div class="pattern-token">${tinyPumpkin()}</div>
-      <div class="pattern-token">${tinyEgg()}</div>
-      <div class="pattern-token">${tinyPumpkin()}</div>
-      <div class="pattern-token">${tinyEgg()}</div>
-      <div class="pattern-token">?</div>
-    </div>
-    <div class="choices">
-      <button class="choice" data-pat="right">Pumpkin</button>
-      <button class="choice" data-pat="wrong">Egg</button>
-      <button class="choice" data-pat="wrong">Leaf</button>
-      <button class="choice" data-pat="wrong">Bat</button>
-    </div>
-    <div id="patternFeedback" class="feedback"></div>`);
-  document.querySelectorAll("[data-pat]").forEach(b=>b.onclick=()=>{
-    el("patternFeedback").textContent=b.dataset.pat==="right"?"Exactly. The pattern repeats.":"Look at what alternates.";
-  });
-}
 
 const mazeMap = [
   "WWWWWWW",
@@ -793,88 +636,566 @@ const mazeMap = [
   "WS....W",
   "WWWWWWW"
 ];
-let player={r:5,c:1};
+let player = {r:5,c:1};
+
+const $ = (id)=>document.getElementById(id);
+
+function setHTML(id, html){ $(id).innerHTML = html; }
+
+function icon(type, small=false){
+  const size = small ? 'icon-sm' : '';
+  const icons = {
+    leaf:`<svg class="${size}" viewBox="0 0 64 64"><path d="M32 8C20 20 13 34 16 49c12 2 23-3 33-13 8-8 12-19 11-31C50 3 41 7 32 8Z" fill="#c58c46"/><path d="M20 48c13-8 23-18 34-33" stroke="#f9f2ea" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
+    pumpkin:`<svg class="${size}" viewBox="0 0 64 64"><ellipse cx="32" cy="38" rx="20" ry="17" fill="#c97a45"/><path d="M32 18c2-8 7-11 13-11" stroke="#6d8966" stroke-width="4" fill="none" stroke-linecap="round"/><rect x="29" y="17" width="6" height="8" rx="3" fill="#6d8966"/></svg>`,
+    egg:`<svg class="${size}" viewBox="0 0 64 64"><path d="M32 8C22 8 16 28 18 40c2 9 7 14 14 14s12-5 14-14C48 28 42 8 32 8Z" fill="#eceee9" stroke="#a8b7af" stroke-width="2"/><circle cx="27" cy="28" r="3" fill="#b4a38e"/><circle cx="36" cy="38" r="2.8" fill="#8ea49a"/></svg>`,
+    gear:`<svg class="${size}" viewBox="0 0 64 64"><path d="M29 8h6l2 8 7 3 7-4 4 4-4 7 3 7 8 2v6l-8 2-3 7 4 7-4 4-7-4-7 3-2 8h-6l-2-8-7-3-7 4-4-4 4-7-3-7-8-2v-6l8-2 3-7-4-7 4-4 7 4 7-3 2-8Z" fill="#cfbfab"/><circle cx="32" cy="32" r="9" fill="#f7f2ea" stroke="#9f8f79" stroke-width="2"/></svg>`,
+    dino:`<svg class="${size}" viewBox="0 0 64 64"><path d="M14 40c0-16 13-27 31-27 15 0 27 9 27 24 0 10-7 16-18 16H28c-9 0-14-5-14-13Z" fill="#8ea98b"/><circle cx="48" cy="22" r="3" fill="#284038"/><path d="M54 28l8-4" stroke="#284038" stroke-width="3" stroke-linecap="round"/><path d="M26 15l8-8 4 9" fill="#8ea98b" stroke="#284038" stroke-width="3"/><path d="M26 53v8M40 53v8" stroke="#284038" stroke-width="4" stroke-linecap="round"/><path d="M14 41L5 31" stroke="#284038" stroke-width="5" stroke-linecap="round"/></svg>`,
+    barn:`<svg class="${size}" viewBox="0 0 64 64"><rect x="14" y="26" width="36" height="24" fill="#bc6d4f"/><polygon points="10,28 32,12 54,28" fill="#7a5546"/><rect x="27" y="35" width="10" height="15" fill="#f0dfc8"/><path d="M32 13v37" stroke="#e9cab2" stroke-width="2"/></svg>`,
+    moon:`<svg class="${size}" viewBox="0 0 64 64"><path d="M39 12c-11 2-20 12-20 24s9 22 20 24c-5-5-8-12-8-24s3-19 8-24Z" fill="#665784"/><circle cx="47" cy="18" r="3" fill="#edc85e"/><circle cx="53" cy="25" r="2" fill="#edc85e"/></svg>`,
+    map:`<svg class="${size}" viewBox="0 0 64 64"><path d="M10 18l14-5 16 6 14-5v32l-14 5-16-6-14 5z" fill="#ead7ba" stroke="#87725f" stroke-width="2"/><circle cx="34" cy="31" r="6" fill="#d08a44"/></svg>`,
+    lantern:`<svg class="${size}" viewBox="0 0 64 64"><path d="M23 16h18l4 10v24H19V26z" fill="#d7af68" stroke="#685746" stroke-width="2.5"/><rect x="25" y="27" width="14" height="15" rx="6" fill="#fff0b2"/><path d="M26 16c1-7 11-7 12 0" fill="none" stroke="#685746" stroke-width="3"/></svg>`,
+    rope:`<svg class="${size}" viewBox="0 0 64 64"><circle cx="30" cy="30" r="15" fill="none" stroke="#b98556" stroke-width="6"/><circle cx="30" cy="30" r="8" fill="none" stroke="#d6a26e" stroke-width="4"/><path d="M42 43c7 2 10 7 7 12" fill="none" stroke="#b98556" stroke-width="5" stroke-linecap="round"/></svg>`,
+    bridge:`<svg class="${size}" viewBox="0 0 64 64"><rect x="12" y="26" width="40" height="9" rx="3" fill="#9d7251"/><rect x="17" y="16" width="14" height="10" rx="2" fill="#b78861"/><rect x="33" y="16" width="14" height="10" rx="2" fill="#b78861"/><rect x="18" y="35" width="5" height="12" fill="#705843"/><rect x="41" y="35" width="5" height="12" fill="#705843"/></svg>`,
+    badge:`<svg class="${size}" viewBox="0 0 64 64"><circle cx="32" cy="32" r="22" fill="#4d7666"/><circle cx="32" cy="32" r="19" fill="none" stroke="#d2a353" stroke-width="3"/><path d="M32 17C23 26 20 34 22 42c8 1 15-2 22-9 5-5 7-10 6-17-7-1-12 0-18 1Z" fill="#d6b168"/></svg>`,
+    candy:`<svg class="${size}" viewBox="0 0 64 64"><rect x="20" y="23" width="24" height="18" rx="9" fill="#d1864f"/><path d="M16 32l-8-6v12zM48 32l8-6v12z" fill="#f0bf75"/><path d="M24 24l16 16" stroke="#f5e1c6" stroke-width="3"/></svg>`,
+    bat:`<svg class="${size}" viewBox="0 0 64 64"><path d="M32 30c-8-11-18-13-27-7 5 3 7 8 6 13 6-4 12-4 21 0 9-4 15-4 21 0-1-5 1-10 6-13-9-6-19-4-27 7Z" fill="#4d4351"/><path d="M28 20l4 5 4-5" stroke="#4d4351" stroke-width="3"/></svg>`
+  };
+  return icons[type] || icons.leaf;
+}
+
+function choiceArt(type){
+  if(type === "pumpkin-big") return `<svg viewBox="0 0 90 60"><ellipse cx="45" cy="34" rx="24" ry="20" fill="#d08449"/><ellipse cx="35" cy="34" rx="10" ry="18" fill="#c27440" opacity=".55"/><ellipse cx="55" cy="34" rx="10" ry="18" fill="#e0a161" opacity=".4"/><path d="M45 13c2-8 7-10 12-10" stroke="#6d8b65" stroke-width="4" fill="none" stroke-linecap="round"/><rect x="42" y="12" width="6" height="7" rx="3" fill="#6d8b65"/></svg>`;
+  if(type === "pumpkin-mid") return `<svg viewBox="0 0 90 60"><ellipse cx="45" cy="34" rx="20" ry="17" fill="#ce8247"/><path d="M45 16c2-7 6-9 10-9" stroke="#6d8b65" stroke-width="4" fill="none" stroke-linecap="round"/><rect x="42" y="15" width="6" height="7" rx="3" fill="#6d8b65"/></svg>`;
+  if(type === "pumpkin-small") return `<svg viewBox="0 0 90 60"><ellipse cx="45" cy="36" rx="16" ry="14" fill="#d18b55"/><path d="M45 20c1-5 5-7 8-7" stroke="#6d8b65" stroke-width="3.5" fill="none" stroke-linecap="round"/><rect x="42" y="19" width="5" height="6" rx="3" fill="#6d8b65"/></svg>`;
+  if(type === "pumpkin-tiny") return `<svg viewBox="0 0 90 60"><ellipse cx="45" cy="37" rx="12" ry="11" fill="#cd8047"/><path d="M45 24c1-4 4-6 7-6" stroke="#6d8b65" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="43" y="23" width="4" height="5" rx="2" fill="#6d8b65"/></svg>`;
+  if(type === "egg-blue") return `<svg viewBox="0 0 90 60"><path d="M45 10c-10 0-16 18-14 29 1 8 6 12 14 12s13-4 14-12C61 28 55 10 45 10Z" fill="#edf0eb" stroke="#a8b5ad" stroke-width="2"/><circle cx="40" cy="28" r="3.4" fill="#87a9c5"/><circle cx="50" cy="37" r="3" fill="#87a9c5"/></svg>`;
+  if(type === "egg-pink") return `<svg viewBox="0 0 90 60"><path d="M45 10c-10 0-16 18-14 29 1 8 6 12 14 12s13-4 14-12C61 28 55 10 45 10Z" fill="#f2e7ea" stroke="#b9a0ab" stroke-width="2"/><circle cx="40" cy="28" r="3.4" fill="#d39dad"/><circle cx="50" cy="37" r="3" fill="#d39dad"/></svg>`;
+  if(type === "egg-green") return `<svg viewBox="0 0 90 60"><path d="M45 10c-10 0-16 18-14 29 1 8 6 12 14 12s13-4 14-12C61 28 55 10 45 10Z" fill="#ebf0e7" stroke="#a9b4a4" stroke-width="2"/><circle cx="40" cy="28" r="3.4" fill="#8aa37e"/><circle cx="50" cy="37" r="3" fill="#8aa37e"/></svg>`;
+  if(type === "egg-striped") return `<svg viewBox="0 0 90 60"><path d="M45 10c-10 0-16 18-14 29 1 8 6 12 14 12s13-4 14-12C61 28 55 10 45 10Z" fill="#f1ece4" stroke="#b8a898" stroke-width="2"/><path d="M35 25h20M33 32h24M35 39h20" stroke="#b78861" stroke-width="3"/></svg>`;
+  if(type === "blocks-2" || type === "blocks-3" || type === "blocks-4" || type === "blocks-5"){
+    const n = Number(type.split('-')[1]);
+    let rects = '';
+    for(let i=0;i<n;i++){
+      rects += `<rect x="${16 + (i%3)*18}" y="${28 - Math.floor(i/3)*12}" width="14" height="10" rx="2" fill="${i%2 ? '#b78760' : '#9d7251'}"/>`;
+    }
+    return `<svg viewBox="0 0 90 60">${rects}</svg>`;
+  }
+  if(type === "leaf") return icon('leaf');
+  if(type === "moon") return icon('moon');
+  if(type === "candy") return icon('candy');
+  if(type === "bat") return icon('bat');
+  if(type === "turns") return `<svg viewBox="0 0 90 60"><circle cx="34" cy="30" r="14" fill="#8ea98b"/><circle cx="58" cy="30" r="14" fill="#d08a44"/><path d="M44 15c9 3 13 13 10 22" fill="none" stroke="#4f6d5e" stroke-width="3"/><path d="M49 16l7 2-4 6" fill="#4f6d5e"/></svg>`;
+  if(type === "grab") return `<svg viewBox="0 0 90 60"><path d="M26 40c5-11 10-18 20-18 6 0 10 4 11 9l6 0c6 0 10 4 10 9s-4 9-10 9H35c-6 0-11-4-9-9Z" fill="#d5b08b"/><path d="M43 16v18M50 17v17" stroke="#8c6749" stroke-width="4" stroke-linecap="round"/></svg>`;
+  if(type === "hide") return `<svg viewBox="0 0 90 60"><rect x="24" y="20" width="42" height="26" rx="6" fill="#b78760"/><path d="M18 36l12-10M72 36L60 26" stroke="#7c5b43" stroke-width="4" stroke-linecap="round"/></svg>`;
+  if(type === "nobody") return `<svg viewBox="0 0 90 60"><circle cx="30" cy="30" r="10" fill="#8ea98b"/><circle cx="60" cy="30" r="10" fill="#d08a44"/><path d="M18 18l54 24" stroke="#ad5f55" stroke-width="4"/><path d="M72 18L18 42" stroke="#ad5f55" stroke-width="4"/></svg>`;
+  return `<div></div>`;
+}
+
+function sceneStart(){
+  return `
+  <svg viewBox="0 0 1000 860" aria-label="Cozy autumn adventure scene">
+    <defs>
+      <linearGradient id="skyStart" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#d9e3eb"/>
+        <stop offset="100%" stop-color="#f5ead9"/>
+      </linearGradient>
+    </defs>
+    <rect width="1000" height="860" fill="url(#skyStart)"/>
+    <circle cx="760" cy="148" r="64" fill="#f0d08c"/>
+    <path d="M0 505c182-70 326-16 484-46 152-29 297-15 516 22v379H0z" fill="#9bb08a"/>
+    <path d="M0 630c179-42 311 6 470-8 195-17 315 0 530 18v220H0z" fill="#789365"/>
+    <path d="M312 860c0-130 40-231 119-303 64-58 105-119 126-183" stroke="#c99c6c" stroke-width="72" fill="none" stroke-linecap="round"/>
+    <g transform="translate(150 185)">
+      <circle cx="0" cy="0" r="80" fill="#9b6544"/>
+      <circle cx="55" cy="-44" r="66" fill="#cf8753"/>
+      <circle cx="-60" cy="-30" r="52" fill="#c07b4c"/>
+      <rect x="-10" y="70" width="24" height="280" fill="#74553f"/>
+    </g>
+    <rect x="642" y="286" width="128" height="102" fill="#be6f50"/>
+    <polygon points="628,290 706,234 786,290" fill="#7b5545"/>
+    <rect x="688" y="325" width="34" height="63" fill="#f1e0c8"/>
+    <circle cx="838" cy="276" r="20" fill="#b78b56"/>
+    <line x1="838" y1="276" x2="838" y2="210" stroke="#7b6657" stroke-width="5"/>
+    <g transform="translate(186 596)">
+      <ellipse cx="0" cy="0" rx="76" ry="64" fill="#d57f49"/>
+      <path d="M0-68c2-16 11-24 23-24" stroke="#6e8864" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <rect x="-7" y="-68" width="14" height="17" rx="7" fill="#6e8864"/>
+    </g>
+    <g transform="translate(782 643)">
+      <ellipse cx="0" cy="0" rx="56" ry="48" fill="#cd7a46"/>
+      <path d="M0-50c2-14 10-22 19-22" stroke="#6e8864" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <rect x="-6" y="-49" width="12" height="15" rx="6" fill="#6e8864"/>
+    </g>
+    <g transform="translate(502 650)">
+      <path d="M0 88c0-58 42-95 96-95 55 0 94 35 94 84 0 31-22 51-58 51H43C16 128 0 113 0 88z" fill="#8eab87"/>
+      <circle cx="126" cy="28" r="6" fill="#294138"/>
+      <path d="M140 41l28-11" stroke="#294138" stroke-width="5" stroke-linecap="round"/>
+      <path d="M43 124v44M95 124v44" stroke="#294138" stroke-width="6" stroke-linecap="round"/>
+      <path d="M0 92l-36-24" stroke="#294138" stroke-width="7" stroke-linecap="round"/>
+      <path d="M47 8l21-21 13 22" fill="#8eab87" stroke="#294138" stroke-width="5"/>
+      <circle cx="100" cy="76" r="18" fill="#f1e2c5"/>
+      <circle cx="95" cy="73" r="4" fill="#294138"/>
+    </g>
+  </svg>`;
+}
+
+function sceneFor(world){
+  const pin = (cls, iconMarkup, x, y) => `<button class="badge-pin ${cls}" style="left:${x}%;top:${y}%">${iconMarkup}</button>`;
+  if(world === "patch"){
+    return `${sceneStart()}${pin('pumpkin', icon('pumpkin', true), 13, 78)}${pin('candy', icon('leaf', true), 46, 48)}${pin('bat', icon('egg', true), 7, 76)}`;
+  }
+  if(world === "dino"){
+    return `
+    <svg viewBox="0 0 1000 860">
+      <rect width="1000" height="860" fill="#dce7e4"/>
+      <path d="M0 510c155-63 308-16 463-41 151-24 296-16 537 22v369H0z" fill="#a1b58d"/>
+      <path d="M0 650c190-38 314 8 468-11 184-22 333 4 532 16v205H0z" fill="#799366"/>
+      <path d="M140 555c0-130 105-220 245-220 134 0 240 84 240 198 0 72-51 123-132 123H246c-65 0-106-39-106-101z" fill="#8fae88"/>
+      <circle cx="444" cy="430" r="9" fill="#263e36"/>
+      <path d="M472 451l40-18" stroke="#263e36" stroke-width="7" stroke-linecap="round"/>
+      <path d="M250 345l42-40 27 46" fill="#8fae88" stroke="#263e36" stroke-width="6"/>
+      <path d="M273 653v57M389 653v57" stroke="#263e36" stroke-width="8" stroke-linecap="round"/>
+      <path d="M140 564l-42-31" stroke="#263e36" stroke-width="9" stroke-linecap="round"/>
+      <ellipse cx="758" cy="640" rx="144" ry="64" fill="#ddceb9"/>
+      <path d="M686 563c-29 0-46 58-40 94 4 23 17 35 40 35 22 0 36-12 39-35 6-36-10-94-39-94z" fill="#edf0ea" stroke="#a8b6ae" stroke-width="3"/>
+      <path d="M760 567c-29 0-46 58-40 94 4 23 17 35 40 35 22 0 36-12 39-35 6-36-10-94-39-94z" fill="#f0e7ea" stroke="#b9a1ab" stroke-width="3"/>
+      <path d="M834 563c-29 0-46 58-40 94 4 23 17 35 40 35 22 0 36-12 39-35 6-36-10-94-39-94z" fill="#ebf0e6" stroke="#a8b59d" stroke-width="3"/>
+      <circle cx="676" cy="606" r="6" fill="#88a8c3"/><circle cx="698" cy="635" r="5" fill="#88a8c3"/>
+      <circle cx="750" cy="607" r="6" fill="#d39dac"/><circle cx="769" cy="635" r="5" fill="#d39dac"/>
+      <circle cx="823" cy="607" r="6" fill="#8ba37d"/><circle cx="844" cy="635" r="5" fill="#8ba37d"/>
+    </svg>
+    ${pin('pumpkin', icon('pumpkin', true), 81, 70)}${pin('bat', icon('egg', true), 66, 73)}`;
+  }
+  if(world === "barn"){
+    return `
+    <svg viewBox="0 0 1000 860">
+      <rect width="1000" height="860" fill="#dfe7e6"/>
+      <path d="M0 560c160-42 316 0 480-14 142-12 294 4 520 18v296H0z" fill="#a2b68f"/>
+      <rect x="116" y="358" width="300" height="214" fill="#b96c51"/>
+      <polygon points="90,362 266,238 444,362" fill="#7b5547"/>
+      <rect x="218" y="450" width="82" height="122" fill="#eedcc3"/>
+      <rect x="580" y="468" width="92" height="92" rx="5" fill="#a27754"/>
+      <rect x="681" y="468" width="92" height="92" rx="5" fill="#7f9da0"/>
+      <rect x="629" y="365" width="92" height="92" rx="5" fill="#d0a55f"/>
+      <rect x="730" y="365" width="92" height="92" rx="5" fill="#af7f59"/>
+      <circle cx="617" cy="668" r="38" fill="#ca7b49"/>
+      <circle cx="720" cy="668" r="38" fill="#d4b263"/>
+      <circle cx="823" cy="668" r="38" fill="#84996f"/>
+    </svg>
+    ${pin('candy', icon('candy', true), 80, 79)}${pin('bat', icon('egg', true), 24, 52)}`;
+  }
+  if(world === "maze"){
+    return `
+    <svg viewBox="0 0 1000 860">
+      <defs>
+        <linearGradient id="mazeSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#e6dad0"/>
+          <stop offset="100%" stop-color="#ebb56d"/>
+        </linearGradient>
+      </defs>
+      <rect width="1000" height="860" fill="url(#mazeSky)"/>
+      <circle cx="797" cy="155" r="62" fill="#f3d48e"/>
+      <path d="M0 470c192-30 345-20 512-28 181-9 306 4 488 19v399H0z" fill="#c6a14c"/>
+      <g stroke="#837744" stroke-width="44" stroke-linecap="round" fill="none">
+        <path d="M99 748V289h246v156H199v157h330V266h223v238H624v143h287"/>
+        <path d="M431 748V556h116"/>
+      </g>
+      <g transform="translate(612 409)">
+        <circle cx="0" cy="0" r="33" fill="#d8b36b"/>
+        <path d="M0-27v-66M-52-66h104" stroke="#63574a" stroke-width="10" stroke-linecap="round"/>
+        <path d="M-14-5c8 8 20 8 28 0" stroke="#63574a" stroke-width="5" fill="none"/>
+      </g>
+      <g transform="translate(189 742)">
+        <path d="M0 49c0-36 29-60 65-60s61 23 61 53c0 20-14 34-38 34H30C11 76 0 66 0 49z" fill="#8ead87"/>
+        <circle cx="74" cy="16" r="5" fill="#263d35"/>
+      </g>
+    </svg>
+    ${pin('pumpkin', icon('pumpkin', true), 33, 30)}${pin('bat', icon('bat', true), 18, 61)}${pin('candy', icon('candy', true), 65, 67)}${pin('bat', icon('moon', true), 81, 43)}${pin('candy', icon('egg', true), 92, 73)}`;
+  }
+  return `
+  <svg viewBox="0 0 1000 860">
+    <rect width="1000" height="860" fill="#dde0e2"/>
+    <circle cx="824" cy="151" r="62" fill="#f1e3c3"/>
+    <path d="M0 562c151-37 310 0 477-17 158-16 308 8 523 26v289H0z" fill="#819671"/>
+    <rect x="328" y="327" width="356" height="223" rx="12" fill="#e7d9c8"/>
+    <polygon points="303,333 504,208 708,333" fill="#7a5769"/>
+    <rect x="463" y="445" width="78" height="105" fill="#cdb78f"/>
+    <g transform="translate(175 594)"><ellipse cx="0" cy="0" rx="62" ry="48" fill="#cb7a4c"/></g>
+    <g transform="translate(775 574)"><path d="M0 48c0-35 28-58 62-58s58 22 58 51c0 19-13 32-36 32H31C11 73 0 63 0 48z" fill="#8ea987"/></g>
+  </svg>
+  ${pin('bat', icon('egg', true), 83, 23)}${pin('pumpkin', icon('pumpkin', true), 18, 74)}`;
+}
+
+function renderHeaderIcons(){
+  setHTML('brandLeaf', icon('leaf'));
+  setHTML('pumpkinIcon', icon('pumpkin', true));
+  setHTML('eggIcon', icon('egg', true));
+  setHTML('gearIcon', icon('gear', true));
+  setHTML('leafMini', icon('leaf', true));
+  setHTML('tipLeaf', icon('leaf', true));
+  setHTML('guideAvatar', icon('dino'));
+  setHTML('tipAvatar', icon('dino'));
+}
+
+function renderTabs(active){
+  const art = {
+    patch:'pumpkin',
+    dino:'dino',
+    barn:'barn',
+    maze:'leaf',
+    bay:'moon'
+  };
+  $('tabs').innerHTML = worlds.map(w => `
+    <button class="tab ${active === w.id ? 'active' : ''}" data-world="${w.id}">
+      <div class="tab-art">${icon(art[w.id])}</div>
+      <div>
+        <strong>${w.title}</strong>
+        <span>${w.subtitle}</span>
+      </div>
+    </button>
+  `).join('') + `
+    <button class="tab map-tab" id="mapTab">
+      <div class="tab-art">${icon('map')}</div>
+      <div><strong>World Map</strong></div>
+    </button>
+  `;
+  document.querySelectorAll('.tab[data-world]').forEach(btn => {
+    btn.onclick = () => jumpToWorld(btn.dataset.world);
+  });
+  $('mapTab').onclick = openMap;
+}
+
+function renderDifficultyChoices(){
+  const levels = [
+    {n:1, title:'Warm-up', sub:'Gentle support'},
+    {n:2, title:'Clever Explorer', sub:'Balanced challenge'},
+    {n:3, title:'Super Thinker', sub:'A little more advanced'}
+  ];
+  $('difficultyChoices').innerHTML = levels.map(level => `
+    <button class="choice ${state.level === level.n ? 'correct' : ''}" data-level="${level.n}">
+      <div class="choice-art">${icon(level.n === 1 ? 'leaf' : level.n === 2 ? 'pumpkin' : 'moon')}</div>
+      <div class="choice-label">${level.title}<br><span style="font-weight:600;color:#6a7a72">${level.sub}</span></div>
+    </button>
+  `).join('');
+  document.querySelectorAll('[data-level]').forEach(btn => {
+    btn.onclick = () => {
+      state.level = Number(btn.dataset.level);
+      $('startFeedback').textContent = `Difficulty set to ${btn.textContent.trim().replace(/\s+/g,' ')}.`;
+      renderDifficultyChoices();
+    };
+  });
+}
+
+function renderPuzzleThumbs(){
+  const shadow = `<svg viewBox="0 0 160 90"><rect width="160" height="90" fill="#efdcc4"/><ellipse cx="52" cy="50" rx="24" ry="18" fill="#714d3c"/><rect x="48" y="24" width="8" height="10" rx="3" fill="#714d3c"/><path d="M109 25c-17 0-28 12-28 28v16l10-6 10 6 9-6 10 6 10-6V53c0-16-11-28-21-28z" fill="#b89a7e"/></svg>`;
+  const pattern = `<svg viewBox="0 0 160 90"><rect width="160" height="90" fill="#f3e8d8"/><circle cx="28" cy="46" r="16" fill="#c77849"/><path d="M72 20C61 20 55 40 57 52c1 8 6 12 15 12s14-4 15-12C89 40 83 20 72 20Z" fill="#ecf0e9" stroke="#a7b4ad" stroke-width="2"/><circle cx="68" cy="40" r="3" fill="#b6a38f"/><circle cx="75" cy="50" r="2.8" fill="#8ea49b"/><circle cx="114" cy="46" r="16" fill="#c77849"/><text x="146" y="54" font-size="30" fill="#6b6257">?</text></svg>`;
+  const maze = `<svg viewBox="0 0 160 90"><rect width="160" height="90" fill="#d6bb72"/><path d="M12 75V20h40v18H28v18h50V20h37v37h22" fill="none" stroke="#79895b" stroke-width="11" stroke-linecap="round"/></svg>`;
+  ['shadowThumb','shadowThumb2'].forEach(id => setHTML(id, shadow));
+  ['patternThumb','patternThumb2'].forEach(id => setHTML(id, pattern));
+  ['mazeThumb','mazeThumb2'].forEach(id => setHTML(id, maze));
+}
+
+function renderInventory(){
+  $('inventoryGrid').innerHTML = Object.entries(items).map(([key,val]) => `
+    <div class="item ${state.inventory.includes(key) ? '' : 'locked'}">
+      ${icon(val.icon)}
+      <strong>${val.name}</strong>
+      <span>${val.desc}</span>
+    </div>
+  `).join('');
+}
+
+function renderProgress(){
+  $('progressText').textContent = `${state.index} / ${state.deck.length}`;
+  $('progressFill').style.width = `${(state.index / state.deck.length) * 100}%`;
+  $('pumpkinCount').textContent = state.pumpkins;
+  $('eggCount').textContent = state.eggs;
+}
+
+function startGame(){
+  state.index = 0;
+  state.selected = null;
+  state.pumpkins = 0;
+  state.eggs = 0;
+  state.inventory = [];
+  state.solved = 0;
+  state.foundHidden = false;
+  show('gameScreen');
+  renderMission();
+}
+
+function jumpToWorld(worldId){
+  const i = state.deck.findIndex((m, idx) => idx >= state.index && m.world === worldId);
+  if(i >= 0){
+    state.index = i;
+    renderMission();
+  } else {
+    openMap();
+  }
+}
+
+function renderMission(){
+  if(state.index >= state.deck.length){
+    finishGame();
+    return;
+  }
+  const m = state.deck[state.index];
+  state.selected = null;
+  state.foundHidden = false;
+  renderTabs(m.world);
+  renderProgress();
+  $('worldNumber').textContent = m.worldNumber;
+  $('titleText').textContent = m.title;
+  $('leadText').textContent = m.lead;
+  $('questionText').textContent = m.question;
+  $('questionSub').textContent = m.sub;
+  $('feedback').textContent = '';
+  $('tipText').textContent = m.tip;
+  $('sceneArea').innerHTML = sceneFor(m.world);
+  $('choiceGrid').innerHTML = m.choices.map((c, i) => `
+    <button class="choice" data-choice="${i}">
+      <div class="choice-art">${choiceArt(c.art)}</div>
+      <div class="choice-label">${c.label}</div>
+    </button>
+  `).join('');
+  document.querySelectorAll('[data-choice]').forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll('[data-choice]').forEach(b => b.style.outline = '');
+      btn.style.outline = '3px solid #9db2a6';
+      btn.style.outlineOffset = '2px';
+      state.selected = Number(btn.dataset.choice);
+    };
+  });
+  document.querySelectorAll('.badge-pin').forEach(pin => {
+    pin.onclick = () => handleHidden(pin, m.hidden);
+  });
+  renderInventory();
+}
+
+function handleHidden(pin, type){
+  if(state.foundHidden) return;
+  state.foundHidden = true;
+  pin.textContent = type === 'pumpkin' ? '🎃' : '🥚';
+  if(type === 'pumpkin') state.pumpkins += 1;
+  else state.eggs += 1;
+  renderProgress();
+  $('tipText').textContent = `You found a hidden ${type}.`;
+}
+
+function checkAnswer(){
+  const m = state.deck[state.index];
+  if(state.selected === null){
+    $('feedback').textContent = 'Choose an answer first.';
+    return;
+  }
+  const buttons = [...document.querySelectorAll('[data-choice]')];
+  if(state.selected === m.answer){
+    buttons[state.selected].classList.add('correct');
+    buttons.forEach(b => b.disabled = true);
+    $('feedback').textContent = m.reward && !state.inventory.includes(m.reward)
+      ? `Correct. You earned the ${items[m.reward].name}.`
+      : 'Correct!';
+    if(m.reward && !state.inventory.includes(m.reward)) state.inventory.push(m.reward);
+    state.solved += 1;
+    renderInventory();
+    setTimeout(() => {
+      state.index += 1;
+      renderMission();
+    }, 900);
+  } else {
+    buttons[state.selected].classList.add('wrong');
+    $('feedback').textContent = 'Not quite. Try again or tap Need a Hint.';
+    setTimeout(() => buttons[state.selected]?.classList.remove('wrong'), 700);
+  }
+}
+
+function openModal(title, body){
+  $('modalTitle').textContent = title;
+  $('modalBody').innerHTML = body;
+  $('modal').classList.add('open');
+}
+
+function closeModal(){
+  $('modal').classList.remove('open');
+}
+
+function openMap(){
+  openModal('World Map', `
+    <p>Choose a cozy stop on the adventure map.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+      ${worlds.map((w, i) => `
+        <button class="panel content" data-jump="${w.id}" style="text-align:left;cursor:pointer;padding:14px">
+          <div style="display:flex;gap:12px;align-items:center">
+            <div style="width:50px;height:50px">${icon(w.id === 'patch' ? 'pumpkin' : w.id === 'dino' ? 'dino' : w.id === 'barn' ? 'barn' : w.id === 'maze' ? 'leaf' : 'moon')}</div>
+            <div>
+              <div class="world-number">World ${i + 1}</div>
+              <div style="font-family:Georgia,serif;font-size:20px;font-weight:700">${w.title}</div>
+              <div style="color:#6d7a74;font-size:13px">${w.subtitle}</div>
+            </div>
+          </div>
+        </button>
+      `).join('')}
+    </div>
+  `);
+  document.querySelectorAll('[data-jump]').forEach(btn => {
+    btn.onclick = () => {
+      closeModal();
+      if($('gameScreen').classList.contains('active')) jumpToWorld(btn.dataset.jump);
+    };
+  });
+}
+
+function openShadow(){
+  openModal('Shadow Match', `
+    <p>Which shadow matches the pumpkin?</p>
+    <div class="choice-grid">
+      <button class="choice shadow-choice" data-right="true">
+        <div class="choice-art"><svg viewBox="0 0 90 60"><ellipse cx="45" cy="36" rx="18" ry="15" fill="#3d332d"/><rect x="42" y="18" width="6" height="8" rx="3" fill="#3d332d"/></svg></div>
+        <div class="choice-label">Pumpkin Shadow</div>
+      </button>
+      <button class="choice shadow-choice" data-right="false">
+        <div class="choice-art">${icon('bat')}</div>
+        <div class="choice-label">Bat Shadow</div>
+      </button>
+      <button class="choice shadow-choice" data-right="false">
+        <div class="choice-art">${icon('moon')}</div>
+        <div class="choice-label">Moon Shadow</div>
+      </button>
+      <button class="choice shadow-choice" data-right="false">
+        <div class="choice-art">${icon('leaf')}</div>
+        <div class="choice-label">Leaf Shadow</div>
+      </button>
+    </div>
+    <div class="feedback" id="shadowFeedback"></div>
+  `);
+  document.querySelectorAll('.shadow-choice').forEach(btn => {
+    btn.onclick = () => {
+      $('shadowFeedback').textContent = btn.dataset.right === 'true' ? 'Yes. That matches the pumpkin.' : 'Try a different silhouette.';
+    };
+  });
+}
+
+function openPattern(){
+  openModal('Spooky Pattern Trail', `
+    <p>What comes next in the pattern?</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:18px 0">
+      <div class="choice-art">${icon('pumpkin')}</div>
+      <div class="choice-art">${icon('egg')}</div>
+      <div class="choice-art">${icon('pumpkin')}</div>
+      <div class="choice-art">${icon('egg')}</div>
+      <div class="choice-art" style="font-weight:900;font-size:28px;color:#7b6a57">?</div>
+    </div>
+    <div class="choice-grid">
+      <button class="choice pat-choice" data-right="true"><div class="choice-art">${icon('pumpkin')}</div><div class="choice-label">Pumpkin</div></button>
+      <button class="choice pat-choice" data-right="false"><div class="choice-art">${icon('egg')}</div><div class="choice-label">Egg</div></button>
+      <button class="choice pat-choice" data-right="false"><div class="choice-art">${icon('leaf')}</div><div class="choice-label">Leaf</div></button>
+      <button class="choice pat-choice" data-right="false"><div class="choice-art">${icon('bat')}</div><div class="choice-label">Bat</div></button>
+    </div>
+    <div class="feedback" id="patternFeedback"></div>
+  `);
+  document.querySelectorAll('.pat-choice').forEach(btn => {
+    btn.onclick = () => {
+      $('patternFeedback').textContent = btn.dataset.right === 'true' ? 'Exactly. The pattern repeats.' : 'Look at what alternates.';
+    };
+  });
+}
+
+function renderMaze(){
+  const grid = $('mazeGrid');
+  if(!grid) return;
+  grid.innerHTML = '';
+  mazeMap.forEach((row, r) => {
+    [...row].forEach((cell, c) => {
+      const div = document.createElement('div');
+      div.className = 'cell' + (cell === 'W' ? ' wall' : '') + (cell === 'G' ? ' goal' : '') + (player.r === r && player.c === c ? ' player' : '');
+      if(cell === 'G') div.textContent = '★';
+      if(player.r === r && player.c === c) div.textContent = '●';
+      grid.appendChild(div);
+    });
+  });
+}
+
+function moveMaze(dr, dc){
+  const nr = player.r + dr;
+  const nc = player.c + dc;
+  if(mazeMap[nr]?.[nc] && mazeMap[nr][nc] !== 'W'){
+    player = {r:nr, c:nc};
+    renderMaze();
+    if(mazeMap[nr][nc] === 'G') $('mazeFeedback').textContent = 'You found the scarecrow. Maze complete.';
+  }
+}
+
 function openMaze(){
-  player={r:5,c:1};
-  openModal("Harvest Corn Maze",`
-    <p style="color:var(--muted);font-weight:700">Guide the explorer to the scarecrow in the center path.</p>
-    <div class="maze" id="mazeGrid"></div>
+  player = {r:5, c:1};
+  openModal('Harvest Corn Maze', `
+    <p>Use the arrow buttons to guide the explorer to the scarecrow in the center of the maze.</p>
+    <div class="maze-grid" id="mazeGrid"></div>
     <div class="maze-controls">
       <span class="blank"></span><button data-move="-1,0">↑</button><span class="blank"></span>
       <button data-move="0,-1">←</button><button data-move="1,0">↓</button><button data-move="0,1">→</button>
     </div>
-    <div id="mazeFeedback" class="feedback"></div>`);
+    <div class="feedback" id="mazeFeedback"></div>
+  `);
   renderMaze();
-  document.querySelectorAll("[data-move]").forEach(b=>b.onclick=()=>{
-    const [dr,dc]=b.dataset.move.split(",").map(Number);
-    movePlayer(dr,dc);
+  document.querySelectorAll('[data-move]').forEach(btn => {
+    btn.onclick = () => {
+      const [dr, dc] = btn.dataset.move.split(',').map(Number);
+      moveMaze(dr, dc);
+    };
   });
 }
-function renderMaze(){
-  const g=el("mazeGrid"); if(!g)return;
-  g.innerHTML="";
-  mazeMap.forEach((row,r)=>[...row].forEach((ch,c)=>{
-    const d=document.createElement("div");
-    d.className="cell"+(ch==="W"?" wall":"")+(ch==="G"?" goal":"")+(player.r===r&&player.c===c?" player":"");
-    if(ch==="G") d.textContent="★";
-    if(player.r===r&&player.c===c) d.textContent="●";
-    g.appendChild(d);
-  }));
-}
-function movePlayer(dr,dc){
-  const nr=player.r+dr,nc=player.c+dc;
-  if(mazeMap[nr]?.[nc] && mazeMap[nr][nc]!=="W"){
-    player={r:nr,c:nc};renderMaze();
-    if(mazeMap[nr][nc]==="G") el("mazeFeedback").textContent="You found the scarecrow. Maze complete.";
-  }
-}
 
-function finish(){
-  el("progressText").textContent=`${state.deck.length} / ${state.deck.length}`;
-  el("progressFill").style.width="100%";
-  el("statPumpkins").textContent=state.pumpkins;
-  el("statEggs").textContent=state.eggs;
-  el("statItems").textContent=state.inventory.length;
-  el("statSolved").textContent=state.solved;
-  el("storyList").innerHTML=[
-    state.inventory.includes("lantern")?"The lantern lit the last stretch of the path.":"Moonlight helped guide the way.",
-    state.inventory.includes("bridge")?"The block bridge helped everyone cross safely.":"Careful teamwork got everyone across.",
-    state.inventory.includes("badge")?"The Buddy Badge helped welcome a shy friend.":"Kind words helped a shy friend join in.",
-    state.inventory.includes("rope")?"The rope helped the baby dinosaur climb out.":"Creative thinking helped the baby dinosaur.",
-    state.inventory.includes("map")?"The Candy Map led straight to the festival.":"The pumpkin markers led to the festival."
-  ].map(x=>`<li>${x}</li>`).join("");
-  show("finalScreen");
+function finishGame(){
+  renderProgress();
+  $('progressText').textContent = `${state.deck.length} / ${state.deck.length}`;
+  $('progressFill').style.width = '100%';
+  $('statPumpkins').textContent = state.pumpkins;
+  $('statEggs').textContent = state.eggs;
+  $('statItems').textContent = state.inventory.length;
+  $('statSolved').textContent = state.solved;
+  $('storyList').innerHTML = [
+    state.inventory.includes('lantern') ? 'The Lantern lit the last path through the corn maze.' : 'Moonlight helped guide the final path.',
+    state.inventory.includes('rope') ? 'The Rope helped with the dino rescue in Dino Hollow.' : 'Careful thinking helped with the dino rescue.',
+    state.inventory.includes('bridge') ? 'The Block Bridge helped everyone cross safely.' : 'Teamwork helped everyone cross safely.',
+    state.inventory.includes('map') ? 'The Candy Map helped you notice hidden surprises.' : 'Your sharp eyes helped you notice hidden surprises.',
+    state.inventory.includes('badge') ? 'The Buddy Badge helped welcome friends kindly.' : 'Kind choices helped welcome friends kindly.'
+  ].map(line => `<li>${line}</li>`).join('');
+  $('finalArt').innerHTML = sceneStart();
+  show('finalScreen');
 }
 
-el("startArt").innerHTML=startIllustration();
-el("finalArt").innerHTML=startIllustration();
-el("shadowThumb").innerHTML=`<svg viewBox="0 0 160 80"><rect width="160" height="80" fill="#eadfce"/><ellipse cx="48" cy="46" rx="26" ry="20" fill="#352f2b"/><rect x="45" y="17" width="6" height="10" rx="2" fill="#352f2b"/><path d="M102 21c-18 0-28 12-28 28v18l10-6 9 6 9-6 10 6 10-6V49c0-16-10-28-20-28z" fill="#8f8175"/></svg>`;
-el("patternThumb").innerHTML=`<svg viewBox="0 0 160 80"><rect width="160" height="80" fill="#efe5d8"/><circle cx="28" cy="40" r="16" fill="#c97849"/><ellipse cx="72" cy="40" rx="13" ry="18" fill="#e8ece5"/><circle cx="112" cy="40" r="16" fill="#c97849"/><text x="143" y="49" font-size="28" text-anchor="middle" fill="#6b625b">?</text></svg>`;
-el("mazeThumb").innerHTML=`<svg viewBox="0 0 160 80"><rect width="160" height="80" fill="#d6b767"/><path d="M12 68V15h45v20H30v18h58V15h38v41h22" fill="none" stroke="#71865d" stroke-width="12" stroke-linecap="round"/></svg>`;
+function show(screenId){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  $(screenId).classList.add('active');
+}
 
-document.querySelectorAll(".level").forEach(b=>b.onclick=()=>{
-  document.querySelectorAll(".level").forEach(x=>x.classList.remove("active"));
-  b.classList.add("active"); state.level=Number(b.dataset.level);
-});
+function attachPuzzleButtons(){
+  document.querySelectorAll('[data-puzzle]').forEach(btn => {
+    btn.onclick = () => {
+      const puzzle = btn.dataset.puzzle;
+      if(puzzle === 'shadow') openShadow();
+      if(puzzle === 'pattern') openPattern();
+      if(puzzle === 'maze') openMaze();
+    };
+  });
+}
 
-el("startBtn").onclick=startGame;
-el("previewMazeBtn").onclick=openMaze;
-el("hearBtn").onclick=speakCurrent;
-el("hintBtn").onclick=()=>{const m=state.deck[state.index]; if(m)el("feedback").textContent=m.hint};
-el("mapBtn").onclick=()=>openModal("World Map",`
-  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
-    ${worlds.map((w,i)=>`<div style="padding:16px;border:1px solid var(--line);border-radius:16px;background:#f7f0e5"><strong>${i+1}. ${w.name}</strong><div style="color:var(--muted);margin-top:5px">${w.copy}</div></div>`).join("")}
-  </div>`);
-el("closeModal").onclick=closeModal;
-el("modal").onclick=e=>{if(e.target===el("modal"))closeModal()};
-document.querySelectorAll(".puzzle-card").forEach(b=>b.onclick=()=>{
-  if(b.dataset.puzzle==="shadow")openShadow();
-  if(b.dataset.puzzle==="pattern")openPattern();
-  if(b.dataset.puzzle==="maze")openMaze();
-});
-
-renderWorldNav("patch");
-renderInventory();
+renderHeaderIcons();
+renderTabs('patch');
+renderDifficultyChoices();
+renderPuzzleThumbs();
+setHTML('startScene', sceneStart());
+attachPuzzleButtons();
+$('previewMazeBtn').onclick = openMaze;
+$('startBtn').onclick = startGame;
+$('hintBtn').onclick = () => {
+  const m = state.deck[state.index];
+  if(m) $('feedback').textContent = m.hint;
+};
+$('answerBtn').onclick = checkAnswer;
+$('closeModal').onclick = closeModal;
+$('modal').onclick = (e) => { if(e.target === $('modal')) closeModal(); };
+$('openMapFromEnd').onclick = openMap;
 </script>
 </body>
 </html>
