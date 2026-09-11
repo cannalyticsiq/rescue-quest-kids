@@ -1,0 +1,26 @@
+RESCUE QUEST KIDS — MANUAL GITHUB UPLOAD
+
+Upload the CONTENTS of this folder to the ROOT of:
+cannalyticsiq/rescue-quest-kids
+
+The repo root should contain:
+index.html
+.nojekyll
+README.md
+UPLOAD-THIS-TO-GITHUB.txt
+styles/
+src/
+data/
+assets/
+server/
+scripts/
+package.json
+render.yaml
+
+GitHub Pages should remain configured to:
+Branch: main
+Folder: / (root)
+
+Do not put the frontend inside a public/ folder for the GitHub Pages deployment.
+
+The Node backend files can stay in the same repo. GitHub Pages ignores them.

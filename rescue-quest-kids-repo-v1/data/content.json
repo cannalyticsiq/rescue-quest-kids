@@ -1,0 +1,220 @@
+{
+  "appName": "Rescue Quest Kids",
+  "tagline": "Small Explorers. A Brighter Tomorrow.",
+  "worlds": [
+    {
+      "id": "patch",
+      "title": "Pumpkin Patch Path",
+      "subtitle": "Where kindness grows",
+      "scene": "./assets/worlds/pumpkin-patch.jpg"
+    },
+    {
+      "id": "dino",
+      "title": "Dino Hollow",
+      "subtitle": "Brave friends, brighter days",
+      "scene": "./assets/worlds/dino-hollow.jpg"
+    },
+    {
+      "id": "barn",
+      "title": "Blocky Barn",
+      "subtitle": "Build solutions together",
+      "scene": "./assets/worlds/blocky-barn.jpg"
+    },
+    {
+      "id": "maze",
+      "title": "Harvest Corn Maze",
+      "subtitle": "Find your way, help a friend",
+      "scene": "./assets/worlds/corn-maze.jpg"
+    },
+    {
+      "id": "bay",
+      "title": "Moonlit Rescue Bay",
+      "subtitle": "A kinder tomorrow",
+      "scene": "./assets/worlds/moonlit-bay.jpg"
+    }
+  ],
+  "inventory": [
+    {
+      "id": "lantern",
+      "name": "Lantern",
+      "description": "Lights the way",
+      "symbol": "\ud83c\udfee"
+    },
+    {
+      "id": "rope",
+      "name": "Rope",
+      "description": "Reach farther",
+      "symbol": "\ud83e\udea2"
+    },
+    {
+      "id": "map",
+      "name": "Candy Map",
+      "description": "Find hidden surprises",
+      "symbol": "\ud83d\uddfa\ufe0f"
+    },
+    {
+      "id": "bridge",
+      "name": "Block Bridge",
+      "description": "Build a better path",
+      "symbol": "\ud83e\uddf1"
+    },
+    {
+      "id": "badge",
+      "name": "Buddy Badge",
+      "description": "You help others",
+      "symbol": "\ud83c\udfc5"
+    }
+  ],
+  "missions": [
+    {
+      "id": "patch-biggest",
+      "world": "patch",
+      "eyebrow": "World 1",
+      "title": "Pumpkin Patch Path",
+      "intro": "The animals are getting ready for the Harvest Festival. Help our explorer choose the right pumpkin for the celebration.",
+      "question": "Which pumpkin is the biggest?",
+      "sub": "Look closely at the pumpkins in the picture.",
+      "hint": "Compare the pumpkins by how much space each one takes up.",
+      "tip": "Look carefully. The biggest thing is not always closest to you.",
+      "answers": [
+        "Top Left Pumpkin",
+        "Top Right Pumpkin",
+        "Bottom Left Pumpkin",
+        "Bottom Center Pumpkin"
+      ],
+      "correct": 1,
+      "reward": "map",
+      "hotspots": [
+        {
+          "type": "egg",
+          "x": 8,
+          "y": 79
+        },
+        {
+          "type": "pumpkin",
+          "x": 17,
+          "y": 46
+        }
+      ]
+    },
+    {
+      "id": "dino-eggs",
+      "world": "dino",
+      "eyebrow": "World 2",
+      "title": "Dino Hollow",
+      "intro": "Three eggs rolled away from the nest. Match the clue and help return the right egg.",
+      "question": "Which egg matches the blue-spotted clue?",
+      "sub": "Look for the egg with blue spots.",
+      "hint": "Only one egg has blue spots.",
+      "tip": "Match one detail at a time.",
+      "answers": [
+        "Blue-Spotted Egg",
+        "Pink-Spotted Egg",
+        "Green-Spotted Egg",
+        "Striped Egg"
+      ],
+      "correct": 0,
+      "reward": "rope",
+      "hotspots": [
+        {
+          "type": "egg",
+          "x": 80,
+          "y": 70
+        },
+        {
+          "type": "pumpkin",
+          "x": 20,
+          "y": 66
+        }
+      ]
+    },
+    {
+      "id": "barn-blocks",
+      "world": "barn",
+      "eyebrow": "World 3",
+      "title": "Blocky Barn",
+      "intro": "The builder is finishing a little bridge before sunset. Use early math to decide how many blocks are still needed.",
+      "question": "A builder has 5 blocks and needs 8. How many more are needed?",
+      "sub": "Count up from 5 to 8.",
+      "hint": "5... 6, 7, 8. How many numbers did you add?",
+      "tip": "You can count aloud or use your fingers.",
+      "answers": [
+        "2 more blocks",
+        "3 more blocks",
+        "4 more blocks",
+        "5 more blocks"
+      ],
+      "correct": 1,
+      "reward": "bridge",
+      "hotspots": [
+        {
+          "type": "egg",
+          "x": 24,
+          "y": 52
+        }
+      ]
+    },
+    {
+      "id": "maze-clues",
+      "world": "maze",
+      "eyebrow": "World 4",
+      "title": "Harvest Corn Maze",
+      "intro": "Follow the clues, solve Halloween puzzles, and reach the scarecrow in the center of the maze.",
+      "question": "Which path leads to the scarecrow?",
+      "sub": "Look at the clues around the maze.",
+      "hint": "Follow the candy clue path.",
+      "tip": "Look for clues near the turns.",
+      "answers": [
+        "Leaf Path",
+        "Moon Path",
+        "Candy Path",
+        "Bat Path"
+      ],
+      "correct": 2,
+      "reward": "lantern",
+      "hotspots": [
+        {
+          "type": "pumpkin",
+          "x": 33,
+          "y": 30
+        },
+        {
+          "type": "egg",
+          "x": 92,
+          "y": 73
+        }
+      ]
+    },
+    {
+      "id": "bay-sharing",
+      "world": "bay",
+      "eyebrow": "World 5",
+      "title": "Moonlit Rescue Bay",
+      "intro": "Two friends reached the same pumpkin bucket at the same time. Help them solve the problem kindly.",
+      "question": "What is a fair idea?",
+      "sub": "Choose the answer that helps both friends.",
+      "hint": "A fair answer gives both friends a chance.",
+      "tip": "Think about what would feel fair to both friends.",
+      "answers": [
+        "Grab it first",
+        "Take turns",
+        "Hide it",
+        "Say nobody can use it"
+      ],
+      "correct": 1,
+      "reward": "badge",
+      "hotspots": [
+        {
+          "type": "egg",
+          "x": 82,
+          "y": 25
+        },
+        {
+          "type": "pumpkin",
+          "x": 18,
+          "y": 74
+        }
+      ]
+    }
+  ]
+}

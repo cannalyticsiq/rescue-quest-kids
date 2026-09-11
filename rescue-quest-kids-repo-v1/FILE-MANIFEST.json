@@ -1,0 +1,70 @@
+[
+  {
+    "path": ".nojekyll",
+    "bytes": 0
+  },
+  {
+    "path": "README.md",
+    "bytes": 68
+  },
+  {
+    "path": "UPLOAD-THIS-TO-GITHUB.txt",
+    "bytes": 517
+  },
+  {
+    "path": "assets/worlds/blocky-barn.jpg",
+    "bytes": 287620
+  },
+  {
+    "path": "assets/worlds/corn-maze.jpg",
+    "bytes": 340390
+  },
+  {
+    "path": "assets/worlds/dino-hollow.jpg",
+    "bytes": 287620
+  },
+  {
+    "path": "assets/worlds/moonlit-bay.jpg",
+    "bytes": 340390
+  },
+  {
+    "path": "assets/worlds/pumpkin-patch.jpg",
+    "bytes": 287620
+  },
+  {
+    "path": "data/content.json",
+    "bytes": 5755
+  },
+  {
+    "path": "index.html",
+    "bytes": 547
+  },
+  {
+    "path": "scripts/check-pages.py",
+    "bytes": 1281
+  },
+  {
+    "path": "src/api.js",
+    "bytes": 1386
+  },
+  {
+    "path": "src/app.js",
+    "bytes": 6509
+  },
+  {
+    "path": "src/character.js",
+    "bytes": 833
+  },
+  {
+    "path": "src/puzzles.js",
+    "bytes": 1569
+  },
+  {
+    "path": "src/store.js",
+    "bytes": 692
+  },
+  {
+    "path": "styles/main.css",
+    "bytes": 7040
+  }
+]
