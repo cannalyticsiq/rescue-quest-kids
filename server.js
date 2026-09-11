@@ -1,42 +1,41 @@
-import express from "express";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import { getProfile, saveProfile, resetProfile } from "./storage.js";
-import fs from "node:fs/promises";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const root = path.join(__dirname, "..");
-const publicDir = path.join(root, "public");
-const contentPath = path.join(__dirname, "data", "content.json");
-const app = express();
+import express from 'express';
+import cors from 'cors';
+import path from 'node:path';
+import fs from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+import {readProfiles,writeProfiles} from './storage.js';
 
-app.use(express.json({ limit: "512kb" }));
-app.use(express.static(publicDir, { extensions: ["html"] }));
+const __dirname=path.dirname(fileURLToPath(import.meta.url));
+const root=path.resolve(__dirname,'..');
+const app=express();
 
-app.get("/api/health", (_req, res) => res.json({ ok: true, app: "rescue-quest-kids" }));
-app.get("/api/content", async (_req, res, next) => {
-  try { res.json(JSON.parse(await fs.readFile(contentPath, "utf8"))); }
-  catch (err) { next(err); }
-});
-app.get("/api/profile/:id", async (req, res, next) => {
-  try { res.json(await getProfile(req.params.id)); }
-  catch (err) { next(err); }
-});
-app.put("/api/profile/:id", async (req, res, next) => {
-  try { res.json(await saveProfile(req.params.id, req.body)); }
-  catch (err) { next(err); }
-});
-app.delete("/api/profile/:id", async (req, res, next) => {
-  try { await resetProfile(req.params.id); res.status(204).end(); }
-  catch (err) { next(err); }
+app.use(cors());
+app.use(express.json({limit:'1mb'}));
+app.use(express.static(root));
+
+app.get('/api/health',(req,res)=>res.json({ok:true}));
+
+app.get('/api/content',async(req,res)=>{
+  const raw=await fs.readFile(path.join(__dirname,'data','content.json'),'utf8');
+  res.type('json').send(raw);
 });
 
-app.get("*", (_req, res) => res.sendFile(path.join(publicDir, "index.html")));
-
-app.use((err, _req, res, _next) => {
-  console.error(err);
-  res.status(500).json({ error: "server_error" });
+app.get('/api/profile/:id',async(req,res)=>{
+  const profiles=await readProfiles();
+  res.json(profiles[req.params.id] || null);
 });
 
-const port = Number(process.env.PORT || 3000);
-app.listen(port, () => console.log(`Rescue Quest Kids running on http://localhost:${port}`));
+app.put('/api/profile/:id',async(req,res)=>{
+  const profiles=await readProfiles();
+  profiles[req.params.id]={...req.body,playerId:req.params.id,updatedAt:new Date().toISOString()};
+  await writeProfiles(profiles);
+  res.json(profiles[req.params.id]);
+});
+
+app.get('*',(req,res)=>{
+  res.sendFile(path.join(root,'index.html'));
+});
+
+const port=process.env.PORT || 3000;
+app.listen(port,()=>console.log(`Rescue Quest Kids listening on ${port}`));

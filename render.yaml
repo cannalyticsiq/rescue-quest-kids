@@ -2,7 +2,6 @@ services:
   - type: web
     name: rescue-quest-kids
     runtime: node
-    plan: free
     buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /api/health

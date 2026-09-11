@@ -4,12 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node server/server.js",
     "start": "node server/server.js",
-    "check": "node --check server/server.js && node --check server/storage.js && node --check public/src/app.js && node --check public/src/api.js && node --check public/src/store.js && node --check public/src/character.js && node --check public/src/puzzles.js"
+    "dev": "node server/server.js"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
   },
   "engines": {
     "node": ">=20"

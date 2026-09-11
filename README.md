@@ -1,40 +1,32 @@
-# Rescue Quest Kids — full-stack build
+# Rescue Quest Kids — GitHub Pages Safe Full Stack Build
 
-This is the clean, modular version of the app. The UI is no longer one giant screenshot or one giant HTML file.
+This package fixes the blank-page problem.
 
-## Run locally
+## GitHub Pages
+Upload the **contents of this folder** to the repository root.
 
-```bash
-npm install
-npm run dev
-```
+The repo root must contain:
+- `index.html`
+- `styles/`
+- `src/`
+- `data/`
+- `assets/`
+- `server/`
+- `package.json`
 
-Open http://localhost:3000
+GitHub Pages serves `index.html` from the repository root.
 
-## What is implemented
+The frontend now:
+- uses relative paths
+- loads `./data/content.json` locally
+- saves game state in localStorage
+- does not require the Node backend in order to render
+- optionally connects to a backend later if `rescueQuestApiBase` is set in localStorage
 
-- modular frontend
-- Express backend
-- API-served game content
-- saved profile/progress API
-- localStorage state
-- 5 worlds
-- inventory and rewards
-- hidden pumpkins/eggs
-- Halloween mini puzzles
-- interactive corn maze
-- click-to-move explorer character foundation
-- responsive layout
-- reference mockups stored under `public/assets/reference/`
+## Backend
+The `server/` folder is a Node/Express API. GitHub Pages ignores it, but it can be deployed later on Render or another Node host.
 
-## Deployment
+Once the backend is hosted, set:
+`localStorage.setItem('rescueQuestApiBase','https://your-backend.example.com')`
 
-GitHub stores the code. GitHub Pages cannot execute the Node backend.
-
-For the full-stack app, connect this GitHub repository to Render or Railway. A `render.yaml` is included.
-
-If you only want GitHub Pages, publish the `public/` folder and the frontend can be adjusted to use static content/localStorage only.
-
-## Next art pass
-
-The remaining big visual upgrade is dedicated artwork for Dino Hollow, Blocky Barn, and Moonlit Rescue Bay plus a transparent explorer-dino sprite sheet. The code is already structured so those can be dropped into `public/assets/worlds/` and the character module without rebuilding the app architecture.
+Then reload.

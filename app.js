@@ -34,4 +34,18 @@ function bind(m){
 }
 
 store.subscribe(render);
-content=await getContent();render();
+
+async function start(){
+  try{
+    content=await getContent();
+    render();
+  }catch(err){
+    console.error(err);
+    app.innerHTML=`<div class="error-card">
+      <h1>Rescue Quest couldn’t load</h1>
+      <p>The app itself loaded, but its local game data did not. Refresh once after GitHub Pages finishes deploying.</p>
+      <p style="font-size:13px;opacity:.75">${String(err.message || err)}</p>
+    </div>`;
+  }
+}
+start();
