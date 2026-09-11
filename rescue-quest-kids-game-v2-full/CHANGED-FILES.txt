@@ -1,0 +1,38 @@
+Rescue Quest Kids v2 — files changed from the last clean build
+
+REPLACE:
+index.html
+src/app.js
+styles/main.css
+data/content.json
+
+ADD:
+src/game.js
+assets/ui/brand-leaf.svg
+assets/ui/pumpkin.svg
+assets/ui/egg.svg
+assets/ui/lantern.svg
+assets/ui/rope.svg
+assets/ui/map.svg
+assets/ui/bridge.svg
+assets/ui/badge.svg
+assets/ui/hint.svg
+assets/ui/world-map.svg
+assets/ui/pumpkin-small.svg
+assets/ui/egg-game.svg
+assets/characters/dino/idle.svg
+assets/characters/dino/celebrate.svg
+
+WHAT THIS VERSION DOES
+- Removes emoji UI placeholders.
+- Adds Phaser 3 as the scene/game engine.
+- Pumpkin Patch is now a real interactive scene.
+- Tap/click the path to move the dino.
+- Tap actual pumpkins in the scene to answer the mission.
+- Correct pumpkin triggers a celebration animation.
+- Wrong pumpkin wiggles and gives feedback.
+- Hidden egg is collectible and animates into the counter.
+- Leaves drift gently through the scene.
+- Inventory uses custom illustrated SVG icons.
+- Dino uses custom SVG art, not emoji.
+- Other worlds already use the Phaser canvas for movement and are ready for their own mechanics next.
